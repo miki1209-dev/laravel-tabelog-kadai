@@ -26,11 +26,15 @@ class CategoryController extends AdminController
 	{
 		$grid = new Grid(new Category());
 
-		$grid->column('id', __('Id'));
-		$grid->column('name', __('Name'));
-		$grid->column('description', __('Description'));
-		$grid->column('created_at', __('Created at'));
-		$grid->column('updated_at', __('Updated at'));
+		$grid->column('id', 'ID');
+		$grid->column('name', 'カテゴリ名');
+		$grid->column('description', 'カテゴリ説明');
+		$grid->column('created_at', '登録日')->sortable();
+		$grid->column('updated_at', '最終更新日')->sortable();
+		$grid->filter(function ($filter) {
+			$filter->like('name', 'カテゴリ名');
+			$filter->like('description', 'カテゴリ説明');
+		});
 
 		return $grid;
 	}
@@ -45,11 +49,11 @@ class CategoryController extends AdminController
 	{
 		$show = new Show(Category::findOrFail($id));
 
-		$show->field('id', __('Id'));
-		$show->field('name', __('Name'));
-		$show->field('description', __('Description'));
-		$show->field('created_at', __('Created at'));
-		$show->field('updated_at', __('Updated at'));
+		$show->field('id', 'ID');
+		$show->field('name', 'カテゴリ名');
+		$show->field('description', 'カテゴリ説明');
+		$show->field('created_at', '登録日');
+		$show->field('updated_at', '最終更新日');
 
 		return $show;
 	}
@@ -63,8 +67,8 @@ class CategoryController extends AdminController
 	{
 		$form = new Form(new Category());
 
-		$form->text('name', __('Name'));
-		$form->textarea('description', __('Description'));
+		$form->text('name', 'カテゴリ名');
+		$form->textarea('description', 'カテゴリ説明');
 
 		return $form;
 	}

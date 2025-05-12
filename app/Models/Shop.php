@@ -9,6 +9,10 @@ class Shop extends Model
 {
 	use HasFactory;
 
+	/**
+	 * @property \Illuminate\Database\Eloquent\Collection $categories
+	 */
+
 	public function categories()
 	{
 		return $this->belongsToMany(Category::class, 'category_shop');

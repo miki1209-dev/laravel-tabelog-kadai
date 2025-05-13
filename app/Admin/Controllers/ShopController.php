@@ -4,13 +4,16 @@ namespace App\Admin\Controllers;
 
 use App\Models\Shop;
 use App\Models\Category;
+use Illuminate\Support\Facades\Request;
 use Encore\Admin\Controllers\AdminController;
 use Encore\Admin\Form;
 use Encore\Admin\Grid;
 use Encore\Admin\Show;
 
+
 class ShopController extends AdminController
 {
+	protected $input;
 	/**
 	 * Title for current resource.
 	 *
@@ -32,7 +35,8 @@ class ShopController extends AdminController
 		$grid->column('address', '住所');
 		$grid->column('phone_number', '電話番号');
 		$grid->column('description', '店舗説明');
-		$grid->column('opening_hours', '営業時間');
+		$grid->column('opening_time', '開店時間');
+		$grid->column('closing_time', '閉店時間');
 		$grid->column('categories', 'カテゴリ名')->display(function ($categories) {
 			return implode(', ', array_column($categories, 'name'));
 		});
@@ -46,12 +50,31 @@ class ShopController extends AdminController
 			$filter->like('phone_number', '電話番号');
 			$filter->like('description', '店舗説明');
 			$filter->where(function ($query) {
-				$input = request()->get('categories');
-				$query->whereHas('categories', function ($query) use ($input) {
-					$query->where('name', 'like', "%{$input}%");
-				});
-			}, 'カテゴリ名');
-			$filter->between('opening_hours', '営業時間');
+				$input = $this->input;
+				if (!empty($input)) {
+					$query->whereHas('categories', function ($query) use ($input) {
+						$query->whereIn('categories.id', $input);
+					});
+				}
+			}, 'カテゴリ名')->multipleSelect(Category::pluck('name', 'id')->toArray());
+			$filter->where(function ($query) {
+				$input = $this->input;
+				if ($input) {
+					if (strlen($input) === 5) {
+						$input .= ':00';
+					}
+					$query->whereTime('opening_time', '>=', $input);
+				}
+			}, '開店時間')->datetime(['format' => 'HH:mm']);
+			$filter->where(function ($query) {
+				$input = $this->input;
+				if ($input) {
+					if (strlen($input) === 5) {
+						$input .= ':00';
+					}
+					$query->whereTime('closing_time', '<=', $input);
+				}
+			}, '閉店時間')->datetime(['format' => 'HH:mm']);
 		});
 
 		return $grid;
@@ -72,7 +95,8 @@ class ShopController extends AdminController
 		$show->field('address', '住所');
 		$show->field('phone_number', '電話番号');
 		$show->field('description', '店舗説明');
-		$show->field('opening_hours', '営業時間');
+		$show->field('opening_time', '開店時間');
+		$show->field('closing_time', '閉店時間');
 		$show->field('categories', 'カテゴリ名')->as(function ($categories) {
 			return $categories->pluck('name')->join(', ');
 		});
@@ -95,7 +119,8 @@ class ShopController extends AdminController
 		$form->text('address', '住所');
 		$form->text('phone_number', '電話番号');
 		$form->textarea('description', '店舗説明');
-		$form->text('opening_hours', '営業時間');
+		$form->time('opening_time', '開店時間')->format('HH:mm');
+		$form->time('closing_time', '閉店時間')->format('HH:mm');
 		// 商品追加時カテゴリを複数選択
 		$form->multipleSelect('categories', ' カテゴリ名')->options(Category::pluck('name', 'id')->toArray());
 		// 画像アップロードの追加

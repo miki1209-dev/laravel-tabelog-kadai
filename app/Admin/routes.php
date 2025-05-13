@@ -15,7 +15,9 @@ Route::group([
 	'as'            => config('admin.route.prefix') . '.',
 ], function (Router $router) {
 
-	$router->get('/', 'HomeController@index')->name('home');
+	$router->get('/', function () {
+		return redirect('/admin/shops');
+	});
 	$router->resource('categories', CategoryController::class);
 	$router->resource('shops', ShopController::class);
 });

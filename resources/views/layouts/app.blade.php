@@ -14,7 +14,6 @@
 	@vite(['resources/css/style.scss', 'resources/js/app.js'])
 	<!-- Font Awesome -->
 	<script src="https://kit.fontawesome.com/1843201c14.js" crossorigin="anonymous"></script>
-	<script src="{{ mix('js/app.js') }}"></script>
 </head>
 
 <body>

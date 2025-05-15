@@ -8,7 +8,11 @@ body {
   color: white;
 }
 
-h2 {
+a {
+	text-decoration: none;
+}
+
+h3 {
 	color: $secondary-color;
 }
 
@@ -56,6 +60,36 @@ header {
 	&__subtitle {
 		font-size: 1.5rem;
 		margin-bottom: 0;
+		text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.7);
+	}
+}
+
+.card {
+	position: relative;
+	overflow: hidden;
+	&--featured {
+		&::after {
+			content: "";
+			position: absolute;
+			top: 0;
+			left: 0;
+			width: 100%;
+			height: 100%;
+			background-color: rgba(0, 0, 0, 0.1);
+			z-index: 1;
+		}
+	}
+	&__body {
+		position: absolute;
+		padding: 0;
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		width: 100%;
+		height: 100%;
+	}
+	&__title {
+		color: #fff;
 		text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.7);
 	}
 }

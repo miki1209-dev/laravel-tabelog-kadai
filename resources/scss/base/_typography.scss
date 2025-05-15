@@ -1,0 +1,12 @@
+@use '@/scss/base/variables' as v;
+h1 {
+	color: v.$primary-color;
+}
+
+h2, h3, h4, h5 {
+  color: v.$dark-color;
+}
+
+p, a {
+	color: v.$dark-color;
+}

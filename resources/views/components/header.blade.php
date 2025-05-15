@@ -14,7 +14,7 @@
 							<a class="nav-link fw-bold" href="{{ route('login') }}">ログイン</a>
 						</li>
 
-						<div class="vr me-4"></div>
+						{{-- <div class="vr me-4"></div> --}}
 						{{--
 						<li class="nav-item me-4">
 							<a class="nav-link" href="{{ route('login') }}"><i class="far fa-heart"></i></a>

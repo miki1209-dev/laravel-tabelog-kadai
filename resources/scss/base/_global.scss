@@ -1,0 +1,10 @@
+@use 'variables' as v;
+
+body {
+	background-color: v.$primary-color;
+	font-family: 'メイリオ', 'Meiryo', 'Hiragino Kaku Gothic ProN', 'ヒラギノ角ゴ ProN W3', sans-serif;
+}
+
+a {
+  text-decoration: none;
+}

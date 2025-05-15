@@ -6,8 +6,8 @@ export default defineConfig({
   plugins: [
     laravel({
       input: [
-        'resources/scss/style.scss',
-        'resources/js/app.js',
+        'resources/scss/style.scss',  // SCSSファイルのエントリーポイント
+        'resources/js/app.js',        // JavaScriptファイルのエントリーポイント
       ],
       refresh: true,
     }),
@@ -15,8 +15,9 @@ export default defineConfig({
   resolve: {
     alias: {
       '@img': '/public/img',
-      'slick-carousel': path.resolve(__dirname, 'node_modules/slick-carousel'),
-			'~': path.resolve(__dirname, 'node_modules')
+      '@': path.resolve(__dirname, 'resources'),
+      '~slick-carousel': path.resolve(__dirname, 'node_modules/slick-carousel'),
+      '~': path.resolve(__dirname, 'node_modules')
     }
   }
 });

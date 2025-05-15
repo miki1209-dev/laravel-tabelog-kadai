@@ -6,7 +6,7 @@ export default defineConfig({
   plugins: [
     laravel({
       input: [
-        'resources/css/style.scss',
+        'resources/scss/style.scss',
         'resources/js/app.js',
       ],
       refresh: true,
@@ -16,6 +16,7 @@ export default defineConfig({
     alias: {
       '@img': '/public/img',
       'slick-carousel': path.resolve(__dirname, 'node_modules/slick-carousel'),
+			'~': path.resolve(__dirname, 'node_modules')
     }
   }
 });

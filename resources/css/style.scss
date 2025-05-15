@@ -1,3 +1,22 @@
+// 基本設定
+@import 'base/reset';
+@import 'base/typography';
+@import 'base/variables';
+
+// レイアウト
+@import 'layout/header';
+@import 'layout/footer';
+@import 'layout/grid';
+
+// コンポーネント
+@import 'components/buttons';
+@import 'components/cards';
+@import 'components/navbar';
+@import 'components/forms';
+
+// ページ固有のスタイル
+@import 'pages/home';
+@import 'pages/shop';
 $primary-color: #FFFFF8;
 $secondary-color: #2F2725;
 $accent-color: #eaead5;

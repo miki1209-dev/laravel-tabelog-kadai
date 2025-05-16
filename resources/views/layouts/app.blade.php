@@ -17,10 +17,10 @@
 </head>
 
 <body>
-	<div id="app">
+	<div id="app" class="d-flex flex-column min-vh-100">
 		@component('components.header')
 		@endcomponent
-		<main>
+		<main class="flex-grow-1">
 			@yield('content')
 		</main>
 		@component('components.footer')

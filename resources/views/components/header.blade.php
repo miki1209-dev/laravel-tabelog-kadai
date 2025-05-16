@@ -21,18 +21,18 @@
 						</li> --}}
 					@else
 						<li class="nav-item me-4">
-							<a class="nav-link fw-bold" href="#">
+							<a class="nav-link fw-bold" href="{{ route('mypage') }}">
 								<i class="fas fa-user me-2"></i>マイページ
 							</a>
 						</li>
 
-						<div class="vr me-4 ecmart-vertical-bar"></div>
+						{{-- <div class="vr me-4 ecmart-vertical-bar"></div>
 
 						<li class="nav-item me-4">
 							<a class="nav-link" href="#">
 								<i class="far fa-heart"></i>
 							</a>
-						</li>
+						</li> --}}
 					@endguest
 				</ul>
 			</div>

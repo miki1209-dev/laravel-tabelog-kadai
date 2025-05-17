@@ -1,0 +1,16 @@
+@use '@/scss/base/variables' as v;
+
+.button {
+  padding: 0.5rem 1rem;
+  font-weight: bold;
+  border-radius: 5px;
+  border: none;
+  transition: background-color 0.3s ease;
+	&--create {
+		background-color: v.$accent-color-secondary;
+		color: v.$primary-color;
+		&:hover {
+			background-color: v.$dark-color;
+		}
+	}
+}

@@ -9,4 +9,9 @@ h2, h3, h4, h5 {
 
 p, a {
 	color: v.$dark-color;
+	text-decoration: none;
+}
+
+label {
+	color: v.$dark-color;
 }

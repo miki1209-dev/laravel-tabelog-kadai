@@ -1,0 +1,12 @@
+@use '@/scss/base/variables' as v;
+// labelのベースのスタイル
+.form-label__indicator {
+	color: v.$primary-color;
+	font-size: 0.8rem;
+	padding: 0.2rem;
+	border-radius: 3px;
+	// 必須表示のスタイル
+	&__required {
+		background-color: v.$accent-color;
+	}
+}

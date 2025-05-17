@@ -9,6 +9,17 @@ class Shop extends Model
 {
 	use HasFactory;
 
+	protected $fillable = [
+		'name',
+		'address',
+		'phone_number',
+		'description',
+		'opening_time',
+		'closing_time',
+		'file_name',
+		'recommend_flag'
+	];
+
 	/**
 	 * @property \Illuminate\Database\Eloquent\Collection $categories
 	 */

@@ -1,8 +1,8 @@
 @extends('layouts.app')
 @section('content')
-	<div class="container mt-4 mb-4">
+	<div class="container pt-5 pb-5">
 		<div class="row justify-content-center">
-			<div class="col-lg-5">
+			<div class="col-lg-7">
 				<h3 class="mb-4 fw-bold">マイページ</h3>
 
 				@if (session('flash_message'))
@@ -13,7 +13,7 @@
 
 				<div class="mypage-menu">
 					<div class="mypage-menu__item">
-						<a href="#" class="mypage-menu__link">
+						<a href="{{ route('mypage.edit') }}" class="mypage-menu__link">
 							<i class="fas fa-user mypage-menu__icon"></i>
 							<div class="mypage-menu__text">会員情報の編集</div>
 							<i class="fas fa-chevron-right mypage-menu__chevron"></i>

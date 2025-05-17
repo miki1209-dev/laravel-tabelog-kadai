@@ -1,49 +1,60 @@
-<x-guest-layout>
-	<!-- Session Status -->
-	<x-auth-session-status class="mb-4" :status="session('status')" />
+@extends('layouts.app')
+@section('content')
+	<div class="container pt-5 pb-5">
+		<div class="row justify-content-center">
+			<div class="col-lg-7">
+				<div class="mb-4">
+					<h3 class="fw-bold">ログイン</h3>
+				</div>
 
-	<form method="POST" action="{{ route('login') }}">
-		@csrf
+				<hr class="mb-4">
 
-		<!-- Email Address -->
-		<div>
-			<x-input-label for="email" :value="__('Email')" />
-			<x-text-input id="email" class="block mt-1 w-full" type="email" name="email" :value="old('email')" required autofocus
-				autocomplete="username" />
-			<x-input-error :messages="$errors->get('email')" class="mt-2" />
+				<form action="{{ route('login') }}" method="POST">
+					@csrf
+					<div class="mb-4">
+						<label for="email" class="form-label">メールアドレス</label>
+						<input id="email" type="email" name="email" class="form-control @error('email') is-invalid @enderror"
+							value="{{ old('email') }}">
+						@error('email')
+							<span class="invalid-feedback">
+								<strong>{{ $message }}</strong>
+							</span>
+						@enderror
+					</div>
+					<div class="mb-3">
+						<label for="password" class="form-label">パスワード</label>
+						<input id="password" type="password" name="password" class="form-control @error('password') is-invalid @enderror">
+						@error('password')
+							<span class="invalid-feedback">
+								<strong>{{ $message }}</strong>
+							</span>
+						@enderror
+					</div>
+					<div class="form-group mb-4">
+						<div class="form-check">
+							<input class="form-check-input" type="checkbox" name="remember" id="remember">
+							<label for="remember" class="form-check-label w-100">
+								次回から自動的にログインする
+							</label>
+						</div>
+					</div>
+					<div class="d-flex justify-content-center align-items-center mb-4">
+						<button type="submit" class="button button--create w-50">ログイン</button>
+					</div>
+				</form>
+				<div class="text-center mb-3">
+					<a class="fw-bold link--hover" href="{{ route('password.request') }}">
+						パスワードをお忘れの場合
+						<i class="fas fa-chevron-right ms-2"></i>
+					</a>
+				</div>
+				<div class="text-center">
+					<a class="fw-bold link--hover" href="{{ route('register') }}">
+						新規会員登録
+						<i class="fas fa-chevron-right ms-2"></i>
+					</a>
+				</div>
+			</div>
 		</div>
-
-		<!-- Password -->
-		<div class="mt-4">
-			<x-input-label for="password" :value="__('Password')" />
-
-			<x-text-input id="password" class="block mt-1 w-full" type="password" name="password" required
-				autocomplete="current-password" />
-
-			<x-input-error :messages="$errors->get('password')" class="mt-2" />
-		</div>
-
-		<!-- Remember Me -->
-		<div class="block mt-4">
-			<label for="remember_me" class="inline-flex items-center">
-				<input id="remember_me" type="checkbox"
-					class="rounded border-gray-300 text-indigo-600 shadow-sm focus:ring-indigo-500" name="remember">
-				<span class="ml-2 text-sm text-gray-600">{{ __('Remember me') }}</span>
-			</label>
-		</div>
-
-		<div class="flex items-center justify-end mt-4">
-			@if (Route::has('password.request'))
-				<a
-					class="underline text-sm text-gray-600 hover:text-gray-900 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
-					href="{{ route('password.request') }}">
-					{{ __('Forgot your password?') }}
-				</a>
-			@endif
-
-			<x-primary-button class="ml-3">
-				{{ __('Log in') }}
-			</x-primary-button>
-		</div>
-	</form>
-</x-guest-layout>
+	</div>
+@endsection

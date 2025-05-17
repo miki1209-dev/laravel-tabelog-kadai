@@ -9,6 +9,13 @@ class Category extends Model
 {
 	use HasFactory;
 
+	protected $fillable = [
+		'name',
+		'description',
+		'file_name',
+		'is_featured'
+	];
+
 	public function shops()
 	{
 		return $this->belongsToMany(Shop::class, 'category_shop');

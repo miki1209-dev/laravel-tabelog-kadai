@@ -26,6 +26,7 @@ Route::middleware('auth')->group(function () {
 
 	Route::controller(UserController::class)->group(function () {
 		Route::get('users/mypage', 'mypage')->name('mypage');
+		Route::get('users/mypage/edit', 'edit')->name('mypage.edit');
 	});
 });
 

@@ -3,12 +3,15 @@
 	<div class="container pt-5 pb-5">
 		<div class="row justify-content-center">
 			<div class="col-lg-7">
+				<nav style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb">
+					<ol class="breadcrumb">
+						<li class="breadcrumb-item"><a href="{{ route('mypage') }}">マイページ</a></li>
+						<li class="breadcrumb-item active" aria-current="page">会員情報編集</li>
+					</ol>
+				</nav>
 				<div class="mb-4">
-					<h3 class="fw-bold">新規登録</h3>
-					<small>※「必須」ラベルがついていない箇所は未入力でも問題ありません</small>
+					<h3 class="fw-bold">会員情報編集</h3>
 				</div>
-
-				<hr class="mb-4">
 
 				<form action="{{ route('register') }}" method="POST">
 					@csrf
@@ -26,7 +29,7 @@
 					<div class="mb-3">
 						<label for="email" class="form-label">メールアドレス<span
 								class="ms-2 form-label__indicator form-label__indicator__required">必須</span></label>
-						<input id="email" type="email" name="email" class="form-control @error('email') is-invalid @enderror"
+						<input id="email" type="text" name="email" class="form-control @error('email') is-invalid @enderror"
 							value="{{ old('email') }}" placeholder="example@mail.com">
 						@error('email')
 							<span class="invalid-feedback">
@@ -46,24 +49,8 @@
 						<label for="phone" class="form-label">電話番号</label>
 						<input id="phone" type="text" name="phone" class="form-control" placeholder="012-3456-7890">
 					</div>
-					<div class="mb-3">
-						<label for="password" class="form-label">パスワード<span
-								class="ms-2 form-label__indicator form-label__indicator__required">必須</span></label>
-						<input id="password" type="password" name="password" class="form-control @error('password') is-invalid @enderror">
-						<small class="form-text text-muted">※パスワードは8文字以上で入力してください。</small>
-						@error('password')
-							<span class="invalid-feedback">
-								<strong>{{ $message }}</strong>
-							</span>
-						@enderror
-					</div>
-					<div class="mb-4">
-						<label for="password-confirm" class="form-label">パスワード（確認用）<span
-								class="ms-2 form-label__indicator form-label__indicator__required">必須</span></label>
-						<input id="password-confirm" type="password" name="password_confirmation" class="form-control">
-					</div>
 					<div class="d-flex justify-content-center">
-						<button type="submit" class="button button--create w-50">アカウント作成</button>
+						<button type="submit" class="button button--create w-50">更新</button>
 					</div>
 				</form>
 			</div>

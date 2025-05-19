@@ -10,7 +10,7 @@
 
 				<hr class="mb-4">
 
-				<form action="{{ route('register') }}" method="POST">
+				<form method="POST" action="{{ route('register') }}">
 					@csrf
 					<div class="mb-3">
 						<label for="name" class="form-label">名前<span
@@ -35,16 +35,35 @@
 						@enderror
 					</div>
 					<div class="mb-3">
-						<label for="postal-code" class="form-label">郵便番号</label>
-						<input id="postal-code" type="text" name="postal_code" class="form-control" placeholder="100-0001">
+						<label for="postal_code" class="form-label">郵便番号</label>
+						<input id="postal_code" type="text" name="postal_code"
+							class="form-control @error('postal_code') is-invalid @enderror" value="{{ old('postal_code') }}"
+							placeholder="100-0001">
+						@error('postal_code')
+							<span class="invalid-feedback">
+								<strong>{{ $message }}</strong>
+							</span>
+						@enderror
 					</div>
 					<div class="mb-3">
 						<label for="address" class="form-label">住所</label>
-						<input id="address" type="text" name="address" class="form-control" placeholder="東京都千代田区1丁目2番地3号">
+						<input id="address" type="text" name="address" class="form-control @error('address') is-invalid @enderror"
+							value="{{ old('address') }}" placeholder="東京都千代田区1丁目2番地3号">
+						@error('address')
+							<span class="invalid-feedback">
+								<strong>{{ $message }}</strong>
+							</span>
+						@enderror
 					</div>
 					<div class="mb-3">
 						<label for="phone" class="form-label">電話番号</label>
-						<input id="phone" type="text" name="phone" class="form-control" placeholder="012-3456-7890">
+						<input id="phone" type="tel" name="phone" class="form-control @error('phone') is-invalid @enderror"
+							value="{{ old('phone') }}" placeholder="012-3456-7890">
+						@error('phone')
+							<span class="invalid-feedback">
+								<strong>{{ $message }}</strong>
+							</span>
+						@enderror
 					</div>
 					<div class="mb-3">
 						<label for="password" class="form-label">パスワード<span

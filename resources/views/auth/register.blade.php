@@ -3,6 +3,19 @@
 	<div class="container pt-5 pb-5">
 		<div class="row justify-content-center">
 			<div class="col-lg-7">
+
+				@if ($errors->has('db_error'))
+					<div class="alert alert-danger">
+						{{ $errors->first('db_error') }}
+					</div>
+				@endif
+
+				@if ($errors->has('general_error'))
+					<div class="alert alert-danger">
+						{{ $errors->first('general_error') }}
+					</div>
+				@endif
+
 				<div class="mb-4">
 					<h3 class="fw-bold">新規登録</h3>
 					<small>※「必須」ラベルがついていない箇所は未入力でも問題ありません</small>
@@ -16,7 +29,7 @@
 						<label for="name" class="form-label">名前<span
 								class="ms-2 form-label__indicator form-label__indicator__required">必須</span></label>
 						<input id="name" type="text" name="name" class="form-control @error('name') is-invalid @enderror"
-							value="{{ old('name') }}" autocomplete="name" placeholder="山田太郎">
+							value="{{ old('name') }}" autocomplete="name">
 						@error('name')
 							<span class="invalid-feedback" role="alert">
 								<strong>{{ $message }}</strong>
@@ -27,7 +40,7 @@
 						<label for="email" class="form-label">メールアドレス<span
 								class="ms-2 form-label__indicator form-label__indicator__required">必須</span></label>
 						<input id="email" type="email" name="email" class="form-control @error('email') is-invalid @enderror"
-							value="{{ old('email') }}" placeholder="example@mail.com">
+							value="{{ old('email') }}">
 						@error('email')
 							<span class="invalid-feedback">
 								<strong>{{ $message }}</strong>
@@ -37,8 +50,7 @@
 					<div class="mb-3">
 						<label for="postal_code" class="form-label">郵便番号</label>
 						<input id="postal_code" type="text" name="postal_code"
-							class="form-control @error('postal_code') is-invalid @enderror" value="{{ old('postal_code') }}"
-							placeholder="100-0001">
+							class="form-control @error('postal_code') is-invalid @enderror" value="{{ old('postal_code') }}">
 						@error('postal_code')
 							<span class="invalid-feedback">
 								<strong>{{ $message }}</strong>
@@ -48,7 +60,7 @@
 					<div class="mb-3">
 						<label for="address" class="form-label">住所</label>
 						<input id="address" type="text" name="address" class="form-control @error('address') is-invalid @enderror"
-							value="{{ old('address') }}" placeholder="東京都千代田区1丁目2番地3号">
+							value="{{ old('address') }}">
 						@error('address')
 							<span class="invalid-feedback">
 								<strong>{{ $message }}</strong>
@@ -58,7 +70,7 @@
 					<div class="mb-3">
 						<label for="phone" class="form-label">電話番号</label>
 						<input id="phone" type="tel" name="phone" class="form-control @error('phone') is-invalid @enderror"
-							value="{{ old('phone') }}" placeholder="012-3456-7890">
+							value="{{ old('phone') }}">
 						@error('phone')
 							<span class="invalid-feedback">
 								<strong>{{ $message }}</strong>
@@ -81,6 +93,7 @@
 								class="ms-2 form-label__indicator form-label__indicator__required">必須</span></label>
 						<input id="password-confirm" type="password" name="password_confirmation" class="form-control">
 					</div>
+					<input type="hidden" name="role" value="free">
 					<div class="d-flex justify-content-center">
 						<button type="submit" class="button button--create w-50">アカウント作成</button>
 					</div>

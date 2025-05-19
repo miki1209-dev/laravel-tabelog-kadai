@@ -12,6 +12,9 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\Rules;
 use Illuminate\View\View;
+use Illuminate\Database\QueryException;
+use Exception;
+use Illuminate\Support\Facades\Log;
 
 class RegisteredUserController extends Controller
 {
@@ -30,22 +33,40 @@ class RegisteredUserController extends Controller
 	 */
 	public function store(Request $request): RedirectResponse
 	{
-		$request->validate([
+		$validatedData = $request->validate([
 			'name' => ['required', 'string', 'max:255'],
 			'email' => ['required', 'string', 'email', 'max:255', 'unique:' . User::class],
 			'password' => ['required', 'confirmed', Rules\Password::defaults()],
+			'postal_code' => ['nullable', 'string', 'max:10'],
+			'address' => ['nullable', 'string', 'max:255'],
+			'phone' => ['nullable', 'string', 'max:20'],
+			'role' => ['required', 'in:free,premium'],
 		]);
 
-		$user = User::create([
-			'name' => $request->name,
-			'email' => $request->email,
-			'password' => Hash::make($request->password),
-		]);
+		try {
+			$user = User::create([
+				'name' => $request->name,
+				'email' => $request->email,
+				'password' => Hash::make($request->password),
+				'postal_code' => $request->postal_code,
+				'address' => $request->address,
+				'phone' => $request->phone,
+				'role' => $request->role,
+			]);
 
-		event(new Registered($user));
+			event(new Registered($user));
 
-		Auth::login($user);
+			Auth::login($user);
 
-		return redirect('/verify-email');
+			return redirect('/verify-email');
+		} catch (QueryException $e) {
+			// DBへの登録でエラーが出た場合（制約違反とか）、ログの出力先は（storage/logs/laravel.log）で「Database Error」確認してください
+			Log::error('Database Error' . $e->getMessage());
+			return back()->withErrors(['db_error' => 'データベースへの登録が失敗しました。時間をおいて再度試してみてください'])->withInput();
+		} catch (Exception $e) {
+			// 予期せぬエラーが出た場合（ネットワーク関連とか）、ログの出力先は（storage/logs/laravel.log）で「General Error」確認してください
+			Log::error('General Error' . $e->getMessage());
+			return back()->withErrors(['general_error' => '予期せぬエラーが発生しました'])->withInput();
+		}
 	}
 }

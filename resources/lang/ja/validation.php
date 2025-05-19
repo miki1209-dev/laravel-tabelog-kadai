@@ -62,15 +62,15 @@ return [
 		'array'   => ':attributeには、:value個より少ないアイテムを指定してください。',
 	],
 	'lte'                  => [
-		'numeric' => ':attributeには、:value以下の値を指定してください。',
-		'file'    => ':attributeには、:value kB以下のファイルを指定してください。',
-		'string'  => ':attributeは、:value文字以下で指定してください。',
-		'array'   => ':attributeには、:value個以下のアイテムを指定してください。',
+		'numeric' => ':attributeには:value以下の値を指定してください。',
+		'file'    => ':attributeには:value kB以下のファイルを指定してください。',
+		'string'  => ':attributeは:value文字以下で指定してください。',
+		'array'   => ':attributeには:value個以下のアイテムを指定してください。',
 	],
 	'max'                  => [
-		'numeric' => ':attributeには、:max以下の数字を指定してください。',
-		'file'    => ':attributeには、:max kB以下のファイルを指定してください。',
-		'string'  => ':attributeは、:max文字以下で指定してください。',
+		'numeric' => ':attributeには:max以下の数字を指定してください。',
+		'file'    => ':attributeには:max kB以下のファイルを指定してください。',
+		'string'  => ':attributeは:max文字以下で指定してください。',
 		'array'   => ':attributeは:max個以下指定してください。',
 	],
 	'mimes'                => ':attributeには:valuesタイプのファイルを指定してください。',
@@ -124,6 +124,9 @@ return [
 		'name' => '名前',
 		'email' => 'メールアドレス',
 		'password' => 'パスワード',
+		'postal_code' => '郵便番号',
+		'address' => '住所',
+		'phone' => '電話番号',
 	],
 
 ];

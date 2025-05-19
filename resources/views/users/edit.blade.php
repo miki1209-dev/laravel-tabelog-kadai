@@ -13,6 +13,8 @@
 					<h3 class="fw-bold">会員情報編集</h3>
 				</div>
 
+				<hr class="mb-4">
+
 				<form action="#" method="POST">
 					@csrf
 					<div class="mb-3">
@@ -45,7 +47,7 @@
 						<label for="address" class="form-label">住所</label>
 						<input id="address" type="text" name="address" class="form-control" value="{{ $user->address }}">
 					</div>
-					<div class="mb-3">
+					<div class="mb-4">
 						<label for="phone" class="form-label">電話番号</label>
 						<input id="phone" type="text" name="phone" class="form-control" value="{{ $user->phone }}">
 					</div>

@@ -2,12 +2,14 @@
 @section('content')
 	<div class="container pt-5 pb-5">
 		<div class="row justify-content-center">
-			@if (session('status'))
-				<div class="alert alert-success">
-					{{ session('status') }}
-				</div>
-			@endif
 			<div class="col-lg-7">
+
+				@if (session('status'))
+					<div class="alert alert-success">
+						{{ session('status') }}
+					</div>
+				@endif
+
 				<div class="mb-4">
 					<h3 class="fw-bold">パスワード再設定</h3>
 					<small>ご登録時のメールアドレスを入力してください。<br>パスワード再発行用のメールをお送りします。</small>

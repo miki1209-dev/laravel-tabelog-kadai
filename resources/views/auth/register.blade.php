@@ -4,15 +4,9 @@
 		<div class="row justify-content-center">
 			<div class="col-lg-7">
 
-				@if ($errors->has('db_error'))
+				@if ($errors->has('db_error') || $errors->has('general_error'))
 					<div class="alert alert-danger">
-						{{ $errors->first('db_error') }}
-					</div>
-				@endif
-
-				@if ($errors->has('general_error'))
-					<div class="alert alert-danger">
-						{{ $errors->first('general_error') }}
+						{{ $errors->first('db_error') ?? $errors->first('general_error') }}
 					</div>
 				@endif
 
@@ -89,9 +83,9 @@
 						@enderror
 					</div>
 					<div class="mb-4">
-						<label for="password-confirm" class="form-label">パスワード（確認用）<span
+						<label for="password-confirmation" class="form-label">パスワード（確認用）<span
 								class="ms-2 form-label__indicator form-label__indicator__required">必須</span></label>
-						<input id="password-confirm" type="password" name="password_confirmation" class="form-control">
+						<input id="password-confirmation" type="password" name="password_confirmation" class="form-control">
 					</div>
 					<input type="hidden" name="role" value="free">
 					<div class="d-flex justify-content-center">

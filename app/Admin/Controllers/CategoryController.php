@@ -39,6 +39,8 @@ class CategoryController extends AdminController
 			$filter->equal('is_featured', '注目')->select([0 => '注目なし', 1 => '注目あり']);
 		});
 
+		$grid->disableExport();
+
 		return $grid;
 	}
 

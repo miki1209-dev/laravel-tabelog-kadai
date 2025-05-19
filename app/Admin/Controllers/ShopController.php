@@ -79,6 +79,8 @@ class ShopController extends AdminController
 			$filter->equal('recommend_flag', 'おすすめ')->select([0 => 'おすすめなし', 1 => 'おすすめあり']);
 		});
 
+		$grid->disableExport();
+
 		return $grid;
 	}
 

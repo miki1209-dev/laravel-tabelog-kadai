@@ -3,11 +3,6 @@
 	<div class="container pt-5 pb-5">
 		<div class="row justify-content-center">
 			<div class="col-lg-7">
-				@if (session('flash_message'))
-					<div class="alert alert-light">
-						{{ session('flash_message') }}
-					</div>
-				@endif
 
 				<div class="mb-4">
 					<h3 class="fw-bold">マイページ</h3>

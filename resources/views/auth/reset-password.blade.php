@@ -34,7 +34,7 @@
 						<input id="password-confirmation" type="password" name="password_confirmation" class="form-control">
 					</div>
 					<div class="d-flex justify-content-center">
-						<button type="submit" class="button button--create w-50">パスワード再設定</button>
+						<button type="submit" class="button button--base w-50">パスワード再設定</button>
 					</div>
 				</form>
 			</div>

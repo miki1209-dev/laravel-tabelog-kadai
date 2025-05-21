@@ -89,7 +89,7 @@
 					</div>
 					<input type="hidden" name="role" value="free">
 					<div class="d-flex justify-content-center">
-						<button type="submit" class="button button--create w-50">アカウント作成</button>
+						<button type="submit" class="button button--base w-50">アカウント作成</button>
 					</div>
 				</form>
 			</div>

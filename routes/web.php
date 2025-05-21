@@ -3,6 +3,7 @@
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\WebController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\ShopController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -28,6 +29,11 @@ Route::middleware(['auth', 'verified'])->group(function () {
 		Route::get('users/mypage', 'mypage')->name('mypage');
 		Route::get('users/mypage/edit', 'edit')->name('mypage.edit');
 		Route::put('users/mypage', 'update')->name('mypage.update');
+	});
+
+	Route::controller(ShopController::class)->group(function () {
+		Route::get('shops', 'index')->name('shops.index');
+		Route::get('shops/{shop}', 'show')->name('shops.show');
 	});
 });
 

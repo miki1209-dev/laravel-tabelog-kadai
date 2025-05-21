@@ -31,7 +31,7 @@
 						@enderror
 					</div>
 					<div class="d-flex justify-content-center align-items-center mb-4">
-						<button type="submit" class="button button--create w-50">送信</button>
+						<button type="submit" class="button button--base w-50">送信</button>
 					</div>
 				</form>
 			</div>

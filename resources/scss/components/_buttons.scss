@@ -6,7 +6,7 @@
   border-radius: 5px;
   border: none;
   transition: background-color 0.3s ease;
-	&--create {
+	&--base {
 		background-color: v.$accent-color-secondary;
 		color: v.$primary-color;
 		&:hover {

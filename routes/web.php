@@ -4,6 +4,7 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\WebController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\ShopController;
+use App\Http\Controllers\FavoriteController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -34,6 +35,11 @@ Route::middleware(['auth', 'verified'])->group(function () {
 	Route::controller(ShopController::class)->group(function () {
 		Route::get('shops', 'index')->name('shops.index');
 		Route::get('shops/{shop}', 'show')->name('shops.show');
+	});
+
+	Route::controller(FavoriteController::class)->group(function () {
+		Route::post('shops/{shop}/favorite', 'store')->name('favorite.store');
+		Route::delete('shops/{shop}/favorite', 'destroy')->name('favorite.destroy');
 	});
 });
 

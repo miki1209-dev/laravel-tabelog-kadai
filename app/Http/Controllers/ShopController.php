@@ -39,7 +39,6 @@ class ShopController extends Controller
 
 	public function show(Shop $shop)
 	{
-		dump($shop);
-		return view('shops/show');
+		return view('shops/show', compact('shop'));
 	}
 }

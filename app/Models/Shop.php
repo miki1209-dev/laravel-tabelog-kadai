@@ -28,4 +28,9 @@ class Shop extends Model
 	{
 		return $this->belongsToMany(Category::class, 'category_shop');
 	}
+
+	public function favoredByUsers()
+	{
+		return $this->belongsToMany(User::class, 'favorites')->withTimestamps();
+	}
 }

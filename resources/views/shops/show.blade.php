@@ -60,11 +60,51 @@
 
 			<hr class="my-5">
 
-			<!-- レビュー一覧と投稿フォーム -->
-			<div class="mt-5" id="review-form">
+			@php
+				dump($reviews);
+			@endphp
+
+			<div class="row">
 				<h3 class="fw-bold mb-3">カスタマーレビュー</h3>
-				<p>※レビューはまだありません。</p>
-				{{-- またはレビュー表示 --}}
+			</div>
+
+			<div class="row mb-3">
+				<div class="col-md-4 mb-4">
+					<form action="{{ route('reviews.store') }}" method="POST">
+						@csrf
+						<div class="mb-3">
+							<label for="">評価</label>
+							<select name="score">
+								<option value="5">★★★★★</option>
+								<option value="4">★★★★</option>
+								<option value="3">★★★</option>
+								<option value="2">★★</option>
+								<option value="1">★</option>
+							</select>
+						</div>
+						<div class="mb-3">
+							<label>タイトル</label>
+							<input type="text" name="title">
+						</div>
+						<div class="mb-4">
+							<label>レビュー内容</label>
+							<textarea name="content"></textarea>
+						</div>
+						<button type="submit">送信</button>
+						<input type="hidden" name="shop_id" value="{{ $shop->id }}">
+					</form>
+				</div>
+				<div class="col-md-8 mb-4">
+					@foreach ($reviews as $review)
+						<p>{{ $review->title }}</p>
+						<p>{{ $review->score }}</p>
+						<p>{{ $review->content }}</p>
+						<p>
+							<span>{{ $review->user->name }}</span>
+							<span>{{ $review->created_at->format('y年m月d日') }}</span>
+						</p>
+					@endforeach
+				</div>
 			</div>
 		</div>
 	</div>

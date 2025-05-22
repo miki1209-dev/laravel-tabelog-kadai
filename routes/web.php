@@ -5,6 +5,7 @@ use App\Http\Controllers\WebController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\ShopController;
 use App\Http\Controllers\FavoriteController;
+use App\Http\Controllers\ReviewController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -41,6 +42,8 @@ Route::middleware(['auth', 'verified'])->group(function () {
 		Route::post('shops/{shop}/favorite', 'store')->name('favorite.store');
 		Route::delete('shops/{shop}/favorite', 'destroy')->name('favorite.destroy');
 	});
+
+	Route::post('/reviews', [ReviewController::class, 'store'])->name('reviews.store');
 });
 
 Route::get('/dashboard', function () {

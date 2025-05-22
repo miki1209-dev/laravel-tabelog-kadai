@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
+use App\Models\Review;
 
 class User extends Authenticatable implements MustVerifyEmail
 {
@@ -49,5 +50,10 @@ class User extends Authenticatable implements MustVerifyEmail
 	public function favoriteShops()
 	{
 		return $this->belongsToMany(Shop::class, 'favorites')->withTimestamps();
+	}
+
+	public function reviews()
+	{
+		return $this->hasMany(Review::class);
 	}
 }

@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use App\Models\Review;
 
 class Shop extends Model
 {
@@ -32,5 +33,10 @@ class Shop extends Model
 	public function favoredByUsers()
 	{
 		return $this->belongsToMany(User::class, 'favorites')->withTimestamps();
+	}
+
+	public function reviews()
+	{
+		return $this->hasMany(Review::class);
 	}
 }

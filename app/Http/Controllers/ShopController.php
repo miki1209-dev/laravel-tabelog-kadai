@@ -39,6 +39,7 @@ class ShopController extends Controller
 
 	public function show(Shop $shop)
 	{
-		return view('shops/show', compact('shop'));
+		$reviews = $shop->reviews()->latest()->get();
+		return view('shops/show', compact('shop', 'reviews'));
 	}
 }

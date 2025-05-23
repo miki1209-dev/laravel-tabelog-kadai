@@ -33,7 +33,7 @@
 										<img src="{{ asset('uploads/' . $recommend_shop->file_name) }}" class="card-img-top">
 										<div class="card-body">
 											<h5 class="card-title fw-bold">{{ $recommend_shop->name }}</h5>
-											<p class="card-text">{{ $recommend_shop->description }}</p>
+											{{-- <p class="card-text">{{ $recommend_shop->description }}</p> --}}
 											{{-- ここにスコア載せたいなぁ --}}
 										</div>
 									</div>
@@ -78,7 +78,7 @@
 										<img src="{{ asset('uploads/' . $recently_store->file_name) }}" class="card-img-top">
 										<div class="card-body">
 											<h5 class="card-title fw-bold">{{ $recently_store->name }}</h5>
-											<p class="card-text">{{ $recently_store->description }}</p>
+											{{-- <p class="card-text">{{ $recently_store->description }}</p> --}}
 										</div>
 									</div>
 								</a>

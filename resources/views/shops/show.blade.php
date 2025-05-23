@@ -10,11 +10,10 @@
 		</nav>
 		<div class="container px-0">
 			<div class="row">
-				<div class="col-md-6">
+				<div class="col-md-5">
 					<img src="{{ asset('uploads/' . $shop->file_name) }}" class="img-fluid rounded shadow-sm" alt="店舗画像">
 				</div>
-				<div class="col-md-6">
-					<!-- 店舗情報（名前、住所など） -->
+				<div class="col-md-7">
 					<h2 class="fw-bold mb-4">{{ $shop->name }}</h2>
 					<ul class="list-unstyled">
 						<li class="mb-2">
@@ -34,7 +33,6 @@
 							<strong>説明：</strong>{{ $shop->description }}
 						</li>
 					</ul>
-					<!-- アクションボタン（お気に入り、レビュー） -->
 					<div class="mt-4">
 						@if (Auth::user()->favoriteShops->contains($shop->id))
 							<form action="{{ route('favorite.destroy', $shop->id) }}" method="POST">
@@ -60,21 +58,17 @@
 
 			<hr class="my-5">
 
-			@php
-				dump($reviews);
-			@endphp
-
-			<div class="row">
-				<h3 class="fw-bold mb-3">カスタマーレビュー</h3>
+			<div class="row mb-4">
+				<h3 class="fw-bold mb-0">カスタマーレビュー</h3>
 			</div>
 
-			<div class="row mb-3">
-				<div class="col-md-4 mb-4">
-					<form action="{{ route('reviews.store') }}" method="POST">
+			<div class="review-section row mb-3">
+				<div class="review-form col-md-4 pe-0">
+					<form action="{{ route('reviews.store') }}" method="POST" class="review-form__form">
 						@csrf
-						<div class="mb-3">
-							<label for="">評価</label>
-							<select name="score">
+						<div class="review-form__group mb-3">
+							<label class="review-form__label fw-bold mb-2">評価</label>
+							<select name="score" class="review-form__select form-control form-select shadow-sm">
 								<option value="5">★★★★★</option>
 								<option value="4">★★★★</option>
 								<option value="3">★★★</option>
@@ -82,31 +76,37 @@
 								<option value="1">★</option>
 							</select>
 						</div>
-						<div class="mb-3">
-							<label>タイトル</label>
-							<input type="text" name="title">
+						<div class="review-form__group mb-3">
+							<label class="review-form__label fw-bold mb-2">タイトル</label>
+							<input type="text" name="title" class="review-form__input form-control shadow-sm">
 						</div>
-						<div class="mb-4">
-							<label>レビュー内容</label>
-							<textarea name="content"></textarea>
+						<div class="review-form__group mb-5">
+							<label class="review-form__label fw-bold mb-2">レビュー内容</label>
+							<textarea name="content" class="review-form__textarea form-control shadow-sm" rows="7"></textarea>
 						</div>
-						<button type="submit">送信</button>
 						<input type="hidden" name="shop_id" value="{{ $shop->id }}">
+						<button type="submit" class="review-form__submit button button--base w-100 shadow-sm">レビューを投稿</button>
 					</form>
 				</div>
-				<div class="col-md-8 mb-4">
-					@foreach ($reviews as $review)
-						<p>{{ $review->title }}</p>
-						<p>{{ $review->score }}</p>
-						<p>{{ $review->content }}</p>
-						<p>
-							<span>{{ $review->user->name }}</span>
-							<span>{{ $review->created_at->format('y年m月d日') }}</span>
-						</p>
-					@endforeach
+				<div class="col-md-8 ps-0">
+					<div class="review-list">
+						@foreach ($reviews as $review)
+							<div class="review-card p-3 shadow-sm mb-4">
+								<div class="review-card__header d-flex justify-content-between align-items-center mb-2">
+									<h5 class="review-card__title fw-bold mb-0">{{ $review->title }}</h5>
+									<small class="review-card__date text-muted">{{ $review->created_at->format('Y年m月d日') }}</small>
+								</div>
+								<p class="review-card__score mb-2">{{ str_repeat('★', $review->score) }}</p>
+								<p class="review-card__content mb-2">{{ $review->content }}</p>
+								<p class="review-card__author text-end text-muted mb-0">投稿者：{{ $review->user->name }}</p>
+							</div>
+						@endforeach
+					</div>
+					<div class="review-pagination text-center mt-4">
+						{{ $reviews->links() }}
+					</div>
 				</div>
 			</div>
 		</div>
-	</div>
 	</div>
 @endsection

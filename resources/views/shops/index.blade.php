@@ -31,9 +31,9 @@
 									<span class="badge bg-secondary me-1">{{ $category->name }}</span>
 								@endforeach
 							</div>
-							<p class="mb-1">
+							{{-- <p class="mb-1">
 								<i class="fas fa-info-circle me-2 text-muted"></i>{{ $shop->description }}
-							</p>
+							</p> --}}
 							<p class="mb-1">
 								<i class="fas fa-phone me-2 text-muted"></i>{{ $shop->phone_number }}
 							</p>

@@ -35,8 +35,19 @@ class ReviewController extends Controller
 			Log::error('Database Error' . $e->getMessage());
 			return back()->withErrors(['db_error' => 'データベースへの登録が失敗しました。時間をおいて再度試してみてください'])->withInput();
 		} catch (Exception $e) {
+			// 予期せぬエラーが出た場合（ネットワーク関連とか）、ログの出力先は（storage/logs/laravel.log）で「General Error」確認してください
 			Log::error('General Error' . $e->getMessage());
 			return back()->withErrors(['general_error' => '予期せぬエラーが発生しました'])->withInput();
 		}
+	}
+
+	public function update()
+	{
+		// レビュー内容を更新
+	}
+
+	public function destroy()
+	{
+		// レビュー内容を削除
 	}
 }

@@ -1,6 +1,6 @@
 @use '@/scss/base/variables' as v;
 .review-section {
-	margin-top: 3rem;
+	margin-top: 1.5rem;
 
 	.review-form {
 		&__form {
@@ -96,12 +96,5 @@
 
 	.review-pagination {
 		padding-left: 2rem;
-
-		.pagination {
-		margin-bottom: 0;
-		li {
-			color: v.$accent-color-secondary;
-		}
-	}
 	}
 }

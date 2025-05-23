@@ -13,4 +13,11 @@
 			background-color: v.$dark-color;
 		}
 	}
+	&--danger {
+		background-color: v.$accent-color;
+		color: v.$primary-color;
+		&:hover {
+			background-color: v.$dark-color;
+		}
+	}
 }

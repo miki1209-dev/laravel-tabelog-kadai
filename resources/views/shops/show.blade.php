@@ -58,13 +58,14 @@
 
 			<hr class="my-5">
 
-			<div class="row mb-4">
+			<div class="row">
 				<h3 class="fw-bold mb-0">カスタマーレビュー</h3>
 			</div>
 
-			<div class="review-section row mb-3">
+			<div class="review-section row">
 				<div class="review-form col-md-4 pe-0">
-					<form action="{{ route('reviews.store') }}" method="POST" class="review-form__form">
+					<form action="{{ route('reviews.store') }}" method="POST" class="review-form__form"
+						onkeydown="return event.key !== 'Enter' || event.target.tagName === 'TEXTAREA';">
 						@csrf
 						<div class="review-form__group mb-3">
 							<label class="review-form__label fw-bold mb-2">評価</label>
@@ -94,11 +95,15 @@
 							<div class="review-card p-3 shadow-sm mb-4">
 								<div class="review-card__header d-flex justify-content-between align-items-center mb-2">
 									<h5 class="review-card__title fw-bold mb-0">{{ $review->title }}</h5>
-									<small class="review-card__date text-muted">{{ $review->created_at->format('Y年m月d日') }}</small>
+									<small class="review-card__date text-muted">投稿日：{{ $review->created_at->format('Y年m月d日') }}</small>
 								</div>
 								<p class="review-card__score mb-2">{{ str_repeat('★', $review->score) }}</p>
 								<p class="review-card__content mb-2">{{ $review->content }}</p>
 								<p class="review-card__author text-end text-muted mb-0">投稿者：{{ $review->user->name }}</p>
+								<div class="review-card__button">
+									<button type="submit" class="button button--base">編集</button>
+									<button type="submit" class="button button--danger">削除</button>
+								</div>
 							</div>
 						@endforeach
 					</div>

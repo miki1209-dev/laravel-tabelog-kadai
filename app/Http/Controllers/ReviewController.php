@@ -41,13 +41,35 @@ class ReviewController extends Controller
 		}
 	}
 
-	public function update()
+	public function update(Request $request, Review $review)
 	{
-		// レビュー内容を更新
+		// $user = Auth::user();
+		$request->validate([
+			'title' => 'required|max:20',
+			'content' => 'required',
+			'score' => 'required|integer|min:1|max:5'
+		]);
+
+		try {
+			$review->update([
+				'title' => $request->input('title'),
+				'content' => $request->input('content'),
+				'score' => $request->input('score'),
+			]);
+
+			return redirect()->route('shops.show', $review->shop_id);
+		} catch (QueryException $e) {
+			Log::error('Database Error' . $e->getMessage());
+			return back()->withErrors(['database_error' => 'データベースへの登録が失敗しました。時間をおいて再度試してみてください'])->withInput()->with('modal_open', 'editReviewModal');;
+		} catch (Exception $e) {
+			Log::error('General Error' . $e->getMessage());
+			return back()->withErrors(['general_error' => '予期せぬエラーが発生しました'])->withInput()->with('modal_open', 'editReviewModal');;
+		}
 	}
 
-	public function destroy()
+	public function destroy(Review $review)
 	{
-		// レビュー内容を削除
+		$review->delete();
+		return redirect()->route('shops.show', $review->shop_id);
 	}
 }

@@ -20,4 +20,15 @@
 			background-color: v.$dark-color;
 		}
 	}
+
+	&--sm {
+    padding: 0.25rem 0.5rem;
+    font-size: 0.85rem;
+  }
+
+  &--lg {
+    padding: 0.75rem 1.5rem;
+    font-size: 1.25rem;
+  }
 }
+

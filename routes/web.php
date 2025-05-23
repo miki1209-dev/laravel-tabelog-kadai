@@ -43,7 +43,11 @@ Route::middleware(['auth', 'verified'])->group(function () {
 		Route::delete('shops/{shop}/favorite', 'destroy')->name('favorite.destroy');
 	});
 
-	Route::post('/reviews', [ReviewController::class, 'store'])->name('reviews.store');
+	Route::controller(ReviewController::class)->group(function () {
+		Route::post('/reviews', 'store')->name('reviews.store');
+		Route::put('/reviews/{review}', 'update')->name('reviews.update');
+		Route::delete('/reviews/{review}', 'destroy')->name('reviews.destroy');
+	});
 });
 
 Route::get('/dashboard', function () {

@@ -63,7 +63,7 @@
 			</div>
 
 			<div class="review-section row">
-				<div class="review-form col-md-4 pe-0">
+				<div class="review-form col-md-4">
 					<form action="{{ route('reviews.store') }}" method="POST" class="review-form__form"
 						onkeydown="return event.key !== 'Enter' || event.target.tagName === 'TEXTAREA';">
 						@csrf
@@ -79,11 +79,23 @@
 						</div>
 						<div class="review-form__group mb-3">
 							<label class="review-form__label fw-bold mb-2">タイトル</label>
-							<input type="text" name="title" class="review-form__input form-control shadow-sm">
+							<input type="text" name="title"
+								class="review-form__input form-control shadow-sm @error('title') is-invalid @enderror">
+							@error('title')
+								<span class="invalid-feedback">
+									<strong>{{ $message }}</strong>
+								</span>
+							@enderror
 						</div>
 						<div class="review-form__group mb-5">
 							<label class="review-form__label fw-bold mb-2">レビュー内容</label>
-							<textarea name="content" class="review-form__textarea form-control shadow-sm" rows="7"></textarea>
+							<textarea name="content" class="review-form__textarea form-control shadow-sm @error('content') is-invalid @enderror"
+							 rows="7"></textarea>
+							@error('content')
+								<span class="invalid-feedback">
+									<strong>{{ $message }}</strong>
+								</span>
+							@enderror
 						</div>
 						<input type="hidden" name="shop_id" value="{{ $shop->id }}">
 						<button type="submit" class="review-form__submit button button--base w-100 shadow-sm">レビューを投稿</button>
@@ -100,15 +112,80 @@
 								<p class="review-card__score mb-2">{{ str_repeat('★', $review->score) }}</p>
 								<p class="review-card__content mb-2">{{ $review->content }}</p>
 								<p class="review-card__author text-end text-muted mb-0">投稿者：{{ $review->user->name }}</p>
-								<div class="review-card__button">
-									<button type="submit" class="button button--base">編集</button>
-									<button type="submit" class="button button--danger">削除</button>
+								<div class="review-card__actions">
+									<button type="button" class="button button--sm button--base me-2" data-bs-toggle="modal"
+										data-bs-target="#editReviewModal" data-id="{{ $review->id }}" data-title="{{ $review->title }}"
+										data-content="{{ $review->content }}" data-score="{{ $review->score }}"
+										data-action="{{ route('reviews.update', $review->id) }}">編集</button>
+									<form action="{{ route('reviews.destroy', $review->id) }}" method="POST">
+										@csrf
+										@method('DELETE')
+										<button type="submit" class="button button--sm button--danger">削除</button>
+									</form>
 								</div>
 							</div>
 						@endforeach
 					</div>
 					<div class="review-pagination text-center mt-4">
 						{{ $reviews->links() }}
+					</div>
+
+					<div class="modal fade review-form" id="editReviewModal" tabindex="-1" aria-hidden="true">
+						<div class="modal-dialog modal-xl">
+							<div class="modal-content">
+								<div class="modal-header">
+									<h5 class="modal-title fw-bold" id="exampleModalLabel">カスタマーレビュー更新</h5>
+									<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+								</div>
+								<div class="modal-body">
+									<form method="POST" id="edit-review-form">
+										@csrf
+										@method('PUT')
+										<input type="hidden" name="id" id="edit-review-id">
+
+										<div class="mb-3">
+											<label for="edit-review-title" class="col-form-label review-form__label fw-bold">評価</label>
+											<select id="edit-review-score" name="score"
+												class="review-form__select form-control form-select shadow-sm">
+												<option value="5">★★★★★</option>
+												<option value="4">★★★★</option>
+												<option value="3">★★★</option>
+												<option value="2">★★</option>
+												<option value="1">★</option>
+											</select>
+										</div>
+
+										<div class="mb-3">
+											<label for="edit-review-title" class="col-form-label review-form__label fw-bold">タイトル</label>
+											<input type="text" name="title" class="form-control @error('title') is-invalid @enderror"
+												id="edit-review-title" value="{{ old('title') }}">
+											@error('title')
+												<span class="invalid-feedback">
+													<strong>{{ $message }}</strong>
+												</span>
+											@enderror
+										</div>
+										<div class="mb-3">
+											<label for="edit-review-content" class="col-form-label review-form__label fw-bold">内容</label>
+											<textarea name="content" class="form-control @error('content') is-invalid @enderror" id="edit-review-content"
+											 rows="7">{{ old('content') }}</textarea>
+											@error('content')
+												<span class="invalid-feedback">
+													<strong>{{ $message }}</strong>
+												</span>
+											@enderror
+										</div>
+
+										<input type="hidden" name="shop_id" value="{{ $shop->id }}">
+
+										<div class="modal-footer">
+											<button type="button" class="button button--danger" data-bs-dismiss="modal">閉じる</button>
+											<button type="submit" class="button button--base">更新</button>
+										</div>
+									</form>
+								</div>
+							</div>
+						</div>
 					</div>
 				</div>
 			</div>

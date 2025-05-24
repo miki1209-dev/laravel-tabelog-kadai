@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Database\QueryException;
 use Exception;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Validator;
 
 
 class ReviewController extends Controller
@@ -43,12 +44,15 @@ class ReviewController extends Controller
 
 	public function update(Request $request, Review $review)
 	{
-		// $user = Auth::user();
-		$request->validate([
+		$validator = Validator::make($request->all(), [
 			'title' => 'required|max:20',
 			'content' => 'required',
 			'score' => 'required|integer|min:1|max:5'
 		]);
+
+		if ($validator->fails()) {
+			return back()->withErrors($validator, 'editReview')->withInput()->with('modal_open', 'editReviewModal')->with('action', route('reviews.update', $review->id));
+		}
 
 		try {
 			$review->update([
@@ -60,10 +64,10 @@ class ReviewController extends Controller
 			return redirect()->route('shops.show', $review->shop_id);
 		} catch (QueryException $e) {
 			Log::error('Database Error' . $e->getMessage());
-			return back()->withErrors(['database_error' => 'データベースへの登録が失敗しました。時間をおいて再度試してみてください'])->withInput()->with('modal_open', 'editReviewModal');;
+			return back()->withErrors(['database_error' => 'データベースへの登録が失敗しました。時間をおいて再度試してみてください'])->withInput()->with('modal_open', 'editReviewModal');
 		} catch (Exception $e) {
 			Log::error('General Error' . $e->getMessage());
-			return back()->withErrors(['general_error' => '予期せぬエラーが発生しました'])->withInput()->with('modal_open', 'editReviewModal');;
+			return back()->withErrors(['general_error' => '予期せぬエラーが発生しました'])->withInput()->with('modal_open', 'editReviewModal');
 		}
 	}
 

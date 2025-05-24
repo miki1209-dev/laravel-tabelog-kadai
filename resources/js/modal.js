@@ -4,6 +4,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
 	editModal.addEventListener('show.bs.modal', function(event) {
 		const button = event.relatedTarget;
+		if (!button) return;
 		const id = button.getAttribute('data-id');
 		const title = button.getAttribute('data-title');
 		const content = button.getAttribute('data-content');
@@ -16,4 +17,9 @@ document.addEventListener('DOMContentLoaded', function() {
 		document.getElementById('edit-review-score').value = score;
 		document.getElementById('edit-review-form').setAttribute('action', action);
 	})
+
+	if (editModal?.dataset.shouldOpen === 'true') {
+		const modalInstance = new bootstrap.Modal(editModal);
+		modalInstance.show();
+	}
 });

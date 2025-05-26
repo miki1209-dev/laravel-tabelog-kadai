@@ -12,6 +12,8 @@
 			<h3 class="fw-bold mb-4">{{ $keyword }}の検索結果は{{ number_format($shop_count) }}件です</h3>
 		@elseif($category)
 			<h3 class="fw-bold mb-4">{{ $category }}の検索結果は{{ number_format($shop_count) }}件です</h3>
+		@elseif($keyword === null && $category === null)
+			<h3 class="fw-bold mb-4">{{ number_format($shop_count) }}件の店舗が見つかりました</h3>
 		@endif
 
 		<div class="row gx-5">

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Shop;
 use App\Models\Category;
+use Illuminate\Support\Carbon;
 
 class ShopController extends Controller
 {
@@ -40,6 +41,9 @@ class ShopController extends Controller
 	public function show(Shop $shop)
 	{
 		$reviews = $shop->reviews()->latest()->paginate(5);
-		return view('shops/show', compact('shop', 'reviews'));
+		$tomorrow = Carbon::tomorrow()->format('Y-m-d');
+		$startHour = Carbon::parse($shop->opening_time)->format('H');
+		$endHour = Carbon::parse($shop->closing_time)->format('H');
+		return view('shops/show', compact('shop', 'reviews', 'startHour', 'endHour', 'tomorrow'));
 	}
 }

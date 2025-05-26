@@ -6,6 +6,7 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\ShopController;
 use App\Http\Controllers\FavoriteController;
 use App\Http\Controllers\ReviewController;
+use App\Http\Controllers\ReservationController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -47,6 +48,10 @@ Route::middleware(['auth', 'verified'])->group(function () {
 		Route::post('/reviews', 'store')->name('reviews.store');
 		Route::put('/reviews/{review}', 'update')->name('reviews.update');
 		Route::delete('/reviews/{review}', 'destroy')->name('reviews.destroy');
+	});
+
+	Route::controller(ReservationController::class)->group(function () {
+		Route::post('/reservations', 'store')->name('reservations.store');
 	});
 });
 

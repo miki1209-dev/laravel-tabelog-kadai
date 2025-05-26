@@ -129,6 +129,9 @@ return [
 		'phone' => '電話番号',
 		'title' => 'タイトル',
 		'content' => 'レビュー内容',
+		'visit_date' => '来店日',
+		'visit_time' => '来店時間',
+		'number_of_people' => '来店人数',
 	],
 
 ];

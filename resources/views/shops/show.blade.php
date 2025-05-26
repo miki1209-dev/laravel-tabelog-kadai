@@ -9,12 +9,35 @@
 			</ol>
 		</nav>
 		<div class="container px-0">
-			<div class="row">
+			<div class="row align-items-center">
 				<div class="col-md-5">
+
 					<img src="{{ asset('uploads/' . $shop->file_name) }}" class="img-fluid rounded shadow-sm" alt="店舗画像">
 				</div>
 				<div class="col-md-7">
-					<h2 class="fw-bold mb-4">{{ $shop->name }}</h2>
+					<div class="d-flex align-items-center mb-3">
+						<h2 class="fw-bold me-3 mb-0">{{ $shop->name }}</h2>
+						<div class="row align-items-end">
+							<div class="col-md-6">
+								@if (Auth::user()->favoriteShops->contains($shop->id))
+									<form action="{{ route('favorite.destroy', $shop->id) }}" method="POST">
+										@csrf
+										@method('DELETE')
+										<button type="submit" class="button button--base button--sm">
+											<i class="fas fa-heart-broken"></i>
+										</button>
+									</form>
+								@else
+									<form action="{{ route('favorite.store', $shop->id) }}" method="POST">
+										@csrf
+										<button type="submit" class="button button--base button--sm">
+											<i class="far fa-heart"></i>
+										</button>
+									</form>
+								@endif
+							</div>
+						</div>
+					</div>
 					<ul class="list-unstyled">
 						<li class="mb-2">
 							<i class="fas fa-map-marker-alt me-2 text-secondary"></i>
@@ -32,26 +55,84 @@
 							<i class="fas fa-info-circle me-2 text-secondary"></i>
 							<strong>説明：</strong>{{ $shop->description }}
 						</li>
+						<li class="mb-2">
+							<i class="fas fa-calendar-plus me-2 text-secondary"></i>
+							<strong>予約は下記のフォームから</strong>
+						</li>
 					</ul>
-					<div class="mt-4">
-						@if (Auth::user()->favoriteShops->contains($shop->id))
-							<form action="{{ route('favorite.destroy', $shop->id) }}" method="POST">
+					<div class="row align-items-center">
+						{{-- // 予約関連ここから --}}
+
+						<div class="col-md-12">
+							<form action="{{ route('reservations.store') }}" method="POST">
 								@csrf
-								@method('DELETE')
-								<button type="submit" class="button button--base w-100">
-									<i class="fas fa-heart-broken"></i>
-									お気に入り解除
-								</button>
+								<input type="hidden" name="shop_id" value="{{ $shop->id }}">
+								<div class="row g-3 align-items-end @if (
+									$errors->reservation->has('visit_date') ||
+										$errors->reservation->has('visit_time') ||
+										$errors->reservation->has('number_of_people')) has-validation-error @endif">
+									<div class="col-md-3 mt-2">
+										<label class="form-label">来店日</label>
+										<input type="date" name="visit_date"
+											class="form-control @error('visit_date', 'reservation') is-invalid @enderror" min="{{ $tomorrow }}">
+										@error('visit_date', 'reservation')
+											<span class="invalid-feedback">
+												<strong>{{ $message }}</strong>
+											</span>
+										@enderror
+									</div>
+
+									<div class="col-md-3 mt-2 @if (
+										$errors->reservation->has('visit_date') ||
+											$errors->reservation->has('visit_time') ||
+											$errors->reservation->has('number_of_people')) has-validation-error @endif">
+										<label class="form-label">来店時間</label>
+										<select name="visit_time" class="form-control @error('visit_time', 'reservation') is-invalid @enderror">
+											<option value="">選択してください</option>
+											@for ($i = $startHour; $i < $endHour; $i++)
+												<option value="{{ sprintf('%02d:00', $i) }}">{{ sprintf('%02d:00', $i) }}〜{{ sprintf('%02d:00', $i + 1) }}
+												</option>
+											@endfor
+										</select>
+										@error('visit_time', 'reservation')
+											<span class="invalid-feedback">
+												<strong>{{ $message }}</strong>
+											</span>
+										@enderror
+									</div>
+
+									<div class="col-md-3 mt-2 @if (
+										$errors->reservation->has('visit_date') ||
+											$errors->reservation->has('visit_time') ||
+											$errors->reservation->has('number_of_people')) has-validation-error @endif">
+										<label class="form-label">来店人数</label>
+										<select name="number_of_people"
+											class="form-control @error('number_of_people', 'reservation') is-invalid @enderror">
+											<option value="">選択してください</option>
+											@for ($i = 1; $i <= 15; $i++)
+												<option value="{{ $i }}">{{ $i }}人</option>
+											@endfor
+										</select>
+										@error('number_of_people', 'reservation')
+											<span class="invalid-feedback">
+												<strong>{{ $message }}</strong>
+											</span>
+										@enderror
+									</div>
+
+									<div class="col-md-3 mt-2 @if (
+										$errors->reservation->has('visit_date') ||
+											$errors->reservation->has('visit_time') ||
+											$errors->reservation->has('number_of_people')) has-validation-error @endif">
+										<button type="submit" class="button button--base">
+											<i class="fas fa-calendar-plus"></i>
+											予約
+										</button>
+									</div>
+								</div>
 							</form>
-						@else
-							<form action="{{ route('favorite.store', $shop->id) }}" method="POST">
-								@csrf
-								<button type="submit" class="button button--base w-100">
-									<i class="far fa-heart"></i>
-									お気に入り登録
-								</button>
-							</form>
-						@endif
+						</div>
+						{{-- // 予約関連ここまで --}}
 					</div>
 				</div>
 			</div>
@@ -163,8 +244,8 @@
 										<div class="mb-3">
 											<label for="edit-review-title" class="col-form-label review-form__label fw-bold">タイトル</label>
 											<input type="text" name="title"
-												class="form-control @error('title', 'editReview') is-invalid @enderror" id="edit-review-title"
-												value="{{ old('title') }}">
+												class="form-control review-form__input form-control shadow-sm  @error('title', 'editReview') is-invalid @enderror"
+												id="edit-review-title" value="{{ old('title') }}">
 											@error('title', 'editReview')
 												<span class="invalid-feedback">
 													<strong>{{ $message }}</strong>
@@ -174,7 +255,8 @@
 										<div class="mb-3">
 											<label for="edit-review-content" class="col-form-label review-form__label fw-bold">内容</label>
 											<textarea name="content" id="edit-review-content"
-											 class="form-control @error('content', 'editReview') is-invalid @enderror" rows="7">{{ old('content') }}</textarea>
+											 class="form-control review-form__textarea form-control shadow-sm  @error('content', 'editReview') is-invalid @enderror"
+											 rows="7">{{ old('content') }}</textarea>
 											@error('content', 'editReview')
 												<span class="invalid-feedback">
 													<strong>{{ $message }}</strong>

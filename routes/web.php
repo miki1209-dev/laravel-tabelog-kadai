@@ -32,6 +32,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
 		Route::get('users/mypage', 'mypage')->name('mypage');
 		Route::get('users/mypage/edit', 'edit')->name('mypage.edit');
 		Route::put('users/mypage', 'update')->name('mypage.update');
+		Route::get('users/mypage/reservations', 'reservations')->name('mypage.reservations');
 	});
 
 	Route::controller(ShopController::class)->group(function () {
@@ -52,6 +53,8 @@ Route::middleware(['auth', 'verified'])->group(function () {
 
 	Route::controller(ReservationController::class)->group(function () {
 		Route::post('/reservations', 'store')->name('reservations.store');
+		Route::post('/reservations/confirm', 'confirm')->name('reservations.confirm');
+		Route::get('/reservations/complete', 'complete')->name('reservations.complete');
 	});
 });
 

@@ -47,7 +47,7 @@
 					</div>
 					<div class="mypage-menu">
 						<div class="mypage-menu__item">
-							<a href="#" class="mypage-menu__link">
+							<a href="{{ route('mypage.reservations') }}" class="mypage-menu__link">
 								<i class="fas fa-calendar-check mypage-menu__icon"></i>
 								<div class="mypage-menu__text">予約一覧</div>
 								<i class="fas fa-chevron-right mypage-menu__chevron"></i>

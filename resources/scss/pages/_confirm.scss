@@ -1,0 +1,28 @@
+@use '@/scss/base/variables' as v;
+
+.reservation-table {
+	background-color: v.$primary-color;
+	border: 1px solid v.$border-primary;
+	border-radius: 1rem;
+	overflow: hidden;
+
+	th {
+		background-color: v.$dark-color;
+		color: white;
+		font-weight: 600;
+		padding: 1rem;
+		border-bottom: 1px solid v.$border-primary;
+	}
+
+	td {
+		color: v.$dark-color;
+		padding: 1.2rem;
+		background-color: white;
+		border-top: 1px solid v.$border-primary;
+		font-size: 1.1rem;
+	}
+
+	tr:last-child td {
+		border-bottom: none;
+	}
+}

@@ -64,7 +64,7 @@
 						{{-- // 予約関連ここから --}}
 
 						<div class="col-md-12">
-							<form action="{{ route('reservations.store') }}" method="POST">
+							<form action="{{ route('reservations.confirm') }}" method="POST">
 								@csrf
 								<input type="hidden" name="shop_id" value="{{ $shop->id }}">
 								<div class="row g-3 align-items-end @if (

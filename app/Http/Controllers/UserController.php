@@ -9,6 +9,7 @@ use Illuminate\Validation\Rule;
 use Illuminate\Database\QueryException;
 use Exception;
 use Illuminate\Support\Facades\Log;
+use App\Models\Reservation;
 
 class UserController extends Controller
 {
@@ -83,5 +84,10 @@ class UserController extends Controller
 	public function destroy()
 	{
 		//退会処理
+	}
+
+	public function reservations()
+	{
+		return view('users.reservations');
 	}
 }

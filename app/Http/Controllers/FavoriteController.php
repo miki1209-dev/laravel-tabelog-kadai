@@ -12,7 +12,7 @@ class FavoriteController extends Controller
 	public function store(Shop $shop)
 	{
 		$user = Auth::user();
-		$user->favoriteShops()->attach($shop->id);
+		$user->favorite_shops()->attach($shop->id);
 
 		return back();
 	}
@@ -20,7 +20,7 @@ class FavoriteController extends Controller
 	public function destroy(Shop $shop)
 	{
 		$user = Auth::user();
-		$user->favoriteShops()->detach($shop->id);
+		$user->favorite_shops()->detach($shop->id);
 
 		return back();
 	}

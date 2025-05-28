@@ -2,7 +2,7 @@
 @section('content')
 	<div class="container pt-5 pb-5">
 		<div class="row justify-content-center">
-			<div class="col-lg-7">
+			<div class="col-lg-8">
 
 				<div class="mb-4">
 					<h3 class="fw-bold">マイページ</h3>
@@ -56,7 +56,7 @@
 					</div>
 					<div class="mypage-menu">
 						<div class="mypage-menu__item">
-							<a href="#" class="mypage-menu__link">
+							<a href="{{ route('mypage.favorites') }}" class="mypage-menu__link">
 								<i class="fas fa-heart mypage-menu__icon"></i>
 								<div class="mypage-menu__text">お気に入り</div>
 								<i class="fas fa-chevron-right mypage-menu__chevron"></i>

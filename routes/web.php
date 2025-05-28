@@ -33,6 +33,8 @@ Route::middleware(['auth', 'verified'])->group(function () {
 		Route::get('users/mypage/edit', 'edit')->name('mypage.edit');
 		Route::put('users/mypage', 'update')->name('mypage.update');
 		Route::get('users/mypage/reservations', 'reservations')->name('mypage.reservations');
+		Route::patch('users/mypage/reservations/{reservation}', 'cancelReservation')->name('mypage.reservations.cancel');
+		Route::get('users/mypage/favorites', 'favorites')->name('mypage.favorites');
 	});
 
 	Route::controller(ShopController::class)->group(function () {
@@ -57,7 +59,3 @@ Route::middleware(['auth', 'verified'])->group(function () {
 		Route::get('/reservations/complete', 'complete')->name('reservations.complete');
 	});
 });
-
-Route::get('/dashboard', function () {
-	return view('dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');

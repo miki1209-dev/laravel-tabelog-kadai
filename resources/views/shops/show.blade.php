@@ -19,7 +19,7 @@
 						<h2 class="fw-bold me-3 mb-0">{{ $shop->name }}</h2>
 						<div class="row align-items-end">
 							<div class="col-md-6">
-								@if (Auth::user()->favoriteShops->contains($shop->id))
+								@if (Auth::user()->favorite_shops->contains($shop->id))
 									<form action="{{ route('favorite.destroy', $shop->id) }}" method="POST">
 										@csrf
 										@method('DELETE')

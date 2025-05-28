@@ -7,7 +7,7 @@
 
 			<div class="d-flex justify-content-center gap-3">
 				<a href="{{ route('top') }}" class="button button--base w-25">トップページへ</a>
-				<a href="#" class="button button--base w-25">予約一覧へ</a>
+				<a href="{{ route('mypage.reservations') }}" class="button button--base w-25">予約一覧へ</a>
 			</div>
 		</div>
 	</div>

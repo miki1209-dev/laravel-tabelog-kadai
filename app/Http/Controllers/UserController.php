@@ -10,6 +10,7 @@ use Illuminate\Database\QueryException;
 use Exception;
 use Illuminate\Support\Facades\Log;
 use App\Models\Reservation;
+use Illuminate\Support\Carbon;
 
 class UserController extends Controller
 {
@@ -64,7 +65,7 @@ class UserController extends Controller
 			$user->phone = $request->input('phone') ? $request->input('phone') : $user->phone;
 			$user->save();
 
-			return redirect(route('mypage.edit'))->with('flash_message', '会員情報を更新しました。');
+			return redirect()->route('mypage.edit');
 		} catch (QueryException $e) {
 			// DBへの登録でエラーが出た場合（制約違反とか）、ログの出力先は（storage/logs/laravel.log）で「Database Error」確認してください
 			Log::error('Database Error' . $e->getMessage());
@@ -88,6 +89,50 @@ class UserController extends Controller
 
 	public function reservations()
 	{
-		return view('users.reservations');
+		$now = Carbon::now();
+		$reservations = Reservation::with('shop')->where('user_id', Auth::user()->id)->where('status', '!=', 'canceled')
+			->where(function ($q) use ($now) {
+				$q->where('visit_date', '>', $now->toDateString())
+					->orWhere(function ($query) use ($now) {
+						$query->where('visit_date', $now->toDateString())
+							->where('visit_time', '>=', $now->format('H:i:s'));
+					});
+			})->orderBy('created_at', 'asc')->paginate(10);
+		foreach ($reservations as $reservation) {
+			$reservation->visit_date_formatted = Carbon::parse($reservation->visit_date)->format('Y年m月d日');
+			$reservation->visit_time_start = Carbon::parse($reservation->visit_time)->format('G:i');
+			$reservation->visit_time_end = Carbon::parse($reservation->visit_time)->addHours()->format('G:i');
+		}
+		return view('users.reservations', compact('reservations'));
+	}
+
+	public function cancelReservation(Reservation $reservation)
+	{
+		if ($reservation->user_id !== Auth::id()) {
+			return back()->with('error', '権限のない予約です');
+		}
+
+		if ($reservation->status === 'canceled') {
+			return back()->with('error', 'すでにキャンセル済みの予約です。');
+		}
+
+		try {
+			$reservation->status = 'canceled';
+			$reservation->save();
+			return redirect()->route('mypage.reservations');
+		} catch (QueryException $e) {
+			Log::error('Database Error' . $e->getMessage());
+			return back()->withErrors(['db_error' => 'データベースへの登録が失敗しました。時間をおいて再度試してみてください'])->withInput();
+		} catch (Exception $e) {
+			Log::error('General Error' . $e->getMessage());
+			return back()->withErrors(['general_error' => '予期せぬエラーが発生しました'])->withInput();
+		}
+	}
+
+	public function favorites()
+	{
+		$user = Auth::user();
+		$favorites_shops = $user->favorite_shops()->paginate(5);
+		return view('users.favorites', compact('favorites_shops'));
 	}
 }

@@ -39,4 +39,16 @@ class Shop extends Model
 	{
 		return $this->hasMany(Review::class);
 	}
+
+	public function getAverageScoreAttribute()
+	{
+		$avg = $this->reviews->avg('score');
+		return $avg ? round($avg, 1) : null;
+	}
+
+	public function getRoundedScoreAttribute()
+	{
+		$avg = $this->reviews->avg('score');
+		return $avg ? round($avg * 2) / 2 : null;
+	}
 }

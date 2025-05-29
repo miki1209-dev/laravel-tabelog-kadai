@@ -54,7 +54,7 @@ class UserController extends Controller
 			'email' => ['required', 'string', 'email', 'max:255', Rule::unique('users')->ignore($user->id)],
 			'postal_code' => ['nullable', 'regex:/^\d{7}$|^\d{3}-\d{4}$/'],
 			'address' => ['nullable', 'string', 'max:255'],
-			'phone' => ['nullable', 'regex:/^(0\d{9,10}|0\d{1,4}-\d{1,4}-\d{4})$/', 'max:20'],
+			'phone' => ['nullable', 'regex:/^(0\d{9,10}|0\d{1,4}-\d{1,4}-\d{4})$/'],
 		]);
 
 		try {

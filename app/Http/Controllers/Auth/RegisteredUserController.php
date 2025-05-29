@@ -37,9 +37,9 @@ class RegisteredUserController extends Controller
 			'name' => ['required', 'string', 'max:255'],
 			'email' => ['required', 'string', 'email', 'max:255', 'unique:' . User::class],
 			'password' => ['required', 'confirmed', Rules\Password::defaults()],
-			'postal_code' => ['nullable', 'string', 'max:10'],
+			'postal_code' => ['nullable', 'regex:/^\d{7}$|^\d{3}-\d{4}$/'],
 			'address' => ['nullable', 'string', 'max:255'],
-			'phone' => ['nullable', 'string', 'max:20'],
+			'phone' => ['nullable', 'regex:/^(0\d{9,10}|0\d{1,4}-\d{1,4}-\d{4})$/'],
 			'role' => ['required', 'in:free,premium'],
 		]);
 

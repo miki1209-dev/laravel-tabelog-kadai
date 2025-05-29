@@ -23,9 +23,9 @@
 					<img src="{{ asset('uploads/' . $shop->file_name) }}" class="img-fluid rounded shadow-sm" alt="店舗画像">
 				</div>
 				<div class="col-md-7">
-					<div class="d-flex align-items-center mb-3">
+					<div class="d-flex align-items-center mb-1">
 						<h2 class="fw-bold me-3 mb-0">{{ $shop->name }}</h2>
-						<div class="row align-items-end">
+						<div class="row align-items-end me-1">
 							<div class="col-md-6">
 								@if (Auth::user()->favorite_shops->contains($shop->id))
 									<form action="{{ route('favorite.destroy', $shop->id) }}" method="POST">
@@ -46,6 +46,15 @@
 							</div>
 						</div>
 					</div>
+					@if ($shop->rounded_score !== null)
+						<div class="d-flex align-items-center mb-2">
+							<div class="star-rating me-1" data-rate="{{ $shop->rounded_score }}"></div>
+							<small class="me-2">{{ $shop->average_score }}</small>
+							<small>({{ $reviewTotal }}件)</small>
+						</div>
+					@else
+						<div class="text-muted mb-2">レビューなし</div>
+					@endif
 					<ul class="list-unstyled">
 						<li class="mb-2">
 							<i class="fas fa-map-marker-alt me-2 text-secondary"></i>

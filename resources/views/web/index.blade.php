@@ -6,7 +6,7 @@
 			<p class="hero__subtitle">探す、見つける、食べる。名古屋飯の旅をはじめよう。</p>
 		</div>
 	</div>
-	<div class="pt-5 py-5 mb-5">
+	<div class="pt-4 py-4 mb-5">
 		<div class="container">
 			<div class="w-25">
 				<h3 class="fw-bold mb-3">キーワードで探す</h3>

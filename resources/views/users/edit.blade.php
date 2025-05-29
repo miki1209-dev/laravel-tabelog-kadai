@@ -28,7 +28,6 @@
 
 				<form action="{{ route('mypage.update') }}" method="POST" onkeydown="return event.key !== 'Enter';">
 					@csrf
-					{{-- PATCH --}}
 					@method('PUT')
 					<div class="mb-3">
 						<label for="name" class="form-label">名前<span
@@ -88,12 +87,10 @@
 				</form>
 				<hr class="mt-4">
 				<div class="d-flex justify-content-center">
-					<!-- トリガーボタン：モーダルを表示 -->
 					<button type="button" class="button button--base button--danger" data-bs-toggle="modal"
 						data-bs-target="#deleteUserConfirmModal">退会する</button>
 				</div>
 
-				<!-- モーダル本体 -->
 				<div class="modal fade" id="deleteUserConfirmModal" tabindex="-1" aria-labelledby="deleteUserConfirmModalLabel">
 					<div class="modal-dialog">
 						<div class="modal-content">

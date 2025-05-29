@@ -42,12 +42,13 @@ class ShopController extends Controller
 	public function show(Shop $shop, Request $request)
 	{
 		$reviews = $shop->reviews()->latest()->paginate(5);
+		$reviewTotal = $reviews->total();
 		$tomorrow = Carbon::tomorrow()->format('Y-m-d');
 		$startHour = Carbon::parse($shop->opening_time)->format('H');
 		$endHour = Carbon::parse($shop->closing_time)->format('H');
 
 		$queryParams = $request->only(['keyword', 'category']);
 
-		return view('shops/show', compact('shop', 'reviews', 'startHour', 'endHour', 'tomorrow', 'queryParams'));
+		return view('shops/show', compact('shop', 'reviews', 'startHour', 'endHour', 'tomorrow', 'queryParams', 'reviewTotal'));
 	}
 }

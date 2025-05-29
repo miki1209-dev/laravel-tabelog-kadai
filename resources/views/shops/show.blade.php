@@ -5,6 +5,7 @@
 			<ol class="breadcrumb">
 				<li class="breadcrumb-item"><a href="{{ route('top') }}">ホーム</a></li>
 				<li class="breadcrumb-item"><a href="{{ route('shops.index') }}">店舗一覧</a></li>
+				<li class="breadcrumb-item"><a href="{{ route('shops.index') }}">{{ $shop->name }}</a></li>
 				<li class="breadcrumb-item active" aria-current="page">店舗詳細</li>
 			</ol>
 		</nav>

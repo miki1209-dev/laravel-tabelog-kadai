@@ -97,7 +97,8 @@ class UserController extends Controller
 						$query->where('visit_date', $now->toDateString())
 							->where('visit_time', '>=', $now->format('H:i:s'));
 					});
-			})->orderBy('created_at', 'asc')->paginate(10);
+			})->orderBy('created_at', 'asc')->paginate(5);
+
 		foreach ($reservations as $reservation) {
 			$reservation->visit_date_formatted = Carbon::parse($reservation->visit_date)->format('Y年m月d日');
 			$reservation->visit_time_start = Carbon::parse($reservation->visit_time)->format('G:i');

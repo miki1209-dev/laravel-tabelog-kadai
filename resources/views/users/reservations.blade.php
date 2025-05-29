@@ -25,35 +25,46 @@
 
 				<hr class="mb-4">
 
-				<table class="table reservation-table align-middle text-center shadow-sm rounded overflow-hidden">
-					<thead class="table-header">
-						<tr>
-							<th scope="col">店舗名</th>
-							<th scope="col">来店日</th>
-							<th scope="col">来店時間</th>
-							<th scope="col">来店人数</th>
-							<th scope="col">操作</th>
-						</tr>
-					</thead>
-					<tbody>
-						@foreach ($reservations as $reservation)
-							<tr>
-								<td>{{ $reservation->shop->name }}</td>
-								<td>{{ $reservation->visit_date_formatted }}</td>
-								<td>{{ $reservation->visit_time_start }}〜{{ $reservation->visit_time_end }}</td>
-								<td>{{ $reservation->number_of_people }}人</td>
-								<td>
-									<form action="{{ route('mypage.reservations.cancel', $reservation->id) }}" method="POST"
-										onsubmit="return confirm('本当にキャンセルしますか？');">
-										@csrf
-										@method('PATCH')
-										<button type="submit" class="button button--sm button--danger">キャンセル</button>
-									</form>
-								</td>
-							</tr>
-						@endforeach
-					</tbody>
-				</table>
+				@if ($reservations->isEmpty())
+					<div class="row">
+						<p class="mb-0">お気に入りはまだ追加されていません。</p>
+					</div>
+				@else
+					@foreach ($reservations as $reservation)
+						<div class="row align-items-center mb-2">
+							<div class="col-md-4">
+								<a href="{{ route('shops.show', $reservation->shop_id) }}">
+									@if ($reservation->file_name !== '')
+										<img src="{{ asset('uploads/' . $reservation->shop->file_name) }}" class="img-thumbnail">
+									@else
+										<img src="{{ asset('img/dummy.png') }}" class="img-thumbnail">
+									@endif
+								</a>
+							</div>
+							<div class="col-md-6">
+								<h5 class="w-100">
+									<a href="{{ route('shops.show', $reservation->id) }}" class="link-dark ">店舗名：{{ $reservation->shop->name }}</a>
+								</h5>
+								<div>
+									<small>来店日：{{ $reservation->visit_date_formatted }}</small><br>
+									<small>来店時間：{{ $reservation->visit_time_start }}〜{{ $reservation->visit_time_end }}</small><br>
+									<small>来店人数：{{ $reservation->number_of_people }}人</small><br>
+									<small>電話番号：{{ $reservation->shop->phone_number }}</small><br>
+									<small>住所：{{ $reservation->shop->address }}</small>
+								</div>
+							</div>
+							<div class="col-md-2">
+								<form action="{{ route('mypage.reservations.cancel', $reservation->id) }}" method="POST"
+									onsubmit="return confirm('本当にキャンセルしますか？');">
+									@csrf
+									@method('PATCH')
+									<button type="submit" class="button button--base button--danger">キャンセル</button>
+								</form>
+							</div>
+						</div>
+						<hr class="my-4">
+					@endforeach
+				@endif
 
 				{{ $reservations->links() }}
 

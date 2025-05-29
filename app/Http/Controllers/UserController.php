@@ -82,9 +82,12 @@ class UserController extends Controller
 	 *
 	 * @return \Illuminate\Http\Response
 	 */
-	public function destroy()
+	public function destroy(Request $request)
 	{
-		//退会処理
+		/** @var \App\Models\User $user */
+		$user = Auth::user();
+		$user->delete();
+		return redirect()->route('top');
 	}
 
 	public function reservations()

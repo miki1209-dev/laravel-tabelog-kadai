@@ -86,6 +86,36 @@
 						<button type="submit" class="button button--base w-50">更新</button>
 					</div>
 				</form>
+				<hr class="mt-4">
+				<div class="d-flex justify-content-center">
+					<!-- トリガーボタン：モーダルを表示 -->
+					<button type="button" class="button button--base button--danger" data-bs-toggle="modal"
+						data-bs-target="#deleteUserConfirmModal">退会する</button>
+				</div>
+
+				<!-- モーダル本体 -->
+				<div class="modal fade" id="deleteUserConfirmModal" tabindex="-1" aria-labelledby="deleteUserConfirmModalLabel">
+					<div class="modal-dialog">
+						<div class="modal-content">
+							<div class="modal-header">
+								<h5 class="modal-title fw-bold" id="deleteUserConfirmModalLabel">本当に退会しますか？</h5>
+								<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="閉じる"></button>
+							</div>
+							<div class="modal-body">
+								<p class="text-center mb-0">一度退会するとデータはすべて削除され、<br>復旧はできません。</p>
+							</div>
+							<form action="{{ route('mypage.destroy') }}" method="POST">
+								@csrf
+								@method('DELETE')
+								<div class="modal-footer">
+									<button type="button" class="btn btn-link link-dark text-decoration-none"
+										data-bs-dismiss="modal">キャンセル</button>
+									<button type="submit" class="button button--base button--danger">退会する</button>
+								</div>
+							</form>
+						</div>
+					</div>
+				</div>
 			</div>
 		</div>
 	</div>

@@ -35,6 +35,7 @@ class UserController extends AdminController
 		$grid->column('role', '役割');
 		$grid->column('created_at', '作成日')->sortable();
 		$grid->column('updated_at', '最終更新日')->sortable();
+		$grid->column('deleted_at', '削除日')->sortable();
 		$grid->filter(function ($filter) {
 			$filter->like('name', '名前');
 			$filter->like('email', 'メールアドレス');
@@ -43,14 +44,20 @@ class UserController extends AdminController
 			$filter->like('phone', '電話番号');
 			$filter->equal('role', '役割')->select(['free' => '無料会員', 'premium' => '有料会員']);
 			$filter->between('created_at', '作成日')->datetime();
-			$filter->between('updated_at', '最終更新日')->datetime();
+			$filter->scope('trashed', '削除済みユーザー')->onlyTrashed();
 		});
 
 		$grid->disableCreateButton();
 		$grid->disableExport();
-		$grid->actions(function ($actions) {
+		$grid->actions(function ($actions) use ($grid) {
+			$scope = request('_scope_');
+			if ($scope !== 'trashed') {
+				$actions->disableEdit();
+			}
+			if ($scope === 'trashed') {
+				$actions->disableView();
+			}
 			$actions->disableDelete();
-			$actions->disableEdit();
 		});
 
 		return $grid;
@@ -75,7 +82,22 @@ class UserController extends AdminController
 		$show->field('role', '役割');
 		$show->field('created_at', '作成日');
 		$show->field('updated_at', '最終更新日');
+		$show->field('deleted_at', '削除日');
 
 		return $show;
+	}
+
+	/**
+	 * Make a form builder.
+	 *
+	 * @return Form
+	 */
+	protected function form()
+	{
+		$form = new Form(new User());
+
+		$form->datetime('deleted_at', __('Deleted at'))->default(NULL);
+
+		return $form;
 	}
 }

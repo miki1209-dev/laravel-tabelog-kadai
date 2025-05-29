@@ -27,7 +27,7 @@
 
 				@if ($reservations->isEmpty())
 					<div class="row">
-						<p class="mb-0">お気に入りはまだ追加されていません。</p>
+						<p class="mb-0">ご予約はされていません。</p>
 					</div>
 				@else
 					@foreach ($reservations as $reservation)

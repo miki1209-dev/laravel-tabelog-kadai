@@ -26,7 +26,7 @@
 
 				<hr class="mb-4">
 
-				<form action="{{ route('mypage.update') }}" method="POST">
+				<form action="{{ route('mypage.update') }}" method="POST" onkeydown="return event.key !== 'Enter';">
 					@csrf
 					{{-- PATCH --}}
 					@method('PUT')

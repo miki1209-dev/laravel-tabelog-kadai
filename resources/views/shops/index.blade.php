@@ -48,6 +48,10 @@
 						</div>
 					</div>
 				@endforeach
+
+				<div class="mb-4">
+					{{ $shops->links() }}
+				</div>
 			</div>
 
 			<div class="col-lg-4 mt-lg-0 mt-5">

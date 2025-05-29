@@ -52,17 +52,17 @@ class UserController extends Controller
 		$request->validate([
 			'name' => ['required', 'string', 'max:255'],
 			'email' => ['required', 'string', 'email', 'max:255', Rule::unique('users')->ignore($user->id)],
-			'postal_code' => ['nullable', 'string', 'max:10'],
+			'postal_code' => ['nullable', 'regex:/^\d{7}$|^\d{3}-\d{4}$/'],
 			'address' => ['nullable', 'string', 'max:255'],
-			'phone' => ['nullable', 'string', 'max:20'],
+			'phone' => ['nullable', 'regex:/^(0\d{9,10}|0\d{1,4}-\d{1,4}-\d{4})$/', 'max:20'],
 		]);
 
 		try {
 			$user->name = $request->input('name') ? $request->input('name') : $user->name;
 			$user->email = $request->input('email') ? $request->input('email') : $user->email;
-			$user->postal_code = $request->input('postal_code') ? $request->input('postal_code') : $user->postal_code;
-			$user->address = $request->input('address') ? $request->input('address') : $user->address;
-			$user->phone = $request->input('phone') ? $request->input('phone') : $user->phone;
+			$user->postal_code = $request->input('postal_code') ? $request->input('postal_code') : null;
+			$user->address = $request->input('address') ? $request->input('address') : null;
+			$user->phone = $request->input('phone') ? $request->input('phone') : null;
 			$user->save();
 
 			return redirect()->route('mypage.edit');

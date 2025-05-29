@@ -29,9 +29,8 @@ class ShopController extends Controller
 				$q->where('name', $category);
 			});
 		}
-
-		$shops = $query->with('categories')->get();
-		$shop_count = $shops->count();
+		$shops = $query->with('categories')->paginate(5)->withQueryString();
+		$shop_count = $shops->total();
 
 		$categories = Category::all();
 

@@ -38,8 +38,8 @@
 								</h5>
 								<div>
 									<small>住所：{{ $favorite_shop->address }}</small><br>
-									<small>電話番号：{{ $favorite_shop->phone_number }}</small><br>
-									<small>営業時間：{{ $favorite_shop->opening_time }} ~ {{ $favorite_shop->closing_time }}</small>
+									<small>電話番号：{{ $favorite_shop->formatted_phone_number }}</small><br>
+									<small>営業時間：{{ $favorite_shop->formatted_opening_time }}〜{{ $favorite_shop->formatted_closing_time }}</small>
 								</div>
 							</div>
 							<div class="col-md-2">

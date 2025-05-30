@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use App\Models\User;
 use App\Models\Shop;
+use Illuminate\Support\Carbon;
 
 class Reservation extends Model
 {
@@ -28,5 +29,14 @@ class Reservation extends Model
 	public function shop()
 	{
 		return $this->belongsTo(Shop::class);
+	}
+
+	public function getFormattedVisitDateAttribute()
+	{
+		return Carbon::parse($this->visit_date)->format('Y年m月d日');
+	}
+	public function getFormattedVisitTimeAttribute()
+	{
+		return Carbon::parse($this->visit_time)->format('G:i');
 	}
 }

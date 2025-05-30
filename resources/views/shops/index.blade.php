@@ -33,17 +33,15 @@
 									<span class="badge bg-secondary me-1">{{ $category->name }}</span>
 								@endforeach
 							</div>
-							{{-- <p class="mb-1">
-								<i class="fas fa-info-circle me-2 text-muted"></i>{{ $shop->description }}
-							</p> --}}
 							<p class="mb-1">
-								<i class="fas fa-phone me-2 text-muted"></i>{{ $shop->phone_number }}
+								<i class="fas fa-phone me-2 text-muted"></i>{{ $shop->formatted_phone_number }}
 							</p>
 							<p class="mb-1">
 								<i class="fas fa-map-marker-alt me-2 text-muted"></i>{{ $shop->address }}
 							</p>
 							<p class="mb-0">
-								<i class="fas fa-clock me-2 text-muted"></i>{{ $shop->opening_time }}〜{{ $shop->closing_time }}
+								<i
+									class="fas fa-clock me-2 text-muted"></i>{{ $shop->formatted_opening_time }}〜{{ $shop->formatted_closing_time }}
 							</p>
 						</div>
 					</div>

@@ -62,11 +62,11 @@
 						</li>
 						<li class="mb-2">
 							<i class="fas fa-phone-alt me-2 text-secondary"></i>
-							<strong>電話番号：</strong>{{ $shop->phone_number }}
+							<strong>電話番号：</strong>{{ $shop->formatted_phone_number }}
 						</li>
 						<li class="mb-2">
 							<i class="fas fa-clock me-2 text-secondary"></i>
-							<strong>営業時間：</strong>{{ $shop->opening_time }} ～ {{ $shop->closing_time }}
+							<strong>営業時間：</strong>{{ $shop->formatted_opening_time }}～{{ $shop->formatted_closing_time }}
 						</li>
 						<li class="mb-2">
 							<i class="fas fa-info-circle me-2 text-secondary"></i>
@@ -78,8 +78,6 @@
 						</li>
 					</ul>
 					<div class="row align-items-center">
-						{{-- // 予約関連ここから --}}
-
 						<div class="col-md-12">
 							<form action="{{ route('reservations.confirm') }}" method="POST">
 								@csrf
@@ -87,7 +85,7 @@
 								<div class="row g-3 align-items-end @if (
 									$errors->reservation->has('visit_date') ||
 										$errors->reservation->has('visit_time') ||
-										$errors->reservation->has('number_of_people')) has-validation-error @endif">
+										$errors->reservation->has('number_of_people')) form--has-error @endif">
 									<div class="col-md-3 mt-2">
 										<label class="form-label">来店日</label>
 										<input type="date" name="visit_date"
@@ -102,12 +100,12 @@
 									<div class="col-md-3 mt-2 @if (
 										$errors->reservation->has('visit_date') ||
 											$errors->reservation->has('visit_time') ||
-											$errors->reservation->has('number_of_people')) has-validation-error @endif">
+											$errors->reservation->has('number_of_people')) form--has-error @endif">
 										<label class="form-label">来店時間</label>
 										<select name="visit_time" class="form-control @error('visit_time', 'reservation') is-invalid @enderror">
 											<option value="">選択してください</option>
 											@for ($i = $startHour; $i < $endHour; $i++)
-												<option value="{{ sprintf('%02d:00', $i) }}">{{ sprintf('%02d:00', $i) }}〜{{ sprintf('%02d:00', $i + 1) }}
+												<option value="{{ sprintf('%02d:00', $i) }}">{{ sprintf('%02d:00', $i) }}
 												</option>
 											@endfor
 										</select>
@@ -121,7 +119,7 @@
 									<div class="col-md-3 mt-2 @if (
 										$errors->reservation->has('visit_date') ||
 											$errors->reservation->has('visit_time') ||
-											$errors->reservation->has('number_of_people')) has-validation-error @endif">
+											$errors->reservation->has('number_of_people')) form--has-error @endif">
 										<label class="form-label">来店人数</label>
 										<select name="number_of_people"
 											class="form-control @error('number_of_people', 'reservation') is-invalid @enderror">
@@ -140,7 +138,7 @@
 									<div class="col-md-3 mt-2 @if (
 										$errors->reservation->has('visit_date') ||
 											$errors->reservation->has('visit_time') ||
-											$errors->reservation->has('number_of_people')) has-validation-error @endif">
+											$errors->reservation->has('number_of_people')) button--has-error @endif">
 										<button type="submit" class="button button--base">
 											<i class="fas fa-calendar-plus"></i>
 											予約
@@ -149,12 +147,11 @@
 								</div>
 							</form>
 						</div>
-						{{-- // 予約関連ここまで --}}
 					</div>
 				</div>
 			</div>
 
-			<hr class="my-5">
+			<hr class="my-4">
 
 			<div class="row">
 				<h3 class="fw-bold mb-0">カスタマーレビュー</h3>

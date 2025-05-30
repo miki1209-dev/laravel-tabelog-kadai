@@ -16,14 +16,36 @@ class ReservationController extends Controller
 {
 	public function store(Request $request)
 	{
+
 		$validator = Validator::make($request->all(), [
-			'visit_date' => ['required', 'date', 'after:today'],
+			'visit_date' => [
+				'required',
+				'date',
+				'after:today',
+				function ($_attr, $_val, $fail) use ($request) {
+					$user_id = Auth::user()->id;
+					$shop_id = $request->input('shop_id');
+					$visit_date = $request->input('visit_date');
+					$visit_time = $request->input('visit_time');
+
+					$exists = Reservation::where('user_id', $user_id)
+						->where('shop_id', $shop_id)
+						->where('visit_date', $visit_date)
+						->where('visit_time', $visit_time)
+						->where('status', 'confirmed')
+						->exists();
+
+					if ($exists) {
+						$fail('この日時の予約はすでに存在します。');
+					}
+				}
+			],
 			'visit_time' => ['required', 'date_format:H:i'],
 			'number_of_people' => ['required', 'integer', 'min:1', 'max:15'],
 		]);
 
 		if ($validator->fails()) {
-			return back()->withErrors($validator, 'reservation')->withInput();
+			return redirect()->route('shops.show', $request->input('shop_id'))->withErrors($validator, 'reservation')->withInput();
 		}
 
 		try {
@@ -59,16 +81,14 @@ class ReservationController extends Controller
 			return back()->withErrors($validator, 'reservation')->withInput();
 		}
 
-		$visit_date = $request->input('visit_date');
-		$visit_time = $request->input('visit_time');
-		$visit_date_text = Carbon::parse($visit_date)->format('Y年m月d日');
-		$visit_time_start = Carbon::parse($visit_time)->format('G:i');
-		$visit_time_end = Carbon::parse($visit_time)->addHours()->format('G:i');
-		$number_of_people = $request->input('number_of_people');
-		$shop_id = $request->input('shop_id');
-		$shop = Shop::find($shop_id);
+		$reservation = new Reservation();
+		$reservation->visit_date = $request->input('visit_date');
+		$reservation->visit_time = $request->input('visit_time');
+		$reservation->number_of_people = $request->input('number_of_people');
+		$reservation->shop_id = $request->input('shop_id');
+		$shop = Shop::find($reservation->shop_id);
 
-		return view('reservations.confirm', compact('visit_date', 'visit_time', 'number_of_people', 'shop', 'visit_date_text', 'visit_time_start', 'visit_time_end', 'shop_id'));
+		return view('reservations.confirm', compact('reservation', 'shop'));
 	}
 
 	public function complete()

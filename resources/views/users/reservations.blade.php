@@ -46,10 +46,10 @@
 									<a href="{{ route('shops.show', $reservation->id) }}" class="link-dark ">店舗名：{{ $reservation->shop->name }}</a>
 								</h5>
 								<div>
-									<small>来店日：{{ $reservation->visit_date_formatted }}</small><br>
-									<small>来店時間：{{ $reservation->visit_time_start }}〜{{ $reservation->visit_time_end }}</small><br>
+									<small>来店日：{{ $reservation->formatted_visit_date }}</small><br>
+									<small>来店時間：{{ $reservation->formatted_visit_time }}</small><br>
 									<small>来店人数：{{ $reservation->number_of_people }}人</small><br>
-									<small>電話番号：{{ $reservation->shop->phone_number }}</small><br>
+									<small>電話番号：{{ $reservation->shop->formatted_phone_number }}</small><br>
 									<small>住所：{{ $reservation->shop->address }}</small>
 								</div>
 							</div>

@@ -23,7 +23,11 @@
 					<div class="d-flex mb-4 align-items-center bg-white rounded shadow-sm p-3">
 						<div class="col-lg-4 me-3">
 							<a href="{{ route('shops.show', ['shop' => $shop->id] + $queryParams) }}">
-								<img src="{{ asset('uploads/' . $shop->file_name) }}" class="img-fluid rounded shadow-sm">
+								@if ($shop->file_name !== null)
+									<img src="{{ asset('uploads/' . $shop->file_name) }}" class="img-fluid rounded shadow-sm">
+								@else
+									<img src="{{ asset('img/dummy.png') }}" class="img-fluid rounded shadow-sm">
+								@endif
 							</a>
 						</div>
 						<div class="col-lg-8">

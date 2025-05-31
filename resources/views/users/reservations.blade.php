@@ -34,7 +34,7 @@
 						<div class="row align-items-center mb-2">
 							<div class="col-md-4">
 								<a href="{{ route('shops.show', $reservation->shop_id) }}">
-									@if ($reservation->file_name !== null)
+									@if ($reservation->shop->file_name !== null)
 										<img src="{{ asset('uploads/' . $reservation->shop->file_name) }}" class="img-thumbnail">
 									@else
 										<img src="{{ asset('img/dummy.png') }}" class="img-thumbnail">

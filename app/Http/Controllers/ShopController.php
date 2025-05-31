@@ -44,8 +44,8 @@ class ShopController extends Controller
 		$reviews = $shop->reviews()->latest()->paginate(5);
 		$reviewTotal = $reviews->total();
 		$tomorrow = Carbon::tomorrow()->format('Y-m-d');
-		$startHour = Carbon::parse($shop->opening_time)->format('H');
-		$endHour = Carbon::parse($shop->closing_time)->format('H');
+		$startHour = Carbon::parse($shop->opening_time);
+		$endHour = Carbon::parse($shop->closing_time)->subMinutes(30);
 
 		$queryParams = $request->only(['keyword', 'category']);
 

@@ -104,9 +104,8 @@
 										<label class="form-label">来店時間</label>
 										<select name="visit_time" class="form-control @error('visit_time', 'reservation') is-invalid @enderror">
 											<option value="">選択してください</option>
-											@for ($i = $startHour; $i < $endHour; $i++)
-												<option value="{{ sprintf('%02d:00', $i) }}">{{ sprintf('%02d:00', $i) }}
-												</option>
+											@for ($time = $startHour->copy(); $time < $endHour; $time->addMinutes(30))
+												<option value="{{ $time->format('H:i') }}">{{ $time->format('H:i') }}</option>
 											@endfor
 										</select>
 										@error('visit_time', 'reservation')

@@ -10,7 +10,6 @@ use Exception;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Validator;
 use App\Models\Shop;
-use Illuminate\Support\Carbon;
 
 class ReservationController extends Controller
 {

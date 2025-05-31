@@ -30,9 +30,10 @@
 					@csrf
 					@method('PUT')
 					<div class="mb-3">
-						<label for="name" class="form-label">名前<span
-								class="ms-2 form-label__indicator form-label__indicator__required">必須</span></label>
-						<input id="name" type="text" name="name" class="form-control @error('name') is-invalid @enderror"
+						<label for="name" class="form-label form__label">名前<span
+								class="ms-2 required-mark required-mark--required">必須</span></label>
+						<input id="name" type="text" name="name"
+							class="form-control form__input form__input--muted @error('name') is-invalid @enderror"
 							value="{{ $user->name }}" autocomplete="name">
 						@error('name')
 							<span class="invalid-feedback" role="alert">
@@ -41,9 +42,10 @@
 						@enderror
 					</div>
 					<div class="mb-3">
-						<label for="email" class="form-label">メールアドレス<span
-								class="ms-2 form-label__indicator form-label__indicator__required">必須</span></label>
-						<input id="email" type="text" name="email" class="form-control @error('email') is-invalid @enderror"
+						<label for="email" class="form-label form__label">メールアドレス<span
+								class="ms-2 required-mark required-mark--required">必須</span></label>
+						<input id="email" type="text" name="email"
+							class="form-control form__input form__input--muted @error('email') is-invalid @enderror"
 							value="{{ $user->email }}">
 						@error('email')
 							<span class="invalid-feedback">
@@ -52,9 +54,10 @@
 						@enderror
 					</div>
 					<div class="mb-3">
-						<label for="postal_code" class="form-label">郵便番号</label>
+						<label for="postal_code" class="form-label form__label">郵便番号</label>
 						<input id="postal_code" type="text" name="postal_code"
-							class="form-control @error('postal_code') is-invalid @enderror" value="{{ $user->postal_code }}">
+							class="form-control form__input form__input--muted @error('postal_code') is-invalid @enderror"
+							value="{{ $user->postal_code }}">
 						@error('postal_code')
 							<span class="invalid-feedback">
 								<strong>{{ $message }}</strong>
@@ -62,8 +65,9 @@
 						@enderror
 					</div>
 					<div class="mb-3">
-						<label for="address" class="form-label">住所</label>
-						<input id="address" type="text" name="address" class="form-control @error('address') is-invalid @enderror"
+						<label for="address" class="form-label form__label">住所</label>
+						<input id="address" type="text" name="address"
+							class="form-control form__input form__input--muted @error('address') is-invalid @enderror"
 							value="{{ $user->address }}">
 						@error('address')
 							<span class="invalid-feedback">
@@ -72,8 +76,9 @@
 						@enderror
 					</div>
 					<div class="mb-4">
-						<label for="phone" class="form-label">電話番号</label>
-						<input id="phone" type="text" name="phone" class="form-control @error('phone') is-invalid @enderror"
+						<label for="phone" class="form-label form__label">電話番号</label>
+						<input id="phone" type="text" name="phone"
+							class="form-control form__input form__input--muted @error('phone') is-invalid @enderror"
 							value="{{ $user->phone }}">
 						@error('phone')
 							<span class="invalid-feedback">

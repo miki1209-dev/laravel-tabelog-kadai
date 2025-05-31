@@ -56,7 +56,7 @@
 				<div class="px-4 py-4 bg-white rounded shadow-sm">
 					<h5 class="fw-bold mb-4 border-bottom pb-2">キーワードで探す</h5>
 					<form action="{{ route('shops.index') }}" method="GET" class="mb-4">
-						<input type="text" placeholder="店舗名・カテゴリで検索" name="keyword" class="form-control mb-3"
+						<input type="text" placeholder="店舗名・カテゴリで検索" name="keyword" class="form-control form__input mb-3"
 							value="{{ request('keyword') }}">
 						<button type="submit" class="button button--base w-100">検索</button>
 					</form>
@@ -64,7 +64,7 @@
 					<h5 class="fw-bold mb-3 border-bottom pb-2">カテゴリで探す</h5>
 					<form action="{{ route('shops.index') }}" method="GET">
 						<div class="mb-3">
-							<select class="form-select" name="category">
+							<select class="form-select form__select" name="category">
 								<option value="">カテゴリを選択</option>
 								@foreach ($categories as $category)
 									<option value="{{ $category->name }}" {{ request('category') === $category->name ? 'selected' : '' }}>

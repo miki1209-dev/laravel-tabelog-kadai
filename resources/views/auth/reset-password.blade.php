@@ -14,14 +14,16 @@
 					@csrf
 					<input type="hidden" name="token" value="{{ $request->route('token') }}">
 					<div class="mb-3">
-						<label for="email" class="form-label">メールアドレス</label>
-						<input id="email" type="email" name="email" class="form-control @error('email') is-invalid @enderror"
+						<label for="email" class="form-label form__label">メールアドレス</label>
+						<input id="email" type="email" name="email"
+							class="form-control form__input form__input--muted @error('email') is-invalid @enderror"
 							value="{{ old('email', $request->email) }}">
 					</div>
 
 					<div class="mb-3">
-						<label for="password" class="form-label">新しいパスワード</label>
-						<input id="password" type="password" name="password" class="form-control @error('password') is-invalid @enderror">
+						<label for="password" class="form-label form__label">新しいパスワード</label>
+						<input id="password" type="password" name="password"
+							class="form-control form__input form__input--muted @error('password') is-invalid @enderror">
 						<small class="form-text text-muted">※パスワードは8文字以上で入力してください。</small>
 						@error('password')
 							<span class="invalid-feedback">
@@ -30,8 +32,9 @@
 						@enderror
 					</div>
 					<div class="mb-4">
-						<label for="password-confirmation" class="form-label">新しいパスワード（確認用）</label>
-						<input id="password-confirmation" type="password" name="password_confirmation" class="form-control">
+						<label for="password-confirmation" class="form-label form__label">新しいパスワード（確認用）</label>
+						<input id="password-confirmation" type="password" name="password_confirmation"
+							class="form-control form__input form__input--muted">
 					</div>
 					<div class="d-flex justify-content-center">
 						<button type="submit" class="button button--base w-50">パスワード再設定</button>

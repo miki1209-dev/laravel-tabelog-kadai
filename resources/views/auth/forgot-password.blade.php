@@ -21,8 +21,9 @@
 				<form method="POST" action="{{ route('password.email') }}">
 					@csrf
 					<div class="form-group mb-4">
-						<label for="email" class="form-label">メールアドレス</label>
-						<input id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email"
+						<label for="email" class="form-label form__label">メールアドレス</label>
+						<input id="email" type="email"
+							class="form-control form__input form__input--muted @error('email') is-invalid @enderror" name="email"
 							value="{{ old('email') }}">
 						@error('email')
 							<span class="invalid-feedback">

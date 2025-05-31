@@ -12,7 +12,7 @@
 				<h3 class="fw-bold mb-3">キーワードで探す</h3>
 				<form action="{{ route('shops.index') }}" method="GET" class="mb-0 shadow-sm">
 					<div class="d-flex input-group mt-3">
-						<input type="text" placeholder="店舗名・カテゴリで検索" name="keyword" class="form-control">
+						<input type="text" placeholder="店舗名・カテゴリで検索" name="keyword" class="form-control form__input form__input--muted">
 						<button type="submit"class="button button--base">検索</button>
 					</div>
 				</form>

@@ -19,8 +19,11 @@
 		<div class="container px-0">
 			<div class="row align-items-center">
 				<div class="col-md-5">
-
-					<img src="{{ asset('uploads/' . $shop->file_name) }}" class="img-fluid rounded shadow-sm" alt="店舗画像">
+					@if ($shop->file_name !== null)
+						<img src="{{ asset('uploads/' . $shop->file_name) }}" class="img-fluid rounded shadow-sm" alt="店舗画像">
+					@else
+						<img src="{{ asset('img/dummy.png') }}" class="img-fluid rounded shadow-sm" alt="店舗画像">
+					@endif
 				</div>
 				<div class="col-md-7">
 					<div class="d-flex align-items-center mb-1">
@@ -87,9 +90,10 @@
 										$errors->reservation->has('visit_time') ||
 										$errors->reservation->has('number_of_people')) form--has-error @endif">
 									<div class="col-md-3 mt-2">
-										<label class="form-label">来店日</label>
+										<label class="form-label form__label">来店日</label>
 										<input type="date" name="visit_date"
-											class="form-control @error('visit_date', 'reservation') is-invalid @enderror" min="{{ $tomorrow }}">
+											class="form-control form__input @error('visit_date', 'reservation') is-invalid @enderror"
+											min="{{ $tomorrow }}">
 										@error('visit_date', 'reservation')
 											<span class="invalid-feedback">
 												<strong>{{ $message }}</strong>
@@ -101,8 +105,9 @@
 										$errors->reservation->has('visit_date') ||
 											$errors->reservation->has('visit_time') ||
 											$errors->reservation->has('number_of_people')) form--has-error @endif">
-										<label class="form-label">来店時間</label>
-										<select name="visit_time" class="form-control @error('visit_time', 'reservation') is-invalid @enderror">
+										<label class="form-label form__label">来店時間</label>
+										<select name="visit_time"
+											class="form-control form__select @error('visit_time', 'reservation') is-invalid @enderror">
 											<option value="">選択してください</option>
 											@for ($time = $startHour->copy(); $time < $endHour; $time->addMinutes(30))
 												<option value="{{ $time->format('H:i') }}">{{ $time->format('H:i') }}</option>
@@ -119,9 +124,9 @@
 										$errors->reservation->has('visit_date') ||
 											$errors->reservation->has('visit_time') ||
 											$errors->reservation->has('number_of_people')) form--has-error @endif">
-										<label class="form-label">来店人数</label>
+										<label class="form-label form__label">来店人数</label>
 										<select name="number_of_people"
-											class="form-control @error('number_of_people', 'reservation') is-invalid @enderror">
+											class="form-control form__select @error('number_of_people', 'reservation') is-invalid @enderror">
 											<option value="">選択してください</option>
 											@for ($i = 1; $i <= 15; $i++)
 												<option value="{{ $i }}">{{ $i }}人</option>
@@ -152,138 +157,140 @@
 
 			<hr class="my-4">
 
-			<div class="row">
-				<h3 class="fw-bold mb-0">カスタマーレビュー</h3>
-			</div>
-
-			<div class="review-section row">
-				<div class="review-form col-md-4">
-					<form action="{{ route('reviews.store') }}" method="POST" class="review-form__form"
-						onkeydown="return event.key !== 'Enter' || event.target.tagName === 'TEXTAREA';">
-						@csrf
-						<div class="review-form__group mb-3">
-							<label class="review-form__label fw-bold mb-2">評価</label>
-							<select name="score" class="review-form__select form-control form-select shadow-sm">
-								<option value="5" {{ old('score') == 5 ? 'selected' : '' }}>★★★★★</option>
-								<option value="4" {{ old('score') == 4 ? 'selected' : '' }}>★★★★</option>
-								<option value="3" {{ old('score') == 3 ? 'selected' : '' }}>★★★</option>
-								<option value="2" {{ old('score') == 2 ? 'selected' : '' }}>★★</option>
-								<option value="1" {{ old('score') == 1 ? 'selected' : '' }}>★</option>
-							</select>
-						</div>
-						<div class="review-form__group mb-3">
-							<label class="review-form__label fw-bold mb-2">タイトル</label>
-							<input type="text" name="title"
-								class="review-form__input form-control shadow-sm @error('title') is-invalid @enderror">
-							@error('title')
-								<span class="invalid-feedback">
-									<strong>{{ $message }}</strong>
-								</span>
-							@enderror
-						</div>
-						<div class="review-form__group mb-5">
-							<label class="review-form__label fw-bold mb-2">レビュー内容</label>
-							<textarea name="content" class="review-form__textarea form-control shadow-sm @error('content') is-invalid @enderror"
-							 rows="7"></textarea>
-							@error('content')
-								<span class="invalid-feedback">
-									<strong>{{ $message }}</strong>
-								</span>
-							@enderror
-						</div>
-						<input type="hidden" name="shop_id" value="{{ $shop->id }}">
-						<button type="submit" class="review-form__submit button button--base w-100 shadow-sm">レビューを投稿</button>
-					</form>
+			<div class="review">
+				<div class="row">
+					<h3 class="fw-bold mb-0">カスタマーレビュー</h3>
 				</div>
-				<div class="col-md-8 ps-0">
-					<div class="review-list">
-						@foreach ($reviews as $review)
-							<div class="review-card p-3 shadow-sm mb-4">
-								<div class="review-card__header d-flex justify-content-between align-items-center mb-2">
-									<h5 class="review-card__title fw-bold mb-0">{{ $review->title }}</h5>
-									<small class="review-card__date text-muted">投稿日：{{ $review->created_at->format('Y年m月d日') }}</small>
+
+				<div class="review__section row">
+					<div class="col-md-4">
+						<form action="{{ route('reviews.store') }}" method="POST" class="form"
+							onkeydown="return event.key !== 'Enter' || event.target.tagName === 'TEXTAREA';">
+							@csrf
+							<div class="form__group mb-3">
+								<label class="form__label fw-bold mb-2">評価</label>
+								<select name="score" class="form__select form__select--accent form-control form-select shadow-sm">
+									<option value="5" {{ old('score') == 5 ? 'selected' : '' }}>★★★★★</option>
+									<option value="4" {{ old('score') == 4 ? 'selected' : '' }}>★★★★</option>
+									<option value="3" {{ old('score') == 3 ? 'selected' : '' }}>★★★</option>
+									<option value="2" {{ old('score') == 2 ? 'selected' : '' }}>★★</option>
+									<option value="1" {{ old('score') == 1 ? 'selected' : '' }}>★</option>
+								</select>
+							</div>
+							<div class="form__group mb-3">
+								<label class="form__label fw-bold mb-2">タイトル</label>
+								<input type="text" name="title"
+									class="form__input form-control shadow-sm @error('title') is-invalid @enderror">
+								@error('title')
+									<span class="invalid-feedback">
+										<strong>{{ $message }}</strong>
+									</span>
+								@enderror
+							</div>
+							<div class="form__group mb-4">
+								<label class="form__label fw-bold mb-2">レビュー内容</label>
+								<textarea name="content" class="form__textarea form-control shadow-sm @error('content') is-invalid @enderror"
+								 rows="7"></textarea>
+								@error('content')
+									<span class="invalid-feedback">
+										<strong>{{ $message }}</strong>
+									</span>
+								@enderror
+							</div>
+							<input type="hidden" name="shop_id" value="{{ $shop->id }}">
+							<button type="submit" class="button button--base w-100 shadow-sm">レビューを投稿</button>
+						</form>
+					</div>
+					<div class="col-md-8 ps-0">
+						<div class="review__list">
+							@foreach ($reviews as $review)
+								<div class="review-card p-3 shadow-sm mb-4">
+									<div class="review-card__header d-flex justify-content-between align-items-center mb-2">
+										<h5 class="review-card__title fw-bold mb-0">{{ $review->title }}</h5>
+										<small class="review-card__date text-muted">投稿日：{{ $review->created_at->format('Y年m月d日') }}</small>
+									</div>
+									<p class="review-card__score mb-2">{{ str_repeat('★', $review->score) }}</p>
+									<p class="review-card__content mb-2">{{ $review->content }}</p>
+									<p class="review-card__author text-end text-muted mb-0">投稿者：{{ $review->user->name }}</p>
+									@if (Auth::id() === $review->user_id)
+										<div class="review-card__actions">
+											<button type="button" class="button button--sm button--base me-2" data-bs-toggle="modal"
+												data-bs-target="#editReviewModal" data-id="{{ $review->id }}" data-title="{{ $review->title }}"
+												data-content="{{ $review->content }}" data-score="{{ $review->score }}"
+												data-action="{{ route('reviews.update', $review->id) }}">編集</button>
+											<form action="{{ route('reviews.destroy', $review->id) }}" method="POST"
+												onsubmit="return confirm('本当に削除しますか？');">
+												@csrf
+												@method('DELETE')
+												<button type="submit" class="button button--sm button--danger">削除</button>
+											</form>
+										</div>
+									@endif
 								</div>
-								<p class="review-card__score mb-2">{{ str_repeat('★', $review->score) }}</p>
-								<p class="review-card__content mb-2">{{ $review->content }}</p>
-								<p class="review-card__author text-end text-muted mb-0">投稿者：{{ $review->user->name }}</p>
-								@if (Auth::id() === $review->user_id)
-									<div class="review-card__actions">
-										<button type="button" class="button button--sm button--base me-2" data-bs-toggle="modal"
-											data-bs-target="#editReviewModal" data-id="{{ $review->id }}" data-title="{{ $review->title }}"
-											data-content="{{ $review->content }}" data-score="{{ $review->score }}"
-											data-action="{{ route('reviews.update', $review->id) }}">編集</button>
-										<form action="{{ route('reviews.destroy', $review->id) }}" method="POST"
-											onsubmit="return confirm('本当に削除しますか？');">
+							@endforeach
+						</div>
+						<div class="review__pagination text-center mt-4">
+							{{ $reviews->links() }}
+						</div>
+
+						<div class="modal fade" id="editReviewModal"
+							data-should-open="{{ session('modal_open') === 'editReviewModal' ? 'true' : 'false' }}" tabindex="-1"
+							aria-hidden="true">
+							<div class="modal-dialog modal-xl">
+								<div class="modal-content">
+									<div class="modal-header">
+										<h5 class="modal-title fw-bold" id="exampleModalLabel">カスタマーレビュー更新</h5>
+										<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+									</div>
+									<div class="modal-body">
+										<form method="POST" id="edit-review-form" action="{{ session('action') }}">
 											@csrf
-											@method('DELETE')
-											<button type="submit" class="button button--sm button--danger">削除</button>
+											@method('PUT')
+											<input type="hidden" name="id" id="edit-review-id">
+
+											<div class="mb-3">
+												<label for="edit-review-score" class="col-form-label form__label fw-bold">評価</label>
+												<select id="edit-review-score" name="score"
+													class="form__select form__select--accent form-control form-select shadow-sm">
+													<option value="5" {{ old('score') == 5 ? 'selected' : '' }}>★★★★★</option>
+													<option value="4" {{ old('score') == 4 ? 'selected' : '' }}>★★★★</option>
+													<option value="3" {{ old('score') == 3 ? 'selected' : '' }}>★★★</option>
+													<option value="2" {{ old('score') == 2 ? 'selected' : '' }}>★★</option>
+													<option value="1" {{ old('score') == 1 ? 'selected' : '' }}>★</option>
+												</select>
+											</div>
+
+											<div class="mb-3">
+												<label for="edit-review-title" class="col-form-label form__label fw-bold">タイトル</label>
+												<input type="text" name="title"
+													class="form-control form__input form-control shadow-sm  @error('title', 'editReview') is-invalid @enderror"
+													id="edit-review-title" value="{{ old('title') }}">
+												@error('title', 'editReview')
+													<span class="invalid-feedback">
+														<strong>{{ $message }}</strong>
+													</span>
+												@enderror
+											</div>
+											<div class="mb-3">
+												<label for="edit-review-content" class="col-form-label form__label fw-bold">内容</label>
+												<textarea name="content" id="edit-review-content"
+												 class="form-control form__textarea form-control shadow-sm  @error('content', 'editReview') is-invalid @enderror"
+												 rows="7">{{ old('content') }}</textarea>
+												@error('content', 'editReview')
+													<span class="invalid-feedback">
+														<strong>{{ $message }}</strong>
+													</span>
+												@enderror
+											</div>
+
+											<input type="hidden" name="shop_id" value="{{ $shop->id }}">
+
+											<div class="modal-footer">
+												<button type="button" class="button button--danger" data-bs-dismiss="modal">閉じる</button>
+												<button type="submit" class="button button--base">更新</button>
+											</div>
 										</form>
 									</div>
-								@endif
-							</div>
-						@endforeach
-					</div>
-					<div class="review-pagination text-center mt-4">
-						{{ $reviews->links() }}
-					</div>
-
-					<div class="modal fade review-form" id="editReviewModal"
-						data-should-open="{{ session('modal_open') === 'editReviewModal' ? 'true' : 'false' }}" tabindex="-1"
-						aria-hidden="true">
-						<div class="modal-dialog modal-xl">
-							<div class="modal-content">
-								<div class="modal-header">
-									<h5 class="modal-title fw-bold" id="exampleModalLabel">カスタマーレビュー更新</h5>
-									<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-								</div>
-								<div class="modal-body">
-									<form method="POST" id="edit-review-form" action="{{ session('action') }}">
-										@csrf
-										@method('PUT')
-										<input type="hidden" name="id" id="edit-review-id">
-
-										<div class="mb-3">
-											<label for="edit-review-score" class="col-form-label review-form__label fw-bold">評価</label>
-											<select id="edit-review-score" name="score"
-												class="review-form__select form-control form-select shadow-sm">
-												<option value="5" {{ old('score') == 5 ? 'selected' : '' }}>★★★★★</option>
-												<option value="4" {{ old('score') == 4 ? 'selected' : '' }}>★★★★</option>
-												<option value="3" {{ old('score') == 3 ? 'selected' : '' }}>★★★</option>
-												<option value="2" {{ old('score') == 2 ? 'selected' : '' }}>★★</option>
-												<option value="1" {{ old('score') == 1 ? 'selected' : '' }}>★</option>
-											</select>
-										</div>
-
-										<div class="mb-3">
-											<label for="edit-review-title" class="col-form-label review-form__label fw-bold">タイトル</label>
-											<input type="text" name="title"
-												class="form-control review-form__input form-control shadow-sm  @error('title', 'editReview') is-invalid @enderror"
-												id="edit-review-title" value="{{ old('title') }}">
-											@error('title', 'editReview')
-												<span class="invalid-feedback">
-													<strong>{{ $message }}</strong>
-												</span>
-											@enderror
-										</div>
-										<div class="mb-3">
-											<label for="edit-review-content" class="col-form-label review-form__label fw-bold">内容</label>
-											<textarea name="content" id="edit-review-content"
-											 class="form-control review-form__textarea form-control shadow-sm  @error('content', 'editReview') is-invalid @enderror"
-											 rows="7">{{ old('content') }}</textarea>
-											@error('content', 'editReview')
-												<span class="invalid-feedback">
-													<strong>{{ $message }}</strong>
-												</span>
-											@enderror
-										</div>
-
-										<input type="hidden" name="shop_id" value="{{ $shop->id }}">
-
-										<div class="modal-footer">
-											<button type="button" class="button button--danger" data-bs-dismiss="modal">閉じる</button>
-											<button type="submit" class="button button--base">更新</button>
-										</div>
-									</form>
 								</div>
 							</div>
 						</div>

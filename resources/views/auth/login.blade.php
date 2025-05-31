@@ -12,8 +12,9 @@
 				<form action="{{ route('login') }}" method="POST">
 					@csrf
 					<div class="mb-4">
-						<label for="email" class="form-label">メールアドレス</label>
-						<input id="email" type="email" name="email" class="form-control @error('email') is-invalid @enderror"
+						<label for="email" class="form-label form__label">メールアドレス</label>
+						<input id="email" type="email" name="email"
+							class="form-control form__input form__input--muted @error('email') is-invalid @enderror"
 							value="{{ old('email') }}">
 						@error('email')
 							<span class="invalid-feedback">
@@ -22,8 +23,9 @@
 						@enderror
 					</div>
 					<div class="mb-3">
-						<label for="password" class="form-label">パスワード</label>
-						<input id="password" type="password" name="password" class="form-control @error('password') is-invalid @enderror">
+						<label for="password" class="form-label form__label">パスワード</label>
+						<input id="password" type="password" name="password"
+							class="form-control form__input form__input--muted @error('password') is-invalid @enderror">
 						@error('password')
 							<span class="invalid-feedback">
 								<strong>{{ $message }}</strong>

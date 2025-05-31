@@ -20,9 +20,10 @@
 				<form method="POST" action="{{ route('register') }}">
 					@csrf
 					<div class="mb-3">
-						<label for="name" class="form-label">名前<span
-								class="ms-2 form-label__indicator form-label__indicator__required">必須</span></label>
-						<input id="name" type="text" name="name" class="form-control @error('name') is-invalid @enderror"
+						<label for="name" class="form-label form__label">名前<span
+								class="ms-2 required-mark required-mark--required">必須</span></label>
+						<input id="name" type="text" name="name"
+							class="form-control form__input form__input--muted @error('name') is-invalid @enderror"
 							value="{{ old('name') }}" autocomplete="name">
 						@error('name')
 							<span class="invalid-feedback" role="alert">
@@ -31,9 +32,10 @@
 						@enderror
 					</div>
 					<div class="mb-3">
-						<label for="email" class="form-label">メールアドレス<span
-								class="ms-2 form-label__indicator form-label__indicator__required">必須</span></label>
-						<input id="email" type="email" name="email" class="form-control @error('email') is-invalid @enderror"
+						<label for="email" class="form-label form__label">メールアドレス<span
+								class="ms-2 required-mark required-mark--required">必須</span></label>
+						<input id="email" type="email" name="email"
+							class="form-control form__input form__input--muted @error('email') is-invalid @enderror"
 							value="{{ old('email') }}">
 						@error('email')
 							<span class="invalid-feedback">
@@ -42,9 +44,10 @@
 						@enderror
 					</div>
 					<div class="mb-3">
-						<label for="postal_code" class="form-label">郵便番号</label>
+						<label for="postal_code" class="form-label form__label">郵便番号</label>
 						<input id="postal_code" type="text" name="postal_code"
-							class="form-control @error('postal_code') is-invalid @enderror" value="{{ old('postal_code') }}">
+							class="form-control form__input form__input--muted @error('postal_code') is-invalid @enderror"
+							value="{{ old('postal_code') }}">
 						@error('postal_code')
 							<span class="invalid-feedback">
 								<strong>{{ $message }}</strong>
@@ -52,8 +55,9 @@
 						@enderror
 					</div>
 					<div class="mb-3">
-						<label for="address" class="form-label">住所</label>
-						<input id="address" type="text" name="address" class="form-control @error('address') is-invalid @enderror"
+						<label for="address" class="form-label form__label">住所</label>
+						<input id="address" type="text" name="address"
+							class="form-control form__input form__input--muted @error('address') is-invalid @enderror"
 							value="{{ old('address') }}">
 						@error('address')
 							<span class="invalid-feedback">
@@ -62,8 +66,9 @@
 						@enderror
 					</div>
 					<div class="mb-3">
-						<label for="phone" class="form-label">電話番号</label>
-						<input id="phone" type="tel" name="phone" class="form-control @error('phone') is-invalid @enderror"
+						<label for="phone" class="form-label form__label">電話番号</label>
+						<input id="phone" type="tel" name="phone"
+							class="form-control form__input form__input--muted @error('phone') is-invalid @enderror"
 							value="{{ old('phone') }}">
 						@error('phone')
 							<span class="invalid-feedback">
@@ -72,9 +77,10 @@
 						@enderror
 					</div>
 					<div class="mb-3">
-						<label for="password" class="form-label">パスワード<span
-								class="ms-2 form-label__indicator form-label__indicator__required">必須</span></label>
-						<input id="password" type="password" name="password" class="form-control @error('password') is-invalid @enderror">
+						<label for="password" class="form-label form__label">パスワード<span
+								class="ms-2 required-mark required-mark--required">必須</span></label>
+						<input id="password" type="password" name="password"
+							class="form-control form__input form__input--muted @error('password') is-invalid @enderror">
 						<small class="form-text text-muted">※パスワードは8文字以上で入力してください。</small>
 						@error('password')
 							<span class="invalid-feedback">
@@ -83,9 +89,10 @@
 						@enderror
 					</div>
 					<div class="mb-4">
-						<label for="password-confirmation" class="form-label">パスワード（確認用）<span
-								class="ms-2 form-label__indicator form-label__indicator__required">必須</span></label>
-						<input id="password-confirmation" type="password" name="password_confirmation" class="form-control">
+						<label for="password-confirmation" class="form-label form__label">パスワード（確認用）<span
+								class="ms-2 required-mark required-mark--required">必須</span></label>
+						<input id="password-confirmation" type="password" name="password_confirmation"
+							class="form-control form__input form__input--muted">
 					</div>
 					<input type="hidden" name="role" value="free">
 					<div class="d-flex justify-content-center">

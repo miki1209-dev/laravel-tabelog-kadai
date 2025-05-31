@@ -9,16 +9,16 @@
 
 // コンポーネント
 @use '@/scss/components/buttons';
+@use '@/scss/components/form';
 @use '@/scss/components/cards';
 @use '@/scss/components/pagination';
 @use '@/scss/components/star-rating';
+@use '@/scss/components/required-mark';
 
 // ページ固有のスタイル
 @use '@/scss/pages/home';
 @use '@/scss/pages/shop';
 @use '@/scss/pages/mypage';
-@use '@/scss/pages/mypage-edit';
-@use '@/scss/pages/register';
 @use '@/scss/pages/login';
 @use '@/scss/pages/review';
 @use '@/scss/pages/confirm';

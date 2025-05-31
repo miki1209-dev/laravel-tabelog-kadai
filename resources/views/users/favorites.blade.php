@@ -25,7 +25,7 @@
 						<div class="row align-items-center mb-2">
 							<div class="col-md-4">
 								<a href="{{ route('shops.show', $favorite_shop->id) }}">
-									@if ($favorite_shop->file_name !== '')
+									@if ($favorite_shop->file_name !== null)
 										<img src="{{ asset('uploads/' . $favorite_shop->file_name) }}" class="img-thumbnail">
 									@else
 										<img src="{{ asset('img/dummy.png') }}" class="img-thumbnail">

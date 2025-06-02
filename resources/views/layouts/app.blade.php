@@ -14,6 +14,8 @@
 	@vite(['resources/css/style.scss', 'resources/js/app.js'])
 	<!-- Font Awesome -->
 	<script src="https://kit.fontawesome.com/1843201c14.js" crossorigin="anonymous"></script>
+	{{-- Stripe Elements --}}
+	<script src="https://js.stripe.com/v3/"></script>
 </head>
 
 <body>

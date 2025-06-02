@@ -16,6 +16,18 @@
 
 				<hr class="my-4">
 
+				<form action="{{ route('subscription.store') }}" method="POST" id="subscription-form" class="form">
+					@csrf
+					<div class="form__group">
+						<label for="cardholder-name" class="form__label me-1">カード名義</label>
+						<input type="text" id="cardholder-name" class="form__input">
+					</div>
+					<label for="card-element" class="form__label mb-1">カード情報</label>
+					<div class="form__group">
+						<div id="card-element"></div>
+					</div>
+					<button type="submit" class="button button--base">登録する</button>
+				</form>
 			</div>
 		</div>
 	</div>

@@ -2,14 +2,20 @@ import { loadStripe } from '@stripe/stripe-js';
 document.addEventListener('DOMContentLoaded', async () => {
 	const stripe = await loadStripe(import.meta.env.VITE_STRIPE_KEY);
 	const elements = stripe.elements();
-	const cardElement = elements.create('card');
+	const cardElement = elements.create('card', {
+		hidePostalCode: true,
+		disableLink: true
+	});
 	cardElement.mount('#card-element');
 
 	const form = document.getElementById('subscription-form');
+	const cardholderName = document.getElementById('cardholder-name');
 	form.addEventListener('submit', async (e) => {
 		e.preventDefault();
 
-		const result = await stripe.createToken(cardElement);
+		const result = await stripe.createToken(cardElement, {
+			name: cardholderName.value
+		});
 		const token = result.token;
 		const error = result.error;
 

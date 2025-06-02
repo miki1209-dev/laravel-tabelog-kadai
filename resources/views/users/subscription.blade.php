@@ -19,14 +19,17 @@
 				<form action="{{ route('subscription.store') }}" method="POST" id="subscription-form" class="form">
 					@csrf
 					<div class="form__group">
-						<label for="cardholder-name" class="form__label me-1">カード名義</label>
-						<input type="text" id="cardholder-name" class="form__input">
+						<label for="cardholder-name" class="form__label me-1">カード名義人</label>
+						<input type="text" id="cardholder-name" name="card_name" class="form-control form__input form__input--muted">
 					</div>
 					<label for="card-element" class="form__label mb-1">カード情報</label>
 					<div class="form__group">
 						<div id="card-element"></div>
+						<div id="card-errors" class="form__error text-danger mt-1" style="display: none;"></div>
 					</div>
-					<button type="submit" class="button button--base">登録する</button>
+					<div class="d-flex justify-content-center">
+						<button type="submit" class="button button--base">登録する</button>
+					</div>
 				</form>
 			</div>
 		</div>

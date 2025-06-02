@@ -3,15 +3,9 @@
 
 #card-element {
 	@extend .form__input;
-	padding: 1rem;
+	padding: 0.75rem;
 }
 
 #card-element.StripeElement--focus {
 	border-color: v.$accent-color-tertiary;
-}
-
-#card-errors {
-	color: v.$accent-color;
-	font-size: 0.875rem;
-	margin-top: 0.5rem;
 }

@@ -20,7 +20,7 @@
 
 				<div class="mypage-menu">
 					<div class="mypage-menu__item">
-						<a href="#" class="mypage-menu__link">
+						<a href="{{ route('mypage.subscription') }}" class="mypage-menu__link">
 							<i class="fas fa-id-card mypage-menu__icon"></i>
 							<div class="mypage-menu__text">有料会員登録</div>
 							<i class="fas fa-chevron-right mypage-menu__chevron"></i>

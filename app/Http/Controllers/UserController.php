@@ -134,4 +134,9 @@ class UserController extends Controller
 		$favorites_shops = $user->favorite_shops()->paginate(5);
 		return view('users.favorites', compact('favorites_shops'));
 	}
+
+	public function subscription()
+	{
+		return view('users.subscription');
+	}
 }

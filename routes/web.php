@@ -33,10 +33,11 @@ Route::middleware(['auth', 'verified'])->group(function () {
 		Route::get('users/mypage', 'mypage')->name('mypage');
 		Route::get('users/mypage/edit', 'edit')->name('mypage.edit');
 		Route::put('users/mypage', 'update')->name('mypage.update');
-		Route::delete('users/mypage/delete', 'destroy')->name('mypage.destroy');
+		Route::get('users/mypage/subscription', 'subscription')->name('mypage.subscription');
 		Route::get('users/mypage/reservations', 'reservations')->name('mypage.reservations');
 		Route::patch('users/mypage/reservations/{reservation}', 'cancelReservation')->name('mypage.reservations.cancel');
 		Route::get('users/mypage/favorites', 'favorites')->name('mypage.favorites');
+		Route::delete('users/mypage/delete', 'destroy')->name('mypage.destroy');
 	});
 
 	Route::controller(ShopController::class)->group(function () {

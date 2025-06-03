@@ -13,10 +13,14 @@ document.addEventListener('DOMContentLoaded', async () => {
 	form.addEventListener('submit', async (e) => {
 		e.preventDefault();
 
-		const result = await stripe.createToken(cardElement, {
-			name: cardholderName.value
+		const result = await stripe.createPaymentMethod({
+			type: 'card',
+			card: cardElement,
+			billing_details: {
+				name: cardholderName.value,
+			}
 		});
-		const token = result.token;
+		const paymentMethod = result.paymentMethod;
 		const error = result.error;
 
 		if (error) {
@@ -25,7 +29,7 @@ document.addEventListener('DOMContentLoaded', async () => {
 			const hiddenInput = document.createElement('input');
 			hiddenInput.setAttribute('type', 'hidden');
 			hiddenInput.setAttribute('name', 'stripeToken');
-			hiddenInput.setAttribute('value', token.id);
+			hiddenInput.setAttribute('value', paymentMethod.id);
 			form.appendChild(hiddenInput);
 
 			form.submit();

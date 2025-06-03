@@ -21,9 +21,11 @@ class SubscriptionController extends Controller
 		$user = Auth::user();
 
 		try {
-			$user->createOrGetStripeCustomer(['name' => $request->input('card_name')]);
-			$user->updateDefaultPaymentMethod($request->input('stripeToken'));
-			$user->newSubscription('default', config('cashier.plan_id'))->create($request->input('stripeToken'));
+			$user->createOrGetStripeCustomer([
+				'name' => $request->input('card_name'),
+				'email' => $user->email,
+			]);
+			$user->newSubscription('premium', config('cashier.plan_id'))->create($request->input('stripeToken'));
 
 			return redirect()->route('mypage')->with('status', '有料会員登録が完了しました。');
 		} catch (Exception $e) {

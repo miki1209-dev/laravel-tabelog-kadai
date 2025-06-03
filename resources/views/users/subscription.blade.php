@@ -16,6 +16,12 @@
 
 				<hr class="my-4">
 
+				@if (Auth::user()->subscribed('premium'))
+					<p>あなたは有料会員です！</p>
+				@else
+					<a href="{{ route('mypage.subscription') }}">有料登録する</a>
+				@endif
+
 				<form action="{{ route('subscription.store') }}" method="POST" id="subscription-form" class="form">
 					@csrf
 					<div class="form__group">

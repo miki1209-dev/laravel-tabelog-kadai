@@ -64,7 +64,6 @@ Route::middleware(['auth', 'verified'])->group(function () {
 
 	Route::controller(SubscriptionController::class)->group(function () {
 		Route::post('/subscription/subscribe', 'store')->name('subscription.store');
-		Route::get('/subscription/success', 'success')->name('subscription.success');
-		Route::get('/subscription/cancel', 'cancel')->name('subscription.cancel');
+		Route::post('/subscription/cancel', 'cancel')->name('subscription.cancel');
 	});
 });

@@ -16,16 +16,10 @@
 
 				<hr class="my-4">
 
-				@if (Auth::user()->subscribed('premium'))
-					<p>あなたは有料会員です！</p>
-				@else
-					<a href="{{ route('mypage.subscription') }}">有料登録する</a>
-				@endif
-
 				<form action="{{ route('subscription.store') }}" method="POST" id="subscription-form" class="form">
 					@csrf
 					<div class="form__group">
-						<label for="cardholder-name" class="form__label me-1">カード名義人</label>
+						<label for="cardholder-name" class="form__label mb-1">カード名義人</label>
 						<input type="text" id="cardholder-name" name="card_name" class="form-control form__input form__input--muted">
 					</div>
 					<label for="card-element" class="form__label mb-1">カード情報</label>

@@ -21,7 +21,8 @@ class UserController extends Controller
 	 */
 	public function mypage()
 	{
-		return view('users.mypage');
+		$user = Auth::user();
+		return view('users.mypage', compact('user'));
 	}
 
 	/**
@@ -130,6 +131,7 @@ class UserController extends Controller
 
 	public function favorites()
 	{
+		/** @var \App\Models\User $user */
 		$user = Auth::user();
 		$favorites_shops = $user->favorite_shops()->paginate(5);
 		return view('users.favorites', compact('favorites_shops'));

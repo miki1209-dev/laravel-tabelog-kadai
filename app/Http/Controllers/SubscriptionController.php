@@ -34,13 +34,22 @@ class SubscriptionController extends Controller
 		}
 	}
 
-	public function success()
+	public function cancel(Request $request)
 	{
-		return view('subscription.success');
-	}
 
-	public function cancel()
-	{
-		return view('subscription.cancel');
+		/** @var \App\Models\User $user */
+		$user = Auth::user();
+
+		try {
+			if ($user->subscribed('premium')) {
+				$user->subscription('premium')->cancel();
+				return redirect()->route('mypage')->with('status', 'サブスクリプションを解約しました。');
+			} else {
+				return redirect()->route('mypage')->withErrors('サブスクリプションが見つかりませんでした');
+			}
+		} catch (Exception $e) {
+			Log::error('Subscription Cancellation Error' . $e->getMessage());
+			return back()->withErrors(['subscription_cancellation_error' => 'サブスクリプション解約に失敗しました。']);
+		}
 	}
 }

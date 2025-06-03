@@ -27,7 +27,7 @@ class SubscriptionController extends Controller
 			]);
 			$user->newSubscription('premium', config('cashier.plan_id'))->create($request->input('stripeToken'));
 
-			return redirect()->route('mypage')->with('status', '有料会員登録が完了しました。');
+			return redirect()->route('mypage')->with('success', '有料会員登録が完了しました。');
 		} catch (Exception $e) {
 			Log::error('Payment Error' . $e->getMessage());
 			return back()->withErrors(['stripe_error' => 'サブスクリプション登録に失敗しました。']);
@@ -43,7 +43,7 @@ class SubscriptionController extends Controller
 		try {
 			if ($user->subscribed('premium')) {
 				$user->subscription('premium')->cancel();
-				return redirect()->route('mypage')->with('status', 'サブスクリプションを解約しました。');
+				return redirect()->route('mypage')->with('success', 'サブスクリプションを解約しました。');
 			} else {
 				return redirect()->route('mypage')->withErrors('サブスクリプションが見つかりませんでした');
 			}

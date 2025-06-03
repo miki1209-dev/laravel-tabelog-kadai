@@ -3,7 +3,19 @@
 	<div class="container pt-5 pb-5">
 		<div class="row justify-content-center">
 			<div class="col-lg-8">
+				@if (session('success'))
+					<div class="flash-message flash-message--success">
+						<i class="fas fa-check-circle"></i>
+						<span>{{ session('success') }}</span>
+					</div>
+				@endif
 
+				@if ($errors->any())
+					<div class="flash-message flash-message--error">
+						<i class="fas fa-exclamation-triangle"></i>
+						<span>{{ $errors->first() }}</span>
+					</div>
+				@endif
 				<div class="mb-4">
 					<h3 class="fw-bold">マイページ</h3>
 				</div>

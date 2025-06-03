@@ -13,6 +13,22 @@ document.addEventListener('DOMContentLoaded', async () => {
 	form.addEventListener('submit', async (e) => {
 		e.preventDefault();
 
+		const errorName = document.getElementById('name-errors');
+		errorName.style.display = 'none';
+		errorName.innerHTML = '';
+		const errorCard = document.getElementById('card-errors');
+		errorCard.style.display = 'none';
+		errorCard.innerHTML = '';
+
+		let hasError = false;
+
+		if (!cardholderName.value.trim()) {
+			const nameError = document.createElement('div');
+			nameError.textContent = 'カード名義を入力してください';
+			errorName.appendChild(nameError);
+			hasError = true;
+		}
+
 		const result = await stripe.createPaymentMethod({
 			type: 'card',
 			card: cardElement,
@@ -24,15 +40,24 @@ document.addEventListener('DOMContentLoaded', async () => {
 		const error = result.error;
 
 		if (error) {
-			alert(error.message);
-		} else {
-			const hiddenInput = document.createElement('input');
-			hiddenInput.setAttribute('type', 'hidden');
-			hiddenInput.setAttribute('name', 'stripeToken');
-			hiddenInput.setAttribute('value', paymentMethod.id);
-			form.appendChild(hiddenInput);
-
-			form.submit();
+			const stripeError = document.createElement('div');
+			stripeError.textContent = result.error.message;
+			errorCard.appendChild(stripeError);
+			hasError = true;
 		}
+
+		if (hasError) {
+			errorName.style.display = 'block';
+			errorCard.style.display = 'block';
+			return;
+		}
+
+		const hiddenInput = document.createElement('input');
+		hiddenInput.setAttribute('type', 'hidden');
+		hiddenInput.setAttribute('name', 'stripeToken');
+		hiddenInput.setAttribute('value', paymentMethod.id);
+		form.appendChild(hiddenInput);
+
+		form.submit();
 	});
 });

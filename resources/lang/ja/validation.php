@@ -132,6 +132,8 @@ return [
 		'visit_date' => '来店日',
 		'visit_time' => '来店時間',
 		'number_of_people' => '来店人数',
+		'card_name' => 'カード名義人',
+		'stripe_token' => 'カード情報',
 	],
 
 ];

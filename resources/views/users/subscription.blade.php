@@ -20,12 +20,21 @@
 					@csrf
 					<div class="form__group">
 						<label for="cardholder-name" class="form__label mb-1">カード名義人</label>
-						<input type="text" id="cardholder-name" name="card_name" class="form-control form__input form__input--muted">
+						<input type="text" id="cardholder-name" name="card_name"
+							class="form-control form__input form__input--muted @error('card_name') is-invalid @enderror"
+							value="{{ old('card_name') }}">
+						@error('card_name')
+							<div class="form__error text-danger mt-1">{{ $message }}</div>
+						@enderror
+						<div id="name-errors" class="form__error text-danger mt-1" style="display: none;"></div>
 					</div>
-					<label for="card-element" class="form__label mb-1">カード情報</label>
 					<div class="form__group">
+						<label for="card-element" class="form__label mb-1">カード情報</label>
 						<div id="card-element"></div>
 						<div id="card-errors" class="form__error text-danger mt-1" style="display: none;"></div>
+						@error('stripeToken')
+							<div class="form__error text-danger mt-1">{{ $message }}</div>
+						@enderror
 					</div>
 					<div class="d-flex justify-content-center">
 						<button type="submit" class="button button--base">登録する</button>

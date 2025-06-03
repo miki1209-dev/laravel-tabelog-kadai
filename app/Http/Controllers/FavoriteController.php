@@ -11,6 +11,7 @@ class FavoriteController extends Controller
 {
 	public function store(Shop $shop)
 	{
+		/** @var \App\Models\User $user */
 		$user = Auth::user();
 		$user->favorite_shops()->attach($shop->id);
 
@@ -19,6 +20,7 @@ class FavoriteController extends Controller
 
 	public function destroy(Shop $shop)
 	{
+		/** @var \App\Models\User $user */
 		$user = Auth::user();
 		$user->favorite_shops()->detach($shop->id);
 

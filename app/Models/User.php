@@ -62,6 +62,6 @@ class User extends Authenticatable implements MustVerifyEmail
 	}
 	public function isPremium()
 	{
-		return $this->subscribed('premium') && !$this->subscription('premium')->canceled();
+		return $this->subscribed('premium') && $this->subscription('premium')->valid();
 	}
 }

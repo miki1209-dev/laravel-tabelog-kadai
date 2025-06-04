@@ -3,6 +3,12 @@
 	<div class="container pt-5">
 		<div class="row justify-content-center">
 			<div class="col-md-8">
+				@if (session('error'))
+					<div class="flash-message flash-message--error">
+						<i class="fas fa-exclamation-triangle"></i>
+						<span>{{ session('error') }}</span>
+					</div>
+				@endif
 				<nav style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb">
 					<ol class="breadcrumb">
 						<li class="breadcrumb-item"><a href="{{ route('mypage') }}">マイページ</a></li>

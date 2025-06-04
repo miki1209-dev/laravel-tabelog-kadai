@@ -21,7 +21,7 @@ class EnsureUserIsPaid
 		$user = Auth::user();
 
 		if (!$user || !$user->isPremium()) {
-			return redirect()->route('top')->with('error', 'この機能は有料会員のみ利用できます');
+			return redirect()->route('mypage.subscription')->with('error', 'この機能は有料会員のみ利用できます');
 		}
 		return $next($request);
 	}

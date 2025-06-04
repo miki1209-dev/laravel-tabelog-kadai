@@ -34,10 +34,12 @@ Route::middleware(['auth', 'verified'])->group(function () {
 		Route::get('users/mypage/edit', 'edit')->name('mypage.edit');
 		Route::put('users/mypage', 'update')->name('mypage.update');
 		Route::get('users/mypage/subscription', 'subscription')->name('mypage.subscription');
-		Route::get('users/mypage/reservations', 'reservations')->name('mypage.reservations');
-		Route::patch('users/mypage/reservations/{reservation}', 'cancelReservation')->name('mypage.reservations.cancel');
-		Route::get('users/mypage/favorites', 'favorites')->name('mypage.favorites');
 		Route::delete('users/mypage/delete', 'destroy')->name('mypage.destroy');
+		Route::middleware(['paid'])->group(function () {
+			Route::get('users/mypage/favorites', 'favorites')->name('mypage.favorites');
+			Route::get('users/mypage/reservations', 'reservations')->name('mypage.reservations');
+			Route::patch('users/mypage/reservations/{reservation}', 'cancelReservation')->name('mypage.reservations.cancel');
+		});
 	});
 
 	Route::controller(ShopController::class)->group(function () {
@@ -46,20 +48,26 @@ Route::middleware(['auth', 'verified'])->group(function () {
 	});
 
 	Route::controller(FavoriteController::class)->group(function () {
-		Route::post('shops/{shop}/favorite', 'store')->name('favorite.store');
-		Route::delete('shops/{shop}/favorite', 'destroy')->name('favorite.destroy');
+		Route::middleware(['paid'])->group(function () {
+			Route::post('shops/{shop}/favorite', 'store')->name('favorite.store');
+			Route::delete('shops/{shop}/favorite', 'destroy')->name('favorite.destroy');
+		});
 	});
 
 	Route::controller(ReviewController::class)->group(function () {
-		Route::post('/reviews', 'store')->name('reviews.store');
-		Route::put('/reviews/{review}', 'update')->name('reviews.update');
-		Route::delete('/reviews/{review}', 'destroy')->name('reviews.destroy');
+		Route::middleware(['paid'])->group(function () {
+			Route::post('/reviews', 'store')->name('reviews.store');
+			Route::put('/reviews/{review}', 'update')->name('reviews.update');
+			Route::delete('/reviews/{review}', 'destroy')->name('reviews.destroy');
+		});
 	});
 
 	Route::controller(ReservationController::class)->group(function () {
-		Route::post('/reservations', 'store')->name('reservations.store');
-		Route::post('/reservations/confirm', 'confirm')->name('reservations.confirm');
-		Route::get('/reservations/complete', 'complete')->name('reservations.complete');
+		Route::middleware(['paid'])->group(function () {
+			Route::post('/reservations', 'store')->name('reservations.store');
+			Route::post('/reservations/confirm', 'confirm')->name('reservations.confirm');
+			Route::get('/reservations/complete', 'complete')->name('reservations.complete');
+		});
 	});
 
 	Route::controller(SubscriptionController::class)->group(function () {

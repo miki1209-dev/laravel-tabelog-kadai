@@ -27,11 +27,14 @@
 		}
 	}
 
-	&__input--muted {
+	&__input--muted,
+	&__select--muted
+	{
 		&:focus {
 			color: v.$dark-color;
 		}
 	}
+
 	&__select--accent {
 		color: v.$accent-color-secondary;
 	}

@@ -60,4 +60,8 @@ class User extends Authenticatable implements MustVerifyEmail
 	{
 		return $this->hasMany(Review::class);
 	}
+	public function isPremium()
+	{
+		return $this->subscribed('premium') && !$this->subscription('premium')->canceled();
+	}
 }

@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use App\Models\User;
 use Illuminate\Validation\Rule;
 use Illuminate\Database\QueryException;
 use Exception;
@@ -21,8 +20,14 @@ class UserController extends Controller
 	 */
 	public function mypage()
 	{
+		/** @var \App\Models\User $user */
 		$user = Auth::user();
-		return view('users.mypage', compact('user'));
+		$subscriptionEndDays = null;
+		$subscription = $user->subscription('premium');
+		if ($subscription !== null && $subscription->ends_at !== null) {
+			$subscriptionEndDays = Carbon::parse($subscription->ends_at)->format('Y年m月d日');
+		}
+		return view('users.mypage', compact('user', 'subscription', 'subscriptionEndDays'));
 	}
 
 	/**

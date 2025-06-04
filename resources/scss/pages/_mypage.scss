@@ -3,6 +3,9 @@
 .mypage-menu {
 	padding: 0;
 	margin: 0;
+	&__item:first-child {
+		border-top: 1px solid v.$border-primary;
+	}
 	&__item {
 		border-bottom: 1px v.$border-primary solid;
 		transition: background-color 0.2s ease;

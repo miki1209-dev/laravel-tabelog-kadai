@@ -34,6 +34,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
 		Route::get('users/mypage/edit', 'edit')->name('mypage.edit');
 		Route::put('users/mypage', 'update')->name('mypage.update');
 		Route::get('users/mypage/subscription', 'subscription')->name('mypage.subscription');
+		Route::get('users/mypage/subscription/payment', 'payment')->name('subscription.payment');
 		Route::delete('users/mypage/delete', 'destroy')->name('mypage.destroy');
 		Route::middleware(['paid'])->group(function () {
 			Route::get('users/mypage/favorites', 'favorites')->name('mypage.favorites');
@@ -73,5 +74,6 @@ Route::middleware(['auth', 'verified'])->group(function () {
 	Route::controller(SubscriptionController::class)->group(function () {
 		Route::post('/subscription/subscribe', 'store')->name('subscription.store');
 		Route::post('/subscription/cancel', 'cancel')->name('subscription.cancel');
+		Route::post('/subscription/payment-method', 'update')->name('subscription.update');
 	});
 });

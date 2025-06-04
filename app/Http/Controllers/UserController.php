@@ -111,6 +111,11 @@ class UserController extends Controller
 		return view('users.reservations', compact('reservations'));
 	}
 
+	public function payment()
+	{
+		return view('users.payment');
+	}
+
 	public function cancelReservation(Reservation $reservation)
 	{
 		if ($reservation->user_id !== Auth::id()) {

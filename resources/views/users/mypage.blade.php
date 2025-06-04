@@ -62,15 +62,14 @@
 									@csrf
 								</form>
 							</div>
-
-							<div class="mypage-menu__item">
-								<a href="#" class="mypage-menu__link">
-									<i class="fas fa-credit-card mypage-menu__icon"></i>
-									<div class="mypage-menu__text">お支払い方法</div>
-									<i class="fas fa-chevron-right mypage-menu__chevron"></i>
-								</a>
-							</div>
 						@endif
+						<div class="mypage-menu__item">
+							<a href="{{ route('subscription.payment') }}" class="mypage-menu__link">
+								<i class="fas fa-credit-card mypage-menu__icon"></i>
+								<div class="mypage-menu__text">お支払い方法変更</div>
+								<i class="fas fa-chevron-right mypage-menu__chevron"></i>
+							</a>
+						</div>
 
 						<div class="mypage-menu__item">
 							<a href="{{ route('mypage.reservations') }}" class="mypage-menu__link">

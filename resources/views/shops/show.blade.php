@@ -92,7 +92,7 @@
 									<div class="col-md-3 mt-2">
 										<label class="form-label form__label">来店日</label>
 										<input type="date" name="visit_date"
-											class="form-control form__input @error('visit_date', 'reservation') is-invalid @enderror"
+											class="form-control form__input form__input--muted @error('visit_date', 'reservation') is-invalid @enderror"
 											min="{{ $tomorrow }}">
 										@error('visit_date', 'reservation')
 											<span class="invalid-feedback">
@@ -107,7 +107,7 @@
 											$errors->reservation->has('number_of_people')) form--has-error @endif">
 										<label class="form-label form__label">来店時間</label>
 										<select name="visit_time"
-											class="form-control form__select @error('visit_time', 'reservation') is-invalid @enderror">
+											class="form-control form__select form__select--muted @error('visit_time', 'reservation') is-invalid @enderror">
 											<option value="">選択してください</option>
 											@for ($time = $startHour->copy(); $time < $endHour; $time->addMinutes(30))
 												<option value="{{ $time->format('H:i') }}">{{ $time->format('H:i') }}</option>
@@ -126,7 +126,7 @@
 											$errors->reservation->has('number_of_people')) form--has-error @endif">
 										<label class="form-label form__label">来店人数</label>
 										<select name="number_of_people"
-											class="form-control form__select @error('number_of_people', 'reservation') is-invalid @enderror">
+											class="form-control form__select form__select--muted @error('number_of_people', 'reservation') is-invalid @enderror">
 											<option value="">選択してください</option>
 											@for ($i = 1; $i <= 15; $i++)
 												<option value="{{ $i }}">{{ $i }}人</option>
@@ -180,7 +180,7 @@
 							<div class="form__group mb-3">
 								<label class="form__label fw-bold mb-2">タイトル</label>
 								<input type="text" name="title"
-									class="form__input form-control shadow-sm @error('title') is-invalid @enderror">
+									class="form__input form__input--muted form-control shadow-sm @error('title') is-invalid @enderror">
 								@error('title')
 									<span class="invalid-feedback">
 										<strong>{{ $message }}</strong>
@@ -189,7 +189,8 @@
 							</div>
 							<div class="form__group mb-4">
 								<label class="form__label fw-bold mb-2">レビュー内容</label>
-								<textarea name="content" class="form__textarea form-control shadow-sm @error('content') is-invalid @enderror"
+								<textarea name="content"
+								 class="form__textarea form__textarea--muted form-control shadow-sm @error('content') is-invalid @enderror"
 								 rows="7"></textarea>
 								@error('content')
 									<span class="invalid-feedback">
@@ -218,14 +219,34 @@
 												data-bs-target="#editReviewModal" data-id="{{ $review->id }}" data-title="{{ $review->title }}"
 												data-content="{{ $review->content }}" data-score="{{ $review->score }}"
 												data-action="{{ route('reviews.update', $review->id) }}">編集</button>
-											<form action="{{ route('reviews.destroy', $review->id) }}" method="POST"
-												onsubmit="return confirm('本当に削除しますか？');">
-												@csrf
-												@method('DELETE')
-												<button type="submit" class="button button--sm button--danger">削除</button>
-											</form>
+											<button class="button button--sm button--danger" data-bs-toggle="modal" data-bs-target="#deleteReviewModal"
+												data-review-id="{{ $review->id }}">
+												削除
+											</button>
 										</div>
 									@endif
+								</div>
+								<div class="modal fade" id="deleteReviewModal" tabindex="-1" aria-labelledby="deleteReviewModal"
+									aria-hidden="true">
+									<div class="modal-dialog">
+										<div class="modal-content">
+											<div class="modal-header">
+												<h5 class="modal-title" id="deleteReviewModal">削除の確認</h5>
+												<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="閉じる"></button>
+											</div>
+											<div class="modal-body">
+												本当にレビューを削除してもよろしいですか？<br>
+											</div>
+											<div class="modal-footer">
+												<button type="button" class="button button--danger" data-bs-dismiss="modal">キャンセル</button>
+												<form id="cancel-form" action="{{ route('reviews.destroy', $review->id) }}" method="POST">
+													@csrf
+													@method('DELETE')
+													<button type="submit" class="button button--base">削除</button>
+												</form>
+											</div>
+										</div>
+									</div>
 								</div>
 							@endforeach
 						</div>

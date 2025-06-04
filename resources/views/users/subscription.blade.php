@@ -50,3 +50,6 @@
 		</div>
 	</div>
 @endsection
+@section('scripts')
+	@vite('resources/js/stripe-subscribe.js')
+@endsection

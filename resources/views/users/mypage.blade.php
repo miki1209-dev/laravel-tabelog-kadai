@@ -52,15 +52,11 @@
 					@else
 						@if (is_null($subscription->ends_at))
 							<div class="mypage-menu__item">
-								<a href="{{ route('subscription.cancel') }}" class="mypage-menu__link"
-									onclick="event.preventDefault(); document.getElementById('cancel-form').submit();">
+								<a href="#" class="mypage-menu__link" data-bs-toggle="modal" data-bs-target="#cancelConfirmModal">
 									<i class="fas fa-door-open mypage-menu__icon"></i>
 									<span class="mypage-menu__text">解約</span>
 									<i class="fas fa-chevron-right mypage-menu__chevron"></i>
 								</a>
-								<form id="cancel-form" action="{{ route('subscription.cancel') }}" method="POST" style="display: none;">
-									@csrf
-								</form>
 							</div>
 						@endif
 						<div class="mypage-menu__item">
@@ -100,6 +96,28 @@
 						</form>
 					</div>
 
+				</div>
+				<div class="modal fade" id="cancelConfirmModal" tabindex="-1" aria-labelledby="cancelConfirmModalLabel"
+					aria-hidden="true">
+					<div class="modal-dialog">
+						<div class="modal-content">
+							<div class="modal-header">
+								<h5 class="modal-title" id="cancelConfirmModalLabel">解約の確認</h5>
+								<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="閉じる"></button>
+							</div>
+							<div class="modal-body">
+								本当にサブスクリプションを解約してもよろしいですか？<br>
+								<small>※契約が終了するまで、新たな有料会員登録はお待ちいただく必要があります。</small>
+							</div>
+							<div class="modal-footer">
+								<button type="button" class="button button--danger" data-bs-dismiss="modal">キャンセル</button>
+								<form id="cancel-form" action="{{ route('subscription.cancel') }}" method="POST">
+									@csrf
+									<button type="submit" class="button button--base">はい、解約します</button>
+								</form>
+							</div>
+						</div>
+					</div>
 				</div>
 			</div>
 		</div>

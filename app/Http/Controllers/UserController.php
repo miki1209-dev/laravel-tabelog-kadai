@@ -10,6 +10,7 @@ use Exception;
 use Illuminate\Support\Facades\Log;
 use App\Models\Reservation;
 use Illuminate\Support\Carbon;
+use Laravel\Cashier\Cashier;
 
 class UserController extends Controller
 {
@@ -113,7 +114,19 @@ class UserController extends Controller
 
 	public function payment()
 	{
-		return view('users.payment');
+		/** @var \App\Models\User $user */
+		$user = Auth::user();
+		$defaultPaymentMethod = null;
+
+		if ($user->hasStripeId()) {
+			$stripeCustomer = $user->asStripeCustomer();
+			$paymentMethodId = $stripeCustomer->invoice_settings->default_payment_method ?? null;
+
+			if ($paymentMethodId) {
+				$defaultPaymentMethod = Cashier::stripe()->paymentMethods->retrieve($paymentMethodId);
+			}
+		}
+		return view('users.payment', compact('defaultPaymentMethod'));
 	}
 
 	public function cancelReservation(Reservation $reservation)

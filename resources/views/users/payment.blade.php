@@ -33,12 +33,15 @@
 					<div class="form__group">
 						<label for="cardholder-name" class="form__label mb-1">カード名義人</label>
 						<input type="text" id="cardholder-name" name="card_name"
-							class="form-control form__input form__input--muted @error('card_name') is-invalid @enderror"
+							class="form-control form__input form__input--muted mb-1 @error('card_name') is-invalid @enderror"
 							value="{{ old('card_name') }}">
 						@error('card_name')
 							<div class="form__error text-danger mt-1">{{ $message }}</div>
 						@enderror
 						<div id="name-errors" class="form__error text-danger mt-1" style="display: none;"></div>
+						@if ($defaultPaymentMethod)
+							<small>現在のカード番号: **** **** **** {{ $defaultPaymentMethod->card->last4 }}</small>
+						@endif
 					</div>
 					<div class="form__group">
 						<label for="card-element" class="form__label mb-1">カード情報</label>
@@ -55,4 +58,7 @@
 			</div>
 		</div>
 	</div>
+@endsection
+@section('scripts')
+	@vite('resources/js/stripe-update.js')
 @endsection

@@ -72,7 +72,7 @@ class UserController extends Controller
 			$user->phone = $request->input('phone') ? $request->input('phone') : null;
 			$user->save();
 
-			return redirect()->route('mypage.edit');
+			return redirect()->route('mypage')->with(['success' => '会員情報を更新しました']);
 		} catch (QueryException $e) {
 			// DBへの登録でエラーが出た場合（制約違反とか）、ログの出力先は（storage/logs/laravel.log）で「Database Error」確認してください
 			Log::error('Database Error' . $e->getMessage());
@@ -89,10 +89,14 @@ class UserController extends Controller
 	 *
 	 * @return \Illuminate\Http\Response
 	 */
-	public function destroy(Request $request)
+	public function destroy()
 	{
 		/** @var \App\Models\User $user */
 		$user = Auth::user();
+		if ($user->subscribed('premium')) {
+			$user->subscription('premium')->cancelNow();
+		}
+
 		$user->delete();
 		return redirect()->route('top');
 	}
@@ -142,7 +146,7 @@ class UserController extends Controller
 		try {
 			$reservation->status = 'canceled';
 			$reservation->save();
-			return redirect()->route('mypage.reservations');
+			return redirect()->route('mypage.reservations')->with(['success' => '予約をキャンセルしました']);
 		} catch (QueryException $e) {
 			Log::error('Database Error' . $e->getMessage());
 			return back()->withErrors(['db_error' => 'データベースへの登録が失敗しました。時間をおいて再度試してみてください'])->withInput();

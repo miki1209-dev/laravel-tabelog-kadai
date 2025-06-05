@@ -3,6 +3,12 @@
 	<div class="container pt-5 pb-5">
 		<div class="row justify-content-center">
 			<div class="col-lg-8">
+				@if (session('success'))
+					<div class="flash-message flash-message--success">
+						<i class="fas fa-check-circle"></i>
+						<span>{{ session('success') }}</span>
+					</div>
+				@endif
 				@if (session('error'))
 					<div class="alert alert-danger">{{ session('error') }}</div>
 				@endif

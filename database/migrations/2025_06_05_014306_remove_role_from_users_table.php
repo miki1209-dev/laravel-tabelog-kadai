@@ -13,8 +13,8 @@ return new class extends Migration
 	 */
 	public function up()
 	{
-		Schema::table('categories', function (Blueprint $table) {
-			$table->boolean('is_featured')->default(false)->after('file_name');
+		Schema::table('users', function (Blueprint $table) {
+			$table->dropColumn('role');
 		});
 	}
 
@@ -25,8 +25,8 @@ return new class extends Migration
 	 */
 	public function down()
 	{
-		Schema::table('categories', function (Blueprint $table) {
-			$table->enum('role', ['free', 'premium'])->default('free')->after('phone');
+		Schema::table('users', function (Blueprint $table) {
+			//
 		});
 	}
 };

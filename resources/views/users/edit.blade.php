@@ -104,7 +104,9 @@
 								<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="閉じる"></button>
 							</div>
 							<div class="modal-body">
-								<p class="text-center mb-0">一度退会するとデータはすべて削除され、<br>復旧はできません。</p>
+								<p class="text-center mb-0">
+									一度退会するとデータはすべて削除され、<br>復旧はできません。<br><small>※有料会員の方は退会後、プランは自動で解約されます</small></p>
+
 							</div>
 							<form action="{{ route('mypage.destroy') }}" method="POST">
 								@csrf

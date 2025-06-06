@@ -66,7 +66,7 @@
 									<img src="{{ asset('img/dummy.png') }}" class="card-img-top ">
 								@endif
 								<div class="card__body card-body">
-									<h5 class="card__title card-title fw-bold">{{ $attention->name }}</h5>
+									<h5 class="card__title card-title">{{ $attention->name }}</h5>
 								</div>
 							</div>
 						</a>

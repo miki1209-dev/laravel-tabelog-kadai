@@ -62,38 +62,40 @@
 							<div class="col-md-2">
 								<button class="button button--base button--danger" data-bs-toggle="modal"
 									data-bs-target="#cancelReservationModal" data-reservation-id="{{ $reservation->id }}">
-									キャンセル
+									取り消し
 								</button>
 							</div>
 						</div>
 						<hr class="my-4">
-						<div class="modal fade" id="cancelReservationModal" tabindex="-1" aria-labelledby="cancelReservationModal"
-							aria-hidden="true">
-							<div class="modal-dialog">
-								<div class="modal-content">
-									<div class="modal-header">
-										<h5 class="modal-title" id="cancelReservationModal">予約取り消し</h5>
-										<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="閉じる"></button>
-									</div>
-									<div class="modal-body">
-										予約を取り消ししてもよろしいですか？<br>
-									</div>
-									<div class="modal-footer">
-										<button type="button" class="button button--danger" data-bs-dismiss="modal">キャンセル</button>
-										<form id="cancel-form" action="{{ route('mypage.reservations.cancel', $reservation->id) }}" method="POST">
-											@csrf
-											@method('PATCH')
-											<button type="submit" class="button button--base">予約を取り消し</button>
-										</form>
-									</div>
-								</div>
-							</div>
-						</div>
 					@endforeach
 				@endif
 
 				{{ $reservations->links() }}
+				<div class="modal fade" id="cancelReservationModal" tabindex="-1" aria-labelledby="cancelReservationModal"
+					aria-hidden="true">
+					<div class="modal-dialog">
+						<div class="modal-content">
+							<div class="modal-header">
+								<h5 class="modal-title" id="cancelReservationModal">予約取り消し</h5>
+								<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="閉じる"></button>
+							</div>
+							<div class="modal-body">
+								予約を取り消ししてもよろしいですか？<br>
+							</div>
+							<div class="modal-footer">
+								<form id="cancel-form" data-base-url="{{ url('/') }}" action="#" method="POST">
+									@csrf
+									@method('PATCH')
+									<button type="submit" class="button button--danger">予約を取り消し</button>
+								</form>
+							</div>
+						</div>
+					</div>
+				</div>
 			</div>
 		</div>
 	</div>
+@endsection
+@section('scripts')
+	@vite('resources/js/delete-modal.js')
 @endsection

@@ -20,7 +20,8 @@
 			<div class="row align-items-center">
 				<div class="col-md-5">
 					@if ($shop->file_name !== null)
-						<img src="{{ asset('uploads/' . $shop->file_name) }}" class="img-fluid rounded shadow-sm" alt="店舗画像">
+						<img src="{{ asset('uploads/' . $shop->categories->first()->file_name) }}" class="img-fluid rounded shadow-sm"
+							alt="店舗画像">
 					@else
 						<img src="{{ asset('img/dummy.png') }}" class="img-fluid rounded shadow-sm" alt="店舗画像">
 					@endif
@@ -226,28 +227,6 @@
 										</div>
 									@endif
 								</div>
-								<div class="modal fade" id="deleteReviewModal" tabindex="-1" aria-labelledby="deleteReviewModal"
-									aria-hidden="true">
-									<div class="modal-dialog">
-										<div class="modal-content">
-											<div class="modal-header">
-												<h5 class="modal-title" id="deleteReviewModal">削除の確認</h5>
-												<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="閉じる"></button>
-											</div>
-											<div class="modal-body">
-												本当にレビューを削除してもよろしいですか？<br>
-											</div>
-											<div class="modal-footer">
-												<button type="button" class="button button--danger" data-bs-dismiss="modal">キャンセル</button>
-												<form id="cancel-form" action="{{ route('reviews.destroy', $review->id) }}" method="POST">
-													@csrf
-													@method('DELETE')
-													<button type="submit" class="button button--base">削除</button>
-												</form>
-											</div>
-										</div>
-									</div>
-								</div>
 							@endforeach
 						</div>
 						<div class="review__pagination text-center mt-4">
@@ -284,7 +263,7 @@
 											<div class="mb-3">
 												<label for="edit-review-title" class="col-form-label form__label fw-bold">タイトル</label>
 												<input type="text" name="title"
-													class="form-control form__input form-control shadow-sm  @error('title', 'editReview') is-invalid @enderror"
+													class="form-control form__input form__input--muted form-control shadow-sm  @error('title', 'editReview') is-invalid @enderror"
 													id="edit-review-title" value="{{ old('title') }}">
 												@error('title', 'editReview')
 													<span class="invalid-feedback">
@@ -295,7 +274,7 @@
 											<div class="mb-3">
 												<label for="edit-review-content" class="col-form-label form__label fw-bold">内容</label>
 												<textarea name="content" id="edit-review-content"
-												 class="form-control form__textarea form-control shadow-sm  @error('content', 'editReview') is-invalid @enderror"
+												 class="form-control form__textarea form__textarea--muted form-control shadow-sm  @error('content', 'editReview') is-invalid @enderror"
 												 rows="7">{{ old('content') }}</textarea>
 												@error('content', 'editReview')
 													<span class="invalid-feedback">
@@ -315,9 +294,35 @@
 								</div>
 							</div>
 						</div>
+						<div class="modal fade" id="deleteReviewModal" tabindex="-1" aria-labelledby="deleteReviewModal"
+							aria-hidden="true">
+							<div class="modal-dialog">
+								<div class="modal-content">
+									<div class="modal-header">
+										<h5 class="modal-title" id="deleteReviewModal">削除の確認</h5>
+										<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="閉じる"></button>
+									</div>
+									<div class="modal-body">
+										本当にレビューを削除してもよろしいですか？<br>
+									</div>
+									<div class="modal-footer">
+										<button type="button" class="button button--danger" data-bs-dismiss="modal">キャンセル</button>
+										<form id="cancel-form" data-base-url="{{ url('/') }}" action="#" method="POST">
+											@csrf
+											@method('DELETE')
+											<button type="submit" class="button button--base">削除</button>
+										</form>
+									</div>
+								</div>
+							</div>
+						</div>
 					</div>
 				</div>
 			</div>
 		</div>
 	</div>
+@endsection
+@section('scripts')
+	@vite('resources/js/review-edit-modal.js')
+	@vite('resources/js/review-delete-modal.js')
 @endsection

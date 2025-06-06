@@ -4,7 +4,10 @@
 			<a href="{{ url('/') }}" class="navbar-brand">
 				<img src="{{ asset('img/logo.png') }}" class="">
 			</a>
-			<div class="collapse navbar-collapse">
+			<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarMenu">
+				<span class="navbar-toggler-icon"></span>
+			</button>
+			<div id="navbarMenu" class="collapse navbar-collapse">
 				<ul class="navbar-nav ms-auto">
 					@guest
 						<li class="nav-item me-4">

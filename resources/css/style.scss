@@ -23,3 +23,6 @@
 @use '@/scss/pages/mypage';
 @use '@/scss/pages/review';
 @use '@/scss/pages/confirm';
+
+// mixin ブレークポイント
+@use  '@/scss/utils/mixins';

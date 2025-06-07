@@ -1,6 +1,12 @@
 @extends('layouts.app')
 @section('content')
 	<div class="hero">
+		<div class="hero__slider">
+			<div class="hero__slide hero__slide--1"></div>
+			<div class="hero__slide hero__slide--2"></div>
+			<div class="hero__slide hero__slide--3"></div>
+			<div class="hero__slide hero__slide--4"></div>
+		</div>
 		<div class="hero__content">
 			<h1 class="hero__title">地元が誇るあの味、手軽に探せる。</h1>
 			<h3 class="hero__subtitle">探す、見つける、食べる。名古屋飯の旅をはじめよう。</h3>
@@ -21,10 +27,9 @@
 				</div>
 			</div>
 		</div>
-
 	</div>
 	<div class="container">
-		<div class="mb-3 mb-md-5">
+		<div class="mb-3 mb-md-4">
 			<h3 class="mb-2 mb-md-3">おすすめの店舗</h3>
 			<div class="row row-cols-2 row-cols-xl-4 g-2 g-md-3">
 				@foreach ($featured_shops as $featured_shop)
@@ -53,7 +58,7 @@
 				@endforeach
 			</div>
 		</div>
-		<div class="mb-3 mb-md-5">
+		<div class="mb-3 mb-md-4">
 			<h3 class="mb-2 mb-md-3">カテゴリで探す</h3>
 			<div class="row row-cols-2 row-cols-md-4 row-cols-xl-6 g-2 g-md-3 mb-2 mb-md-3">
 				@foreach ($attentions as $attention)
@@ -63,7 +68,7 @@
 								@if ($attention->file_name !== null)
 									<img src="{{ asset('uploads/' . $attention->file_name) }}" class="card-img-top card__category">
 								@else
-									<img src="{{ asset('img/dummy.png') }}" class="card-img-top ">
+									<img src="{{ asset('img/dummy.png') }}" class="card-img-top">
 								@endif
 								<div class="card__body card-body">
 									<h5 class="card__title card-title">{{ $attention->name }}</h5>
@@ -77,7 +82,7 @@
 				@foreach ($categories as $category)
 					@if ($category->is_featured === 0)
 						<a href="{{ route('shops.index', ['category' => $category->name]) }}" class="link--style">
-							<div class="button--outline me-1 me-md-2 mb-1 mb-md-2">
+							<div class="button--outline me-1 me-md-2 mb-1 mb-md-2 shadow-sm">
 								<small>{{ $category->name }}</small>
 							</div>
 						</a>
@@ -115,4 +120,7 @@
 			</div>
 		</div>
 	</div>
+@endsection
+@section('scripts')
+	@vite('resources/js/slider.js')
 @endsection

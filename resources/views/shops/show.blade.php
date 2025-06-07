@@ -28,7 +28,7 @@
 				</div>
 				<div class="col-md-7">
 					<div class="d-flex align-items-center mb-1">
-						<h2 class="fw-bold me-3 mb-0">{{ $shop->name }}</h2>
+						<h2 class="me-3 mb-0">{{ $shop->name }}</h2>
 						<div class="row align-items-end me-1">
 							<div class="col-md-6">
 								@if (Auth::user()->favorite_shops->contains($shop->id))

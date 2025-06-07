@@ -324,5 +324,5 @@
 @endsection
 @section('scripts')
 	@vite('resources/js/review-edit-modal.js')
-	@vite('resources/js/review-delete-modal.js')
+	@vite('resources/js/delete-modal.js')
 @endsection

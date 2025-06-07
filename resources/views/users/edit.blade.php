@@ -1,6 +1,6 @@
 @extends('layouts.app')
 @section('content')
-	<div class="container pt-5 pb-5">
+	<div class="container py-4 py-md-5">
 		<div class="row justify-content-center">
 			<div class="col-lg-8">
 				@if (session('flash_message'))
@@ -14,17 +14,17 @@
 					</div>
 				@endif
 				<nav style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb">
-					<ol class="breadcrumb">
+					<ol class="breadcrumb mb-1 mb-md-2">
 						<li class="breadcrumb-item"><a href="{{ route('mypage') }}">マイページ</a></li>
 						<li class="breadcrumb-item active" aria-current="page">会員情報編集</li>
 					</ol>
 				</nav>
 
-				<div class="mb-4">
-					<h3 class="fw-bold">会員情報編集</h3>
+				<div class="mb-2 mb-md-4">
+					<h3>会員情報編集</h3>
 				</div>
 
-				<hr class="mb-4">
+				<hr class="my-3 my-md-4">
 
 				<form action="{{ route('mypage.update') }}" method="POST" onkeydown="return event.key !== 'Enter';">
 					@csrf

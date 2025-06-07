@@ -14,6 +14,9 @@
 	height: 100vh;
 	position: relative;
 	overflow: hidden;
+	@include sp {
+		height: 50vh;
+	}
 
 	&__slider {
 		height: 100%;

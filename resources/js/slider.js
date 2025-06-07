@@ -6,11 +6,11 @@ import 'slick-carousel/slick/slick-theme.css';
 $(function () {
   $('.hero__slider').slick({
     infinite: true,
-    speed: 500,
+    speed: 700,
     fade: true,
     cssEase: 'linear',
     autoplay: true,
-    autoplaySpeed: 5000,
+    autoplaySpeed: 3000,
     arrows: false
   });
 });

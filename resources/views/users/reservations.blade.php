@@ -1,6 +1,6 @@
 @extends('layouts.app')
 @section('content')
-	<div class="container pt-5 pb-5">
+	<div class="container py-4 py-md-5">
 		<div class="row justify-content-center">
 			<div class="col-lg-8">
 				@if (session('success'))
@@ -19,17 +19,17 @@
 					</div>
 				@endif
 				<nav style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb">
-					<ol class="breadcrumb">
+					<ol class="breadcrumb mb-1 mb-md-2">
 						<li class="breadcrumb-item"><a href="{{ route('mypage') }}">マイページ</a></li>
 						<li class="breadcrumb-item active" aria-current="page">予約一覧</li>
 					</ol>
 				</nav>
 
-				<div class="mb-4">
-					<h3 class="fw-bold">予約一覧</h3>
+				<div class="mb-2 mb-md-4">
+					<h3>予約一覧</h3>
 				</div>
 
-				<hr class="mb-4">
+				<hr class="my-3 my-md-4">
 
 				@if ($reservations->isEmpty())
 					<div class="row">
@@ -37,8 +37,8 @@
 					</div>
 				@else
 					@foreach ($reservations as $reservation)
-						<div class="row align-items-center mb-2">
-							<div class="col-md-4">
+						<div class="row align-items-center mb-md-2">
+							<div class="col-md-4 mb-2 mb-md-0">
 								<a href="{{ route('shops.show', $reservation->shop_id) }}">
 									@if ($reservation->shop->file_name !== null)
 										<img src="{{ asset('uploads/' . $reservation->shop->file_name) }}" class="img-thumbnail">
@@ -47,7 +47,7 @@
 									@endif
 								</a>
 							</div>
-							<div class="col-md-6">
+							<div class="col-md-6 mb-2 mb-md-0">
 								<h5 class="w-100">
 									<a href="{{ route('shops.show', $reservation->id) }}" class="link-dark ">店舗名：{{ $reservation->shop->name }}</a>
 								</h5>
@@ -59,14 +59,14 @@
 									<small>住所：{{ $reservation->shop->address }}</small>
 								</div>
 							</div>
-							<div class="col-md-2">
+							<div class="col-md-2 text-center text-md-start">
 								<button class="button button--base button--danger" data-bs-toggle="modal"
 									data-bs-target="#cancelReservationModal" data-reservation-id="{{ $reservation->id }}">
 									取り消し
 								</button>
 							</div>
 						</div>
-						<hr class="my-4">
+						<hr class="my-3 my-md-4">
 					@endforeach
 				@endif
 

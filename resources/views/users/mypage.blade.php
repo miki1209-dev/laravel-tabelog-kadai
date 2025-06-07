@@ -1,6 +1,6 @@
 @extends('layouts.app')
 @section('content')
-	<div class="container pt-5 pb-5">
+	<div class="container py-4 py-md-5">
 		<div class="row justify-content-center">
 			<div class="col-lg-8">
 				@if (session('success'))
@@ -16,9 +16,9 @@
 						<span>{{ $errors->first() }}</span>
 					</div>
 				@endif
-				<div class="mb-4">
-					<div class="d-flex align-items-center justify-content-between">
-						<h3 class="fw-bold mb-0">マイページ</h3>
+				<div class="mb-3 mb-md-4">
+					<div class="d-block d-md-flex align-items-md-center justify-content-md-between">
+						<h3 class="fw-bold mb-1 mb-md-0">マイページ</h3>
 						@if ($user->subscribed('premium'))
 							<div>
 								現在のステータス：

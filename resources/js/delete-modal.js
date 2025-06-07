@@ -1,5 +1,6 @@
 function setupModalAction (modelId, buttonAttr, fromId, urlPrefix) {
 	const modal = document.getElementById(modelId);
+	if (!modal) return;
 	modal.addEventListener('show.bs.modal', function (event) {
 		const button = event.relatedTarget;
 		const itemId = button.getAttribute(buttonAttr);

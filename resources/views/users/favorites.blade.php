@@ -1,20 +1,20 @@
 @extends('layouts.app')
 @section('content')
-	<div class="container pt-5">
+	<div class="container py-4 py-md-5">
 		<div class="row justify-content-center">
 			<div class="col-md-8">
 				<nav style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb">
-					<ol class="breadcrumb">
+					<ol class="breadcrumb mb-1 mb-md-0">
 						<li class="breadcrumb-item"><a href="{{ route('mypage') }}">マイページ</a></li>
 						<li class="breadcrumb-item active" aria-current="page">お気に入り一覧</li>
 					</ol>
 				</nav>
 
-				<div class="mb-4">
-					<h3 class="fw-bold">お気に入り一覧</h3>
+				<div class="mb-2 mb-md-4">
+					<h3>お気に入り一覧</h3>
 				</div>
 
-				<hr class="my-4">
+				<hr class="my-3 my-md-4">
 
 				@if ($favorites_shops->isEmpty())
 					<div class="row">
@@ -22,8 +22,8 @@
 					</div>
 				@else
 					@foreach ($favorites_shops as $favorite_shop)
-						<div class="row align-items-center mb-2">
-							<div class="col-md-4">
+						<div class="row align-items-center mb-md-2">
+							<div class="col-md-4 mb-2 mb-md-0">
 								<a href="{{ route('shops.show', $favorite_shop->id) }}">
 									@if ($favorite_shop->file_name !== null)
 										<img src="{{ asset('uploads/' . $favorite_shop->file_name) }}" class="img-thumbnail">
@@ -32,7 +32,7 @@
 									@endif
 								</a>
 							</div>
-							<div class="col-md-6">
+							<div class="col-md-6 mb-2 mb-md-0">
 								<h5 class="w-100">
 									<a href="{{ route('shops.show', $favorite_shop->id) }}" class="link-dark ">店舗名：{{ $favorite_shop->name }}</a>
 								</h5>
@@ -42,7 +42,7 @@
 									<small>営業時間：{{ $favorite_shop->formatted_opening_time }}〜{{ $favorite_shop->formatted_closing_time }}</small>
 								</div>
 							</div>
-							<div class="col-md-2">
+							<div class="col-md-2 text-center text-md-start">
 								<form id="favorites-destroy-form" action="{{ route('favorite.destroy', $favorite_shop->id) }}" method="POST">
 									@csrf
 									@method('DELETE')
@@ -52,7 +52,7 @@
 								</form>
 							</div>
 						</div>
-						<hr class="my-4">
+						<hr class="my-3 my-md-4">
 					@endforeach
 				@endif
 

@@ -31,10 +31,10 @@
 							</a>
 						</div>
 						<div class="col-lg-8">
-							<h5 class="fw-bold">{{ $shop->name }}</h5>
+							<h5>{{ $shop->name }}</h5>
 							<div class="mb-2">
 								@foreach ($shop->categories as $category)
-									<span class="badge bg-secondary me-1">{{ $category->name }}</span>
+									<span class="badge__category me-1">{{ $category->name }}</span>
 								@endforeach
 							</div>
 							<p class="mb-1">

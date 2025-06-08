@@ -16,17 +16,17 @@
 
 				<hr class="my-3 my-md-4">
 
-				@if ($favorites_shops->isEmpty())
+				@if ($favoritesShops->isEmpty())
 					<div class="row">
 						<p class="mb-0">お気に入りはまだ追加されていません。</p>
 					</div>
 				@else
-					@foreach ($favorites_shops as $favorite_shop)
+					@foreach ($favoritesShops as $favoritesShop)
 						<div class="row align-items-center mb-md-2">
 							<div class="col-md-4 mb-2 mb-md-0">
-								<a href="{{ route('shops.show', $favorite_shop->id) }}">
-									@if ($favorite_shop->file_name !== null)
-										<img src="{{ asset('uploads/' . $favorite_shop->file_name) }}" class="img-thumbnail">
+								<a href="{{ route('shops.show', $favoritesShop->id) }}">
+									@if ($favoritesShop->file_name !== null)
+										<img src="{{ asset('uploads/' . $favoritesShop->file_name) }}" class="img-thumbnail">
 									@else
 										<img src="{{ asset('img/dummy.png') }}" class="img-thumbnail">
 									@endif
@@ -34,16 +34,16 @@
 							</div>
 							<div class="col-md-6 mb-2 mb-md-0">
 								<h5 class="w-100">
-									<a href="{{ route('shops.show', $favorite_shop->id) }}" class="link-dark ">店舗名：{{ $favorite_shop->name }}</a>
+									<a href="{{ route('shops.show', $favoritesShop->id) }}" class="link-dark ">店舗名：{{ $favoritesShop->name }}</a>
 								</h5>
 								<div>
-									<small>住所：{{ $favorite_shop->address }}</small><br>
-									<small>電話番号：{{ $favorite_shop->formatted_phone_number }}</small><br>
-									<small>営業時間：{{ $favorite_shop->formatted_opening_time }}〜{{ $favorite_shop->formatted_closing_time }}</small>
+									<small>住所：{{ $favoritesShop->address }}</small><br>
+									<small>電話番号：{{ $favoritesShop->formatted_phone_number }}</small><br>
+									<small>営業時間：{{ $favoritesShop->formatted_opening_time }}〜{{ $favoritesShop->formatted_closing_time }}</small>
 								</div>
 							</div>
 							<div class="col-md-2">
-								<form id="favorites-destroy-form" action="{{ route('favorite.destroy', $favorite_shop->id) }}" method="POST">
+								<form id="favorites-destroy-form" action="{{ route('favorite.destroy', $favoritesShop->id) }}" method="POST">
 									@csrf
 									@method('DELETE')
 									<button type="submit" class="button button--base button--danger button--sp">
@@ -57,7 +57,7 @@
 				@endif
 
 				<div class="mb-4">
-					{{ $favorites_shops->links() }}
+					{{ $favoritesShops->links() }}
 				</div>
 			</div>
 		</div>

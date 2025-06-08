@@ -32,21 +32,21 @@
 		<div class="mb-3 mb-md-4">
 			<h3 class="mb-2 mb-md-3">おすすめの店舗</h3>
 			<div class="row row-cols-2 row-cols-xl-4 g-2 g-md-3">
-				@foreach ($featured_shops as $featured_shop)
+				@foreach ($featuredShops as $featuredShop)
 					<div class="col">
-						<a href="{{ route('shops.show', $featured_shop->id) }}">
+						<a href="{{ route('shops.show', $featuredShop->id) }}">
 							<div class="card shadow-sm">
-								@if ($featured_shop->file_name !== null)
-									<img src="{{ asset('uploads/' . $featured_shop->file_name) }}" class="card-img-top card__img">
+								@if ($featuredShop->file_name !== null)
+									<img src="{{ asset('uploads/' . $featuredShop->file_name) }}" class="card-img-top card__img">
 								@else
 									<img src="{{ asset('img/dummy.png') }}" class="card-img-top card__img">
 								@endif
 								<div class="card-body">
-									<h5 class="fs-6 fs-md-5 fs-xl-4 mb-0">{{ $featured_shop->name }}</h5>
-									@if ($featured_shop->rounded_score !== null)
+									<h5 class="fs-6 fs-md-5 fs-xl-4 mb-0">{{ $featuredShop->name }}</h5>
+									@if ($featuredShop->rounded_score !== null)
 										<div class="d-flex align-items-center">
-											<small class="star-rating me-1" data-rate="{{ $featured_shop->rounded_score }}"></small>
-											<small class="me-2">{{ $featured_shop->average_score }}</small>
+											<small class="star-rating me-1" data-rate="{{ $featuredShop->rounded_score }}"></small>
+											<small class="me-2">{{ $featuredShop->average_score }}</small>
 										</div>
 									@else
 										<small class="text-muted">レビューなし</small>
@@ -61,17 +61,17 @@
 		<div class="mb-3 mb-md-4">
 			<h3 class="mb-2 mb-md-3">カテゴリで探す</h3>
 			<div class="row row-cols-2 row-cols-md-4 row-cols-xl-6 g-2 g-md-3 mb-2 mb-md-3">
-				@foreach ($attentions as $attention)
+				@foreach ($featuredCategories as $featuredCategory)
 					<div class="col">
-						<a href="{{ route('shops.index', ['category' => $attention->name]) }}">
+						<a href="{{ route('shops.index', ['category' => $featuredCategory->name]) }}">
 							<div class="card card--featured shadow-sm">
-								@if ($attention->file_name !== null)
-									<img src="{{ asset('uploads/' . $attention->file_name) }}" class="card-img-top card__category">
+								@if ($featuredCategory->file_name !== null)
+									<img src="{{ asset('uploads/' . $featuredCategory->file_name) }}" class="card-img-top card__category">
 								@else
 									<img src="{{ asset('img/dummy.png') }}" class="card-img-top">
 								@endif
 								<div class="card__body card-body">
-									<h5 class="card__title card-title">{{ $attention->name }}</h5>
+									<h5 class="card__title card-title">{{ $featuredCategory->name }}</h5>
 								</div>
 							</div>
 						</a>
@@ -79,35 +79,33 @@
 				@endforeach
 			</div>
 			<div>
-				@foreach ($categories as $category)
-					@if ($category->is_featured === 0)
-						<a href="{{ route('shops.index', ['category' => $category->name]) }}" class="link--style">
-							<div class="button--outline me-1 me-md-2 mb-1 mb-md-2 shadow-sm">
-								<small>{{ $category->name }}</small>
-							</div>
-						</a>
-					@endif
+				@foreach ($normalCategories as $normalCategory)
+					<a href="{{ route('shops.index', ['category' => $normalCategory->name]) }}" class="link--style">
+						<div class="button--outline me-1 me-md-2 mb-1 mb-md-2 shadow-sm">
+							<small>{{ $normalCategory->name }}</small>
+						</div>
+					</a>
 				@endforeach
 			</div>
 		</div>
 		<div class="mb-5">
 			<h3 class="mb-2 mb-md-3">新着店舗</h3>
 			<div class="row row-cols-2 row-cols-md-4 g-2 g-md-3">
-				@foreach ($recently_shops as $recently_store)
+				@foreach ($recentlyShops as $recentlyShop)
 					<div class="col">
-						<a href="{{ route('shops.show', $recently_store->id) }}">
+						<a href="{{ route('shops.show', $recentlyShop->id) }}">
 							<div class="card shadow-sm">
-								@if ($recently_store->file_name !== null)
-									<img src="{{ asset('uploads/' . $recently_store->file_name) }}" class="card-img-top card__img">
+								@if ($recentlyShop->file_name !== null)
+									<img src="{{ asset('uploads/' . $recentlyShop->file_name) }}" class="card-img-top card__img">
 								@else
 									<img src="{{ asset('img/dummy.png') }}" class="card-img-top">
 								@endif
 								<div class="card-body">
-									<h5 class="fs-6 fs-md-5 fs-xl-4 mb-0">{{ $recently_store->name }}</h5>
-									@if ($recently_store->rounded_score !== null)
+									<h5 class="fs-6 fs-md-5 fs-xl-4 mb-0">{{ $recentlyShop->name }}</h5>
+									@if ($recentlyShop->rounded_score !== null)
 										<div class="d-flex align-items-center">
-											<small class="star-rating me-1" data-rate="{{ $recently_store->rounded_score }}"></small>
-											<small class="me-2">{{ $recently_store->average_score }}</small>
+											<small class="star-rating me-1" data-rate="{{ $recentlyShop->rounded_score }}"></small>
+											<small class="me-2">{{ $recentlyShop->average_score }}</small>
 										</div>
 									@else
 										<small class="text-muted">レビューなし</small>

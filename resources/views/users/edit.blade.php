@@ -3,11 +3,6 @@
 	<div class="container py-4 py-md-5">
 		<div class="row justify-content-center">
 			<div class="col-lg-8">
-				@if (session('flash_message'))
-					<div class="alert alert-light">
-						{{ session('flash_message') }}
-					</div>
-				@endif
 				@if ($errors->has('db_error') || $errors->has('general_error'))
 					<div class="alert alert-light">
 						{{ $errors->first('db_error') ?? $errors->first('general_error') }}

@@ -49,7 +49,8 @@
 							</div>
 							<div class="col-md-6 mb-2 mb-md-0">
 								<h5 class="w-100">
-									<a href="{{ route('shops.show', $reservation->id) }}" class="link-dark ">店舗名：{{ $reservation->shop->name }}</a>
+									<a href="{{ route('shops.show', $reservation->shop->id) }}"
+										class="link-dark ">店舗名：{{ $reservation->shop->name }}</a>
 								</h5>
 								<div>
 									<small>来店日：{{ $reservation->formatted_visit_date }}</small><br>

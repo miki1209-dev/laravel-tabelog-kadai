@@ -32,11 +32,11 @@ class ShopController extends Controller
 		$shops = $query->with('categories')->paginate(5)->withQueryString();
 		$shop_count = $shops->total();
 
-		$categories = Category::all();
+		$categoriesName = Category::pluck('name');
 
 		$queryParams = $request->only(['keyword', 'category']);
 
-		return view('shops.index', compact('keyword', 'shops', 'shop_count', 'category', 'categories', 'queryParams'));
+		return view('shops.index', compact('keyword', 'shops', 'shop_count', 'category', 'categoriesName', 'queryParams'));
 	}
 
 	public function show(Shop $shop, Request $request)

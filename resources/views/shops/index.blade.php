@@ -70,9 +70,9 @@
 						<div class="mb-3">
 							<select class="form-select form__select form__select--muted" name="category">
 								<option value="">カテゴリを選択</option>
-								@foreach ($categories as $category)
-									<option value="{{ $category->name }}" {{ request('category') === $category->name ? 'selected' : '' }}>
-										{{ $category->name }}
+								@foreach ($categoriesName as $categoryName)
+									<option value="{{ $categoryName }}" {{ request('category') === $categoryName ? 'selected' : '' }}>
+										{{ $categoryName }}
 									</option>
 								@endforeach
 							</select>

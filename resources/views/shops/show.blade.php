@@ -20,8 +20,7 @@
 			<div class="row align-items-center">
 				<div class="col-md-5 mb-2 mb-md-0">
 					@if ($shop->file_name !== null)
-						<img src="{{ asset('uploads/' . $shop->categories->first()->file_name) }}" class="img-fluid rounded shadow-sm"
-							alt="店舗画像">
+						<img src="{{ asset('uploads/' . $shop->file_name) }}" class="img-fluid rounded shadow-sm" alt="店舗画像">
 					@else
 						<img src="{{ asset('img/dummy.png') }}" class="img-fluid rounded shadow-sm" alt="店舗画像">
 					@endif

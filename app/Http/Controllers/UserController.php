@@ -74,11 +74,9 @@ class UserController extends Controller
 
 			return redirect()->route('mypage')->with(['success' => '会員情報を更新しました']);
 		} catch (QueryException $e) {
-			// DBへの登録でエラーが出た場合（制約違反）、ログの出力先は（storage/logs/laravel.log）で「Database Error」確認してください
 			Log::error('Database Error' . $e->getMessage());
 			return back()->withErrors(['db_error' => 'データベースへの登録が失敗しました。時間をおいて再度試してみてください'])->withInput();
 		} catch (Exception $e) {
-			// 予期せぬエラーが出た場合（ネットワーク関連）、ログの出力先は（storage/logs/laravel.log）で「General Error」確認してください
 			Log::error('General Error' . $e->getMessage());
 			return back()->withErrors(['general_error' => '予期せぬエラーが発生しました'])->withInput();
 		}
@@ -97,8 +95,16 @@ class UserController extends Controller
 			$user->subscription('premium')->cancelNow();
 		}
 
-		$user->delete();
-		return redirect()->route('top');
+		try {
+			$user->delete();
+			return redirect()->route('top');
+		} catch (QueryException $e) {
+			Log::error('Database Error' . $e->getMessage());
+			return back()->withErrors(['db_error' => 'データベースへの登録が失敗しました。時間をおいて再度試してみてください']);
+		} catch (Exception $e) {
+			Log::error('General Error' . $e->getMessage());
+			return back()->withErrors(['general_error' => '予期せぬエラーが発生しました']);
+		}
 	}
 
 	public function reservations()

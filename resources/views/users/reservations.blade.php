@@ -59,8 +59,8 @@
 									<small>住所：{{ $reservation->shop->address }}</small>
 								</div>
 							</div>
-							<div class="col-md-2 text-center text-md-start">
-								<button class="button button--base button--danger" data-bs-toggle="modal"
+							<div class="col-md-2">
+								<button class="button button--base button--danger button--sp" data-bs-toggle="modal"
 									data-bs-target="#cancelReservationModal" data-reservation-id="{{ $reservation->id }}">
 									取り消し
 								</button>

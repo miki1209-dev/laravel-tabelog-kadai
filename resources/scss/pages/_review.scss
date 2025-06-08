@@ -1,4 +1,5 @@
 @use '@/scss/base/variables' as v;
+@use '@/scss/utils/mixins' as *;
 .review {
 	&__section {
 		margin-top: 1.5rem;
@@ -6,6 +7,10 @@
 	&__list {
 		padding-left: 1rem;
 		min-height: 470px;
+		@include sp {
+			min-height: 180px;
+			padding-left: 0;
+		}
 
 		.review-card {
 			background-color: #ffffff;
@@ -57,7 +62,20 @@
 			}
 		}
 	}
+
+	&--none {
+		text-align: center;
+	}
+
 	&__pagination {
 		padding-left: 2rem;
+		@include sp {
+			padding-left: 0;
+		}
+		.pagination {
+			@include sp {
+			margin-bottom: 0;
+		}
+		}
 	}
 }

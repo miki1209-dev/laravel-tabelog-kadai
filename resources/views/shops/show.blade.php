@@ -1,8 +1,8 @@
 @extends('layouts.app')
 @section('content')
-	<div class="container pt-5 pb-5">
+	<div class="container py-4 py-md-5">
 		<nav style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb">
-			<ol class="breadcrumb">
+			<ol class="breadcrumb mb-2 mb-md-0">
 				<li class="breadcrumb-item"><a href="{{ route('top') }}">ホーム</a></li>
 				<li class="breadcrumb-item"><a href="{{ route('shops.index') }}">店舗一覧</a></li>
 				@if (!empty($queryParams['keyword']) || !empty($queryParams['category']))
@@ -18,7 +18,7 @@
 		</nav>
 		<div class="container px-0">
 			<div class="row align-items-center">
-				<div class="col-md-5">
+				<div class="col-md-5 mb-2 mb-md-0">
 					@if ($shop->file_name !== null)
 						<img src="{{ asset('uploads/' . $shop->categories->first()->file_name) }}" class="img-fluid rounded shadow-sm"
 							alt="店舗画像">
@@ -86,11 +86,11 @@
 							<form action="{{ route('reservations.confirm') }}" method="POST">
 								@csrf
 								<input type="hidden" name="shop_id" value="{{ $shop->id }}">
-								<div class="row g-3 align-items-end @if (
-									$errors->reservation->has('visit_date') ||
-										$errors->reservation->has('visit_time') ||
-										$errors->reservation->has('number_of_people')) form--has-error @endif">
-									<div class="col-md-3 mt-2">
+								<div class="row g-3 align-items-end">
+									<div class="col-md-3 mt-2 @if (
+										$errors->reservation->has('visit_date') ||
+											$errors->reservation->has('visit_time') ||
+											$errors->reservation->has('number_of_people')) form--has-error @endif"">
 										<label class="form-label form__label">来店日</label>
 										<input type="date" name="visit_date"
 											class="form-control form__input form__input--muted @error('visit_date', 'reservation') is-invalid @enderror"
@@ -140,11 +140,12 @@
 										@enderror
 									</div>
 
-									<div class="col-md-3 mt-2 @if (
-										$errors->reservation->has('visit_date') ||
-											$errors->reservation->has('visit_time') ||
-											$errors->reservation->has('number_of_people')) button--has-error @endif">
-										<button type="submit" class="button button--base">
+									<div
+										class="col-md-3 mt-3 mt-md-2 text-center text-md-start @if (
+											$errors->reservation->has('visit_date') ||
+												$errors->reservation->has('visit_time') ||
+												$errors->reservation->has('number_of_people')) button--has-error @endif">
+										<button type="submit" class="button button--base button--sp">
 											<i class="fas fa-calendar-plus"></i>
 											予約
 										</button>
@@ -156,15 +157,15 @@
 				</div>
 			</div>
 
-			<hr class="my-4">
+			<hr class="my-3 my-md-4">
 
 			<div class="review">
 				<div class="row">
 					<h3 class="fw-bold mb-0">カスタマーレビュー</h3>
 				</div>
 
-				<div class="review__section row">
-					<div class="col-md-4">
+				<div class="row review__section">
+					<div class="col-md-4 mb-3 mb-md-0">
 						<form action="{{ route('reviews.store') }}" method="POST" class="form"
 							onkeydown="return event.key !== 'Enter' || event.target.tagName === 'TEXTAREA';">
 							@csrf
@@ -203,35 +204,41 @@
 							<button type="submit" class="button button--base w-100 shadow-sm">レビューを投稿</button>
 						</form>
 					</div>
-					<div class="col-md-8 ps-0">
-						<div class="review__list">
-							@foreach ($reviews as $review)
-								<div class="review-card p-3 shadow-sm mb-4">
-									<div class="review-card__header d-flex justify-content-between align-items-center mb-2">
-										<h5 class="review-card__title fw-bold mb-0">{{ $review->title }}</h5>
-										<small class="review-card__date text-muted">投稿日：{{ $review->created_at->format('Y年m月d日') }}</small>
-									</div>
-									<p class="review-card__score mb-2">{{ str_repeat('★', $review->score) }}</p>
-									<p class="review-card__content mb-2">{{ $review->content }}</p>
-									<p class="review-card__author text-end text-muted mb-0">投稿者：{{ $review->user->name }}</p>
-									@if (Auth::id() === $review->user_id)
-										<div class="review-card__actions">
-											<button type="button" class="button button--sm button--base me-2" data-bs-toggle="modal"
-												data-bs-target="#editReviewModal" data-id="{{ $review->id }}" data-title="{{ $review->title }}"
-												data-content="{{ $review->content }}" data-score="{{ $review->score }}"
-												data-action="{{ route('reviews.update', $review->id) }}">編集</button>
-											<button class="button button--sm button--danger" data-bs-toggle="modal" data-bs-target="#deleteReviewModal"
-												data-review-id="{{ $review->id }}">
-												削除
-											</button>
+					<div class="col-md-8 ps-md-0">
+						@if ($reviews->isEmpty())
+							<div class="review--none">
+								<p class="mb-0">現在レビューはありません</p>
+							</div>
+						@else
+							<div class="review__list">
+								@foreach ($reviews as $review)
+									<div class="review-card p-3 shadow-sm mb-4">
+										<div class="review-card__header d-flex justify-content-between align-items-center mb-2">
+											<h5 class="review-card__title fw-bold mb-0">{{ $review->title }}</h5>
+											<small class="review-card__date text-muted">投稿日：{{ $review->created_at->format('Y年m月d日') }}</small>
 										</div>
-									@endif
-								</div>
-							@endforeach
-						</div>
-						<div class="review__pagination text-center mt-4">
-							{{ $reviews->links() }}
-						</div>
+										<p class="review-card__score mb-2">{{ str_repeat('★', $review->score) }}</p>
+										<p class="review-card__content mb-2">{{ $review->content }}</p>
+										<p class="review-card__author text-end text-muted mb-0">投稿者：{{ $review->user->name }}</p>
+										@if (Auth::id() === $review->user_id)
+											<div class="review-card__actions">
+												<button type="button" class="button button--sm button--base me-2" data-bs-toggle="modal"
+													data-bs-target="#editReviewModal" data-id="{{ $review->id }}" data-title="{{ $review->title }}"
+													data-content="{{ $review->content }}" data-score="{{ $review->score }}"
+													data-action="{{ route('reviews.update', $review->id) }}">編集</button>
+												<button class="button button--sm button--danger" data-bs-toggle="modal"
+													data-bs-target="#deleteReviewModal" data-review-id="{{ $review->id }}">
+													削除
+												</button>
+											</div>
+										@endif
+									</div>
+								@endforeach
+							</div>
+							<div class="review__pagination text-center mt-4">
+								{{ $reviews->links() }}
+							</div>
+						@endif
 
 						<div class="modal fade" id="editReviewModal"
 							data-should-open="{{ session('modal_open') === 'editReviewModal' ? 'true' : 'false' }}" tabindex="-1"

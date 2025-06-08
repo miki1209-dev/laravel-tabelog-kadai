@@ -42,11 +42,11 @@
 									<small>営業時間：{{ $favorite_shop->formatted_opening_time }}〜{{ $favorite_shop->formatted_closing_time }}</small>
 								</div>
 							</div>
-							<div class="col-md-2 text-center text-md-start">
+							<div class="col-md-2">
 								<form id="favorites-destroy-form" action="{{ route('favorite.destroy', $favorite_shop->id) }}" method="POST">
 									@csrf
 									@method('DELETE')
-									<button type="submit" class="button button--base button--danger">
+									<button type="submit" class="button button--base button--danger button--sp">
 										削除
 									</button>
 								</form>

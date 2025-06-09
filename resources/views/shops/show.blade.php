@@ -93,7 +93,7 @@
 										<label class="form-label form__label">来店日</label>
 										<input type="date" name="visit_date"
 											class="form-control form__input form__input--muted @error('visit_date', 'reservation') is-invalid @enderror"
-											min="{{ $tomorrow }}">
+											min="{{ $tomorrow }}" value="{{ old('visit_date') }}">
 										@error('visit_date', 'reservation')
 											<span class="invalid-feedback">
 												<strong>{{ $message }}</strong>

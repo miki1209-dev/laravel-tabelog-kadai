@@ -3,6 +3,13 @@
 	<div class="container pt-5 pb-5">
 		<div class="row justify-content-center">
 			<div class="col-lg-7">
+
+				@if (session('status'))
+					<div class="flash-message flash-message--success">
+						{{ session('status') }}
+					</div>
+				@endif
+
 				<div class="mb-4">
 					<h3 class="fw-bold">ログイン</h3>
 				</div>

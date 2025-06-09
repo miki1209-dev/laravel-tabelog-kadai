@@ -3,6 +3,15 @@
 	<div class="container py-4 py-md-5">
 		<div class="row justify-content-center">
 			<div class="col-md-8">
+				@if (session('success'))
+					<div class="flash-message flash-message--success">
+						<i class="fas fa-check-circle"></i>
+						<span>{{ session('success') }}</span>
+					</div>
+				@endif
+				@if (session('error'))
+					<div class="alert alert-danger">{{ session('error') }}</div>
+				@endif
 				<nav style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb">
 					<ol class="breadcrumb mb-1 mb-md-2">
 						<li class="breadcrumb-item"><a href="{{ route('mypage') }}">マイページ</a></li>

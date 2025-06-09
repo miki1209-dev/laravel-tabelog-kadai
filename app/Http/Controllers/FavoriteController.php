@@ -36,7 +36,7 @@ class FavoriteController extends Controller
 			$user = Auth::user();
 			$user->favorite_shops()->detach($shop->id);
 
-			return back();
+			return back()->with(['success' => 'お気に入りを削除しました']);
 		} catch (QueryException $e) {
 			Log::error('Database Error' . $e->getMessage());
 			return back()->withErrors(['db_error' => 'データベースへの登録が失敗しました。時間をおいて再度試してみてください']);

@@ -110,7 +110,6 @@
 								<small>※契約が終了するまで、新たな有料会員登録はお待ちいただく必要があります。</small>
 							</div>
 							<div class="modal-footer">
-								<button type="button" class="button button--danger" data-bs-dismiss="modal">キャンセル</button>
 								<form id="cancel-form" action="{{ route('subscription.cancel') }}" method="POST">
 									@csrf
 									<button type="submit" class="button button--base">はい、解約します</button>

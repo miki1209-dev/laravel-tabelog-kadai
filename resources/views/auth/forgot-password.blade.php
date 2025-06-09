@@ -5,7 +5,7 @@
 			<div class="col-lg-7">
 
 				@if (session('status'))
-					<div class="alert alert-success">
+					<div class="flash-message flash-message--success">
 						{{ session('status') }}
 					</div>
 				@endif

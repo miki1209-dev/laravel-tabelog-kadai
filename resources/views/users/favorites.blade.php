@@ -4,7 +4,7 @@
 		<div class="row justify-content-center">
 			<div class="col-md-8">
 				<nav style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb">
-					<ol class="breadcrumb mb-1 mb-md-0">
+					<ol class="breadcrumb mb-1 mb-md-2">
 						<li class="breadcrumb-item"><a href="{{ route('mypage') }}">マイページ</a></li>
 						<li class="breadcrumb-item active" aria-current="page">お気に入り一覧</li>
 					</ol>

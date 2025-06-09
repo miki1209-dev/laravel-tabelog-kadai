@@ -2,7 +2,7 @@
 @section('content')
 	<div class="container py-4 py-md-5">
 		<nav style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb">
-			<ol class="breadcrumb mb-1 mb-md-0">
+			<ol class="breadcrumb mb-2">
 				<li class="breadcrumb-item"><a href="{{ route('top') }}">ホーム</a></li>
 				<li class="breadcrumb-item active" aria-current="page">店舗一覧</li>
 			</ol>

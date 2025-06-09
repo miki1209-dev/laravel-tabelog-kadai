@@ -117,7 +117,7 @@ class UserController extends Controller
 						$query->where('visit_date', $now->toDateString())
 							->where('visit_time', '>=', $now->format('H:i:s'));
 					});
-			})->orderBy('visit_date', 'asc')->paginate(5);
+			})->orderBy('visit_date', 'asc')->orderBy('visit_time', 'asc')->paginate(5);
 
 		return view('users.reservations', compact('reservations'));
 	}

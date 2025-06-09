@@ -52,6 +52,10 @@ class ReviewController extends Controller
 			return back()->withErrors($validator, 'editReview')->withInput()->with('modal_open', 'editReviewModal')->with('action', route('reviews.update', $review->id));
 		}
 
+		if (Auth::id() !== $review->user_id) {
+			abort(403);
+		}
+
 		try {
 			$review->update([
 				'title' => $request->input('title'),
@@ -71,6 +75,11 @@ class ReviewController extends Controller
 
 	public function destroy(Review $review)
 	{
+
+		if (Auth::id() !== $review->user_id) {
+			abort(403);
+		}
+
 		try {
 			$review->delete();
 			return redirect()->route('shops.show', $review->shop_id);

@@ -43,6 +43,7 @@ class ReservationController extends Controller
 			'number_of_people' => ['required', 'integer', 'min:1', 'max:15'],
 		]);
 
+		Log::debug($request->all());
 		if ($validator->fails()) {
 			return redirect()->route('shops.show', $request->input('shop_id'))->withErrors($validator, 'reservation')->withInput();
 		}

@@ -18,13 +18,6 @@ class FavoriteFeatureTest extends TestCase
 	 */
 	use RefreshDatabase;
 
-	public function test_example()
-	{
-		$response = $this->get('/');
-
-		$response->assertStatus(200);
-	}
-
 	//有料会員登録でお気に入りした場合の動作確認
 	public function test_premium_user_can_add_shop_to_favorites()
 	{

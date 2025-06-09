@@ -19,7 +19,6 @@ class Shop extends Model
 		'opening_time',
 		'closing_time',
 		'file_name',
-		'recommend_flag'
 	];
 
 	/**

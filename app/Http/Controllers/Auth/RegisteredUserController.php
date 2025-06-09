@@ -40,7 +40,6 @@ class RegisteredUserController extends Controller
 			'postal_code' => ['nullable', 'regex:/^\d{7}$|^\d{3}-\d{4}$/'],
 			'address' => ['nullable', 'string', 'max:255'],
 			'phone' => ['nullable', 'regex:/^(0\d{9,10}|0\d{1,4}-\d{1,4}-\d{4})$/'],
-			'role' => ['required', 'in:free,premium'],
 		]);
 
 		try {
@@ -51,7 +50,6 @@ class RegisteredUserController extends Controller
 				'postal_code' => $request->postal_code,
 				'address' => $request->address,
 				'phone' => $request->phone,
-				'role' => $request->role,
 			]);
 
 			event(new Registered($user));
@@ -60,11 +58,9 @@ class RegisteredUserController extends Controller
 
 			return redirect('/verify-email');
 		} catch (QueryException $e) {
-			// DBへの登録でエラーが出た場合（制約違反とか）、ログの出力先は（storage/logs/laravel.log）で「Database Error」確認してください
 			Log::error('Database Error' . $e->getMessage());
 			return back()->withErrors(['db_error' => 'データベースへの登録が失敗しました。時間をおいて再度試してみてください'])->withInput();
 		} catch (Exception $e) {
-			// 予期せぬエラーが出た場合（ネットワーク関連とか）、ログの出力先は（storage/logs/laravel.log）で「General Error」確認してください
 			Log::error('General Error' . $e->getMessage());
 			return back()->withErrors(['general_error' => '予期せぬエラーが発生しました'])->withInput();
 		}

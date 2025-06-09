@@ -40,8 +40,6 @@ class ShopController extends AdminController
 		$grid->column('categories', 'カテゴリ名')->display(function ($categories) {
 			return implode(', ', array_column($categories, 'name'));
 		});
-		$grid->column('file_name', '店舗画像');
-		$grid->column('recommend_flag', 'おすすめ');
 		$grid->column('created_at', '作成日')->sortable();
 		$grid->column('updated_at', '最終更新日')->sortable();
 
@@ -76,7 +74,6 @@ class ShopController extends AdminController
 					$query->whereTime('closing_time', '<=', $input);
 				}
 			}, '閉店時間')->datetime(['format' => 'HH:mm']);
-			$filter->equal('recommend_flag', 'おすすめ')->select([0 => 'おすすめなし', 1 => 'おすすめあり']);
 		});
 
 		$grid->disableExport();
@@ -105,7 +102,6 @@ class ShopController extends AdminController
 			return $categories->pluck('name')->join(', ');
 		});
 		$show->field('file_name', '店舗画像');
-		$show->field('recommend_flag', 'おすすめ');
 		$show->field('created_at', '作成日');
 		$show->field('updated_at', '最終更新日');
 
@@ -127,11 +123,8 @@ class ShopController extends AdminController
 		$form->textarea('description', '店舗説明');
 		$form->time('opening_time', '開店時間')->format('HH:mm');
 		$form->time('closing_time', '閉店時間')->format('HH:mm');
-		// 商品追加時カテゴリを複数選択
 		$form->multipleSelect('categories', ' カテゴリ名')->options(Category::pluck('name', 'id')->toArray());
-		// 画像アップロードの追加
 		$form->image('file_name', '店舗画像')->disk('admin')->move('shops')->uniqueName();
-		$form->switch('recommend_flag', 'おすすめ');
 
 		return $form;
 	}

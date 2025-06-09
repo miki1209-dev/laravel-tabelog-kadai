@@ -29,7 +29,6 @@ class CategoryController extends AdminController
 		$grid->column('id', 'ID');
 		$grid->column('name', 'カテゴリ名');
 		$grid->column('description', 'カテゴリ説明');
-		$grid->column('file_name', 'カテゴリ画像');
 		$grid->column('is_featured', '注目');
 		$grid->column('created_at', '登録日')->sortable();
 		$grid->column('updated_at', '最終更新日')->sortable();

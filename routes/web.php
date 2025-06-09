@@ -70,7 +70,9 @@ Route::middleware(['auth', 'verified'])->group(function () {
 
 	Route::controller(SubscriptionController::class)->group(function () {
 		Route::post('/subscription/subscribe', 'store')->name('subscription.store');
-		Route::post('/subscription/cancel', 'cancel')->name('subscription.cancel');
-		Route::post('/subscription/payment-method', 'update')->name('subscription.update');
+		Route::middleware(['paid'])->group(function () {
+			Route::post('/subscription/cancel', 'cancel')->name('subscription.cancel');
+			Route::post('/subscription/payment-method', 'update')->name('subscription.update');
+		});
 	});
 });

@@ -82,7 +82,10 @@
 						@enderror
 					</div>
 					<div class="d-flex justify-content-center">
-						<button type="submit" class="button button--base w-50">更新</button>
+						<button type="submit" class="button button--base w-50 mb-4 mb-md-3">更新</button>
+					</div>
+					<div class="d-flex justify-content-center">
+						<a href="{{ route('mypage') }}" class="text-center">キャンセル</a>
 					</div>
 				</form>
 				<hr class="mt-4">

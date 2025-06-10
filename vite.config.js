@@ -8,6 +8,7 @@ export default defineConfig({
       input: [
         'resources/scss/style.scss',  // SCSSファイルのエントリーポイント
         'resources/js/app.js',        // JavaScriptファイルのエントリーポイント
+				'resources/js/slider.js',
       ],
       refresh: true,
     }),

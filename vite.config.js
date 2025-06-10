@@ -9,6 +9,9 @@ export default defineConfig({
         'resources/scss/style.scss',  // SCSSファイルのエントリーポイント
         'resources/js/app.js',        // JavaScriptファイルのエントリーポイント
 				'resources/js/slider.js',
+				'resources/js/review-edit-modal.js',
+				'resources/js/stripe-update.js',
+				'resources/js/delete-modal.js',
       ],
       refresh: true,
     }),

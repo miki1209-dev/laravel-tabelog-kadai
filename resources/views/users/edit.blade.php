@@ -110,8 +110,6 @@
 								@csrf
 								@method('DELETE')
 								<div class="modal-footer">
-									<button type="button" class="btn btn-link link-dark text-decoration-none"
-										data-bs-dismiss="modal">キャンセル</button>
 									<button type="submit" class="button button--base button--danger">退会する</button>
 								</div>
 							</form>

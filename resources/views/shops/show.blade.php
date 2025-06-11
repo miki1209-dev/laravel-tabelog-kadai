@@ -312,7 +312,6 @@
 										本当にレビューを削除してもよろしいですか？<br>
 									</div>
 									<div class="modal-footer">
-										<button type="button" class="button button--danger" data-bs-dismiss="modal">キャンセル</button>
 										<form id="cancel-form" data-base-url="{{ url('/') }}" action="#" method="POST">
 											@csrf
 											@method('DELETE')

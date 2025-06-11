@@ -32,6 +32,7 @@ class UserController extends AdminController
 		$grid->column('postal_code', '郵便番号');
 		$grid->column('address', '住所');
 		$grid->column('phone', '電話番号');
+		$grid->column('stripe_id', '有料会員ID');
 		$grid->column('created_at', '作成日')->sortable();
 		$grid->column('updated_at', '最終更新日')->sortable();
 		$grid->column('deleted_at', '削除日')->sortable();
@@ -77,6 +78,9 @@ class UserController extends AdminController
 		$show->field('postal_code', '郵便番号');
 		$show->field('address', '住所');
 		$show->field('phone', '電話番号');
+		$show->field('stripe_id', '有料会員ID');
+		$show->field('pm_type', 'カード種類');
+		$show->field('pm_last_four', 'カード番号');
 		$show->field('created_at', '作成日');
 		$show->field('updated_at', '最終更新日');
 		$show->field('deleted_at', '削除日');

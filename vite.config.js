@@ -12,6 +12,7 @@ export default defineConfig({
 				'resources/js/review-edit-modal.js',
 				'resources/js/stripe-update.js',
 				'resources/js/delete-modal.js',
+				'resources/js/stripe-subscribe.js'
       ],
       refresh: true,
     }),

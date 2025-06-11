@@ -18,7 +18,8 @@ class UserSeeder extends Seeder
 	public function run()
 	{
 		$user = new User();
-		$user->name = 'testConfirmation@example.com';
+		$user->name = 'テストユーザー';
+		$user->email = 'testConfirmation@example.com';
 		$user->email_verified_at = Carbon::now();
 		$user->password = Hash::make('password');
 		$user->postal_code = "0000000";

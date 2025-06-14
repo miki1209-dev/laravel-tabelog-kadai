@@ -1,15 +1,6 @@
 @extends('layouts.app')
 @section('content')
 	<div class="container py-4 py-md-5">
-		@if (session('success'))
-			<div class="flash-message flash-message--success">
-				<i class="fas fa-check-circle"></i>
-				<span>{{ session('success') }}</span>
-			</div>
-		@endif
-		@if (session('error'))
-			<div class="alert alert-danger">{{ session('error') }}</div>
-		@endif
 		<nav style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb">
 			<ol class="breadcrumb mb-2">
 				<li class="breadcrumb-item"><a href="{{ route('top') }}">ホーム</a></li>
@@ -45,8 +36,8 @@
 										<i class="fas fa-heart-broken"></i>
 									</button>
 								@else
-									<button type="button" class="button button--base button--sm favorite-button"
-										data-shop-id="{{ $shop->id }}" data-favorited="false">
+									<button type="button" class="button button--base button--sm favorite-button" data-shop-id="{{ $shop->id }}"
+										data-favorited="false">
 										<i class="far fa-heart"></i>
 									</button>
 								@endif

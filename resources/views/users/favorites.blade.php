@@ -52,16 +52,13 @@
 								</div>
 							</div>
 							<div class="col-md-2">
-								<form id="favorites-destroy-form" action="{{ route('favorite.destroy', $favoritesShop->id) }}" method="POST">
-									@csrf
-									@method('DELETE')
-									<button type="submit" class="button button--base button--danger button--sp">
-										削除
-									</button>
-								</form>
+								<button type="button" class="button button--base button--danger button--sp favorite-delete-button"
+									data-shop-id="{{ $favoritesShop->id }}">
+									削除
+								</button>
 							</div>
+							<hr class="my-3 my-md-4">
 						</div>
-						<hr class="my-3 my-md-4">
 					@endforeach
 				@endif
 
@@ -71,4 +68,7 @@
 			</div>
 		</div>
 	</div>
+@endsection
+@section('scripts')
+	@vite('resources/js/favorite-delete.js')
 @endsection

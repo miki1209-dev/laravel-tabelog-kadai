@@ -45,12 +45,13 @@ Route::middleware(['auth', 'verified'])->group(function () {
 		Route::get('shops/{shop}', 'show')->name('shops.show');
 	});
 
-	Route::controller(FavoriteController::class)->group(function () {
-		Route::middleware(['paid'])->group(function () {
-			Route::post('shops/{shop}/favorite', 'store')->name('favorite.store');
-			Route::delete('shops/{shop}/favorite', 'destroy')->name('favorite.destroy');
-		});
-	});
+	// お気に入りAPI化の前に使っていたルートは残しておきます
+	// Route::controller(FavoriteController::class)->group(function () {
+	// 	Route::middleware(['paid'])->group(function () {
+	// 		Route::post('shops/{shop}/favorite', 'store')->name('favorite.store');
+	// 		Route::delete('shops/{shop}/favorite', 'destroy')->name('favorite.destroy');
+	// 	});
+	// });
 
 	Route::controller(ReviewController::class)->group(function () {
 		Route::middleware(['paid'])->group(function () {

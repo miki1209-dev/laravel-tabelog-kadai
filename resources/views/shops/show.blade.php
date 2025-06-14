@@ -30,21 +30,16 @@
 						<h2 class="me-3 mb-0">{{ $shop->name }}</h2>
 						<div class="row align-items-end me-1">
 							<div class="col-md-6">
-								@if (Auth::user()->favorite_shops->contains($shop->id))
-									<form action="{{ route('favorite.destroy', $shop->id) }}" method="POST">
-										@csrf
-										@method('DELETE')
-										<button type="submit" class="button button--base button--sm">
-											<i class="fas fa-heart-broken"></i>
-										</button>
-									</form>
+								@if ($isFavorited)
+									<button type="button" class="button button--base button--sm favorite-button" data-shop-id="{{ $shop->id }}"
+										data-favorited="true">
+										<i class="fas fa-heart-broken"></i>
+									</button>
 								@else
-									<form action="{{ route('favorite.store', $shop->id) }}" method="POST">
-										@csrf
-										<button type="submit" class="button button--base button--sm">
-											<i class="far fa-heart"></i>
-										</button>
-									</form>
+									<button type="button" class="button button--base button--sm favorite-button" data-shop-id="{{ $shop->id }}"
+										data-favorited="false">
+										<i class="far fa-heart"></i>
+									</button>
 								@endif
 							</div>
 						</div>
@@ -330,4 +325,5 @@
 @section('scripts')
 	@vite('resources/js/review-edit-modal.js')
 	@vite('resources/js/delete-modal.js')
+	@vite('resources/js/favorite.js')
 @endsection

@@ -2,6 +2,7 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Api\FavoriteApiController;
 
 /*
 |--------------------------------------------------------------------------
@@ -16,4 +17,11 @@ use Illuminate\Support\Facades\Route;
 
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 	return $request->user();
+});
+
+Route::middleware('auth:sanctum', 'paid')->group(function () {
+	Route::controller(FavoriteApiController::class)->group(function () {
+		Route::post('/favorites', 'store')->name('api.favorites.store');
+		Route::delete('/favorites/{shop}', 'destroy')->name('api.favorites.destroy');
+	});
 });

@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\Shop;
 use App\Models\Category;
 use Illuminate\Support\Carbon;
+use Illuminate\Support\Facades\Auth;
 
 class ShopController extends Controller
 {
@@ -41,6 +42,9 @@ class ShopController extends Controller
 
 	public function show(Shop $shop, Request $request)
 	{
+
+		$user = Auth::user();
+		$isFavorited = $user->favorite_shops->contains($shop->id);
 		$reviews = $shop->reviews()->latest()->paginate(5);
 		$reviewTotal = $reviews->total();
 		$tomorrow = Carbon::tomorrow()->format('Y-m-d');
@@ -49,6 +53,6 @@ class ShopController extends Controller
 
 		$queryParams = $request->only(['keyword', 'category']);
 
-		return view('shops/show', compact('shop', 'reviews', 'startHour', 'endHour', 'tomorrow', 'queryParams', 'reviewTotal'));
+		return view('shops/show', compact('shop', 'reviews', 'startHour', 'endHour', 'tomorrow', 'queryParams', 'reviewTotal', 'isFavorited'));
 	}
 }

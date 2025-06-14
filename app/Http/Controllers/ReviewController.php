@@ -22,12 +22,29 @@ class ReviewController extends Controller
 		]);
 
 		try {
+			$userId = Auth::id();
+			$shopId = $request->input('shop_id');
+			$title = $request->input('title');
+			$content = $request->input('content');
+			$score = $request->input('score');
+
+			$recentReview = Review::where('user_id', $userId)
+				->where('shop_id', $shopId)
+				->where('title', $title)
+				->where('content', $content)
+				->where('created_at', '>=', now()->subSeconds(10))
+				->first();
+
+			if ($recentReview) {
+				return back();
+			}
+
 			$review = new Review;
-			$review->user_id = Auth::user()->id;
-			$review->shop_id = $request->input('shop_id');
-			$review->title = $request->input('title');
-			$review->content = $request->input('content');
-			$review->score = $request->input('score');
+			$review->user_id = $userId;
+			$review->shop_id = $shopId;
+			$review->title = $title;
+			$review->content = $content;
+			$review->score = $score;
 			$review->save();
 
 			return back();

@@ -39,13 +39,13 @@
 							<div class="form__error text-danger mt-1">{{ $message }}</div>
 						@enderror
 						<div id="name-errors" class="form__error text-danger mt-1" style="display: none;"></div>
-						@if ($defaultPaymentMethod)
-							<small>現在のカード番号: **** **** **** {{ $defaultPaymentMethod->card->last4 }}</small>
-						@endif
 					</div>
 					<div class="form__group">
 						<label for="card-element" class="form__label mb-1">カード情報</label>
 						<div id="card-element"></div>
+						@if ($defaultPaymentMethod)
+							<small>現在のカード番号: **** **** **** {{ $defaultPaymentMethod->card->last4 }}</small>
+						@endif
 						<div id="card-errors" class="form__error text-danger mt-1" style="display: none;"></div>
 						@error('stripeToken')
 							<div class="form__error text-danger mt-1">{{ $message }}</div>

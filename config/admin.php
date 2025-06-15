@@ -11,6 +11,10 @@ return [
     | login page.
     |
     */
+	'session' => [
+		'key' => 'admin_session',
+	],
+
 	'name' => 'Laravel-admin',
 
 	/*

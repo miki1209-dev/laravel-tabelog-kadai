@@ -98,7 +98,7 @@
 								@if ($recentlyShop->file_name !== null)
 									<img src="{{ asset('uploads/' . $recentlyShop->file_name) }}" class="card-img-top card__img">
 								@else
-									<img src="{{ asset('img/dummy.png') }}" class="card-img-top">
+									<img src="{{ asset('img/dummy.png') }}" class="card-img-top card__img">
 								@endif
 								<div class="card-body">
 									<h5 class="fs-6 fs-md-5 fs-xl-4 mb-0">{{ $recentlyShop->name }}</h5>

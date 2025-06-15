@@ -10,6 +10,7 @@ export default defineConfig({
         'resources/js/app.js',        // JavaScriptファイルのエントリーポイント
 				'resources/js/slider.js',
 				'resources/js/review-edit-modal.js',
+				'resources/js/stripe-subscribe.js',
 				'resources/js/stripe-update.js',
 				'resources/js/delete-modal.js',
 				'resources/js/favorite-delete.js',

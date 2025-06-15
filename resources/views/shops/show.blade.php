@@ -310,7 +310,7 @@
 										<form id="cancel-form" data-base-url="{{ url('/') }}" action="#" method="POST">
 											@csrf
 											@method('DELETE')
-											<button type="submit" class="button button--base">削除</button>
+											<button type="submit" class="button button--base button--danger">削除</button>
 										</form>
 									</div>
 								</div>

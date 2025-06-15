@@ -95,7 +95,7 @@ return [
     | If your page is going to be accessed via https, set it to `true`.
     |
     */
-	'https' => env('ADMIN_HTTPS', true),
+	'https' => env('ADMIN_HTTPS', false),
 
 	/*
     |--------------------------------------------------------------------------
@@ -132,7 +132,7 @@ return [
 		'remember' => true,
 
 		// Redirect to the specified URI when user is not authorized.
-		'redirect_to' => 'auth/login',
+		'redirect_to' => '/admin/auth/login',
 
 		// The URIs that should be excluded from authorization.
 		'excepts' => [

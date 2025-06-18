@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Shop;
 use App\Models\Category;
+use Encore\Admin\Grid\Filter\Where;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Auth;
 
@@ -14,6 +15,7 @@ class ShopController extends Controller
 	{
 		$keyword = $request->input('keyword');
 		$category = $request->input('category');
+		$sort = $request->input('sort');
 
 		$query = Shop::query();
 
@@ -30,6 +32,13 @@ class ShopController extends Controller
 				$q->where('name', $category);
 			});
 		}
+
+		if ($sort === 'rating_desc') {
+			$query->withAvg('reviews', 'score')->orderByDesc('reviews_avg_score');
+		} else if ($sort === 'newest') {
+			$query->orderBy('created_at', 'desc');
+		}
+
 		$shops = $query->with('categories')->paginate(5)->withQueryString();
 		$shop_count = $shops->total();
 

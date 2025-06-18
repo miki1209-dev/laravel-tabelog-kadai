@@ -8,13 +8,29 @@
 			</ol>
 		</nav>
 
-		@if ($keyword)
-			<h3 class="mb-3 mb-md-4">{{ $keyword }}の検索結果は{{ number_format($shop_count) }}件です</h3>
-		@elseif($category)
-			<h3 class="mb-3 mb-md-4">{{ $category }}の検索結果は{{ number_format($shop_count) }}件です</h3>
-		@elseif($keyword === null && $category === null)
-			<h3 class="mb-3 mb-md-4">{{ number_format($shop_count) }}件の店舗が見つかりました</h3>
-		@endif
+		<div class="row gx-md-5">
+			<div class="col-md-8 pe-md-0 d-md-flex justify-content-between align-items-center mb-3">
+				@if ($keyword)
+					<h3 class="mb-2 mb-md-0">{{ $keyword }}の検索結果は{{ number_format($shop_count) }}件です</h3>
+				@elseif($category)
+					<h3 class="mb-2 mb-md-0">{{ $category }}の検索結果は{{ number_format($shop_count) }}件です</h3>
+				@elseif($keyword === null && $category === null)
+					<h3 class="mb-2 mb-md-0">{{ number_format($shop_count) }}件見つかりました</h3>
+				@endif
+
+				<div class="form__group mb-0">
+					<form action="" method="GET">
+						<input type="hidden" name="category" value="{{ request('category') }}">
+						<input type="hidden" name="keyword" value="{{ request('keyword') }}">
+						<select name="sort" class="form-select form__select form__select--muted" onchange="this.form.submit()">
+							<option value="">選択してください</option>
+							<option value="rating_desc" {{ request('sort') === 'rating_desc' ? 'selected' : '' }}>評価の高い順</option>
+							<option value="newest" {{ request('sort') === 'newest' ? 'selected' : '' }}>新着順</option>
+						</select>
+					</form>
+				</div>
+			</div>
+		</div>
 
 		<div class="row gx-md-5">
 
@@ -56,10 +72,12 @@
 				</div>
 			</div>
 
-			<div class="col-md-4 pe-md-0 mt-0 order-1 order-md-2 mb-3 mb-md-0">
+			<div class="col-md-4 mt-0 order-1 order-md-2 mb-3 mb-md-0">
 				<div class="p-3 p-md-4 bg-white rounded shadow-sm">
 					<h5 class="fw-bold mb-3 border-bottom pb-2">キーワードで探す</h5>
 					<form action="{{ route('shops.index') }}" method="GET" class="mb-3">
+						<input type="hidden" name="category" value="{{ request('category') }}">
+						<input type="hidden" name="sort" value="{{ request('sort') }}">
 						<input type="text" placeholder="店舗名・カテゴリで検索" name="keyword"
 							class="form-control form__input form__input--muted mb-3" value="{{ request('keyword') }}">
 						<button type="submit" class="button button--base w-100">検索</button>
@@ -67,6 +85,8 @@
 
 					<h5 class="fw-bold mb-3 border-bottom pb-2">カテゴリで探す</h5>
 					<form action="{{ route('shops.index') }}" method="GET">
+						<input type="hidden" name="keyword" value="{{ request('keyword') }}">
+						<input type="hidden" name="sort" value="{{ request('sort') }}">
 						<div class="mb-3">
 							<select class="form-select form__select form__select--muted" name="category">
 								<option value="">カテゴリを選択</option>

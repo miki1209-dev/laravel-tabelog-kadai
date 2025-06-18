@@ -15,7 +15,7 @@
 				@elseif($category)
 					<h3 class="mb-2 mb-md-0">{{ $category }}の検索結果は{{ number_format($shop_count) }}件です</h3>
 				@elseif($keyword === null && $category === null)
-					<h3 class="mb-2 mb-md-0">{{ number_format($shop_count) }}件見つかりました</h3>
+					<h3 class="mb-2 mb-md-0">{{ number_format($shop_count) }}件の店舗が見つかりました</h3>
 				@endif
 
 				<div class="form__group mb-0">
